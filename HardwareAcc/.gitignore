@@ -1,0 +1,33 @@
+# Visual Studio files
+.vs/
+*.vscode/
+*.suo
+*.user
+*.sln.docstates
+
+# Build results
+/bin/
+/obj/
+
+# NuGet Packages
+*.nuget.props
+*.lock.json
+/packages/
+
+# Resharper
+_ReSharper*/
+
+# Rider
+.idea/
+
+# User-specific files
+*.userprefs
+*.suo
+*.cache
+
+# Roslyn cache
+*.ide
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
