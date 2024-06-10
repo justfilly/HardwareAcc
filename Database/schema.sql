@@ -3,21 +3,27 @@ create table audiences
     audience_id int auto_increment
         primary key,
     name        varchar(60)  null,
-    code        varchar(100) not null
+    code        varchar(100) not null,
+    constraint unique_code
+        unique (code)
 );
 
 create table hardware_statuses
 (
     hardware_status_id int auto_increment
         primary key,
-    name               varchar(50) not null
+    name               varchar(50) not null,
+    constraint unique_name
+        unique (name)
 );
 
 create table roles
 (
     role_id int auto_increment
         primary key,
-    name    varchar(50) not null
+    name    varchar(50) not null,
+    constraint unique_name
+        unique (name)
 );
 
 create table users
@@ -40,13 +46,15 @@ create table hardware
 (
     hardware_id         int auto_increment
         primary key,
-    name                varchar(150) not null,
-    inventory_number    int          not null,
+    name                varchar(500) not null,
+    inventory_number    varchar(255) not null,
     image               longblob     null,
     price               double       null,
     responsible_user_id int          null,
     audience_id         int          null,
     status_id           int          null,
+    constraint unique_inventory_number
+        unique (inventory_number),
     constraint hardware_audiences_audience_id_fk
         foreign key (audience_id) references audiences (audience_id),
     constraint hardware_hardware_statuses_hardware_status_id_fk
