@@ -3,8 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:local="clr-namespace:HardwareAcc.Views"
+        xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
         mc:Ignorable="d"
+        WindowStyle="None"
+        AllowsTransparency="True"
         d:DesignHeight="1024" d:DesignWidth="1440">
     <Grid>
         <Grid.RowDefinitions>
@@ -20,9 +22,18 @@
                     <ColumnDefinition Width="30"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
             
-                <Grid Grid.Column="0"></Grid>
-                <Grid Grid.Column="1"></Grid>
-                <Grid Grid.Column="2"></Grid>
+                
+                <Button Grid.Column="0">
+                    <svgc:SvgViewbox Source="/Resources/Icons/window_minimize.svg" Stretch="None"/>
+                </Button>
+                
+                <Button Grid.Column="1">
+                    <svgc:SvgViewbox Source="/Resources/Icons/window_fullscreen.svg" Stretch="None"/>
+                </Button>
+                
+                <Button Grid.Column="2">
+                    <svgc:SvgViewbox Source="/Resources/Icons/window_close.svg" Stretch="None"/>
+                </Button>
             </Grid>
         </Border>
 
