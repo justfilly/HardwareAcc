@@ -8,26 +8,12 @@
         d:DesignHeight="1024" d:DesignWidth="1440"
         Title="BaseWindow" WindowStyle="None" AllowsTransparency="True">
     <WindowChrome.WindowChrome>
-        <WindowChrome CaptionHeight="35"/>
+        <WindowChrome CaptionHeight="30"/>
     </WindowChrome.WindowChrome>
     <Grid>
-        <Grid VerticalAlignment="Top" Background="DarkGray">
-            <StackPanel Height="35" WindowChrome.IsHitTestVisibleInChrome="True" VerticalAlignment="Center" HorizontalAlignment="Right" Orientation="Horizontal">
-                <Button Width="35" Content="-" Name="MinimizeButton"/>
-                <Button Width="35" Content="+" Name="MaximizeButton"/>
-                <Button Width="35" Content="x" Name="CloseButton"/>
-            </StackPanel>
-        </Grid>
-    </Grid>
-    
-    <!--<Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        
-        <Border Grid.Row="0" Background="#01467E" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
-            <Grid HorizontalAlignment="Right">
+        <Grid VerticalAlignment="Top" Background="#01467E">
+            <Grid Height="30" WindowChrome.IsHitTestVisibleInChrome="True" VerticalAlignment="Center" HorizontalAlignment="Right">
+                
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="30"/>
                     <ColumnDefinition Width="30"/>
@@ -46,16 +32,6 @@
                     <svgc:SvgViewbox Source="/Resources/Icons/window_close.svg" Stretch="None"/>
                 </Button>
             </Grid>
-        </Border>
-
-        <Grid Grid.Row="1">
-            ~1~ Content will be added by derived windows @1@
         </Grid>
-        
-        <Border Grid.Row="1" BorderBrush="Red" HorizontalAlignment="Left" BorderThickness="5" VerticalAlignment="Stretch" MouseMove="LeftResize_MouseMove" MouseLeftButtonDown="LeftResize_MouseLeftButtonDown"/>
-        <Border Grid.Row="1" BorderBrush="Red" HorizontalAlignment="Right" BorderThickness="5" VerticalAlignment="Stretch" Cursor="SizeWE" MouseLeftButtonDown="RightResize_MouseLeftButtonDown"/>
-        <Border Grid.Row="1" BorderBrush="Red" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" BorderThickness="5" Cursor="SizeNS" MouseLeftButtonDown="BottomResize_MouseLeftButtonDown"/>
-        <Border Grid.Row="1" BorderBrush="Blue" HorizontalAlignment="Left" VerticalAlignment="Bottom" BorderThickness="5" Cursor="SizeNESW" MouseLeftButtonDown="BottomLeftResize_MouseLeftButtonDown"/>
-        <Border Grid.Row="1" BorderBrush="Blue" HorizontalAlignment="Right" VerticalAlignment="Bottom" BorderThickness="5" Cursor="SizeNWSE" MouseLeftButtonDown="BottomRightResize_MouseLeftButtonDown"/>
-    </Grid>-->
+    </Grid>
 </Window>
