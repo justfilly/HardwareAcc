@@ -5,7 +5,7 @@ using System.Windows.Interop;
 
 namespace HardwareAcc.Views;
 
-public partial class BaseWindow : Window
+public abstract class ChromeWindow : Window
 {
     private static IntPtr WindowProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
     {
@@ -127,33 +127,17 @@ public partial class BaseWindow : Window
     }
 
     [DllImport("user32")]
-    internal static extern bool GetMonitorInfo(IntPtr hMonitor, MONITORINFO lpmi);
+    private static extern bool GetMonitorInfo(IntPtr hMonitor, MONITORINFO lpmi);
 
     [DllImport("User32")]
-    internal static extern IntPtr MonitorFromWindow(IntPtr handle, int flags);
-    
-    public BaseWindow()
+    private static extern IntPtr MonitorFromWindow(IntPtr handle, int flags);
+
+    protected ChromeWindow()
     {
-        InitializeComponent();
-        
         SourceInitialized += (_, _) =>
         {
             IntPtr handle = new WindowInteropHelper(this).Handle;
             HwndSource.FromHwnd(handle)?.AddHook(WindowProc);
         };
     }
-
-    private void Minimize_Click(object sender, RoutedEventArgs e) => 
-        WindowState = WindowState.Minimized;
-
-    private void Maximize_Click(object sender, RoutedEventArgs e)
-    {
-        if (WindowState == WindowState.Maximized)
-            WindowState = WindowState.Normal;
-        else
-            WindowState = WindowState.Maximized;
-    }
-
-    private void Close_Click(object sender, RoutedEventArgs e) => 
-        Close();
 }
