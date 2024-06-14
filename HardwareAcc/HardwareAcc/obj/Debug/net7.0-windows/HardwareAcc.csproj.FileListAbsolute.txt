@@ -30,6 +30,6 @@ C:\Projects\What happen in september\SP05\HardwareAcc\HardwareAcc\obj\Debug\net7
 C:\Projects\What happen in september\SP05\HardwareAcc\HardwareAcc\obj\Debug\net7.0-windows\Views\LoginView.baml
 C:\Projects\What happen in september\SP05\HardwareAcc\HardwareAcc\obj\Debug\net7.0-windows\Views\LoginView.g.cs
 C:\Projects\What happen in september\SP05\HardwareAcc\HardwareAcc\obj\Debug\net7.0-windows\HardwareAcc.csproj.CopyComplete
+C:\Projects\What happen in september\SP05\HardwareAcc\HardwareAcc\obj\Debug\net7.0-windows\Views\BaseWindow.baml
+C:\Projects\What happen in september\SP05\HardwareAcc\HardwareAcc\obj\Debug\net7.0-windows\Views\BaseWindow.g.cs
 C:\Projects\What happen in september\SP05\HardwareAcc\HardwareAcc\obj\Debug\net7.0-windows\App.baml
-C:\Projects\What happen in september\SP05\HardwareAcc\HardwareAcc\obj\Debug\net7.0-windows\Views\BaseWindowChrome.baml
-C:\Projects\What happen in september\SP05\HardwareAcc\HardwareAcc\obj\Debug\net7.0-windows\Views\BaseWindowChrome.g.cs
