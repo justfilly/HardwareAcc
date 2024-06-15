@@ -10,6 +10,7 @@ build:
     - build
   image: $CI_REGISTRY/desktoptech/docker-images/dotnet-sdk:8.0
   script:
+    - cd $CI_PROJECT_DIR/HardwareAcc
     - dotnet build /p:EnableWindowsTargeting=true
   artifacts:
     paths:
