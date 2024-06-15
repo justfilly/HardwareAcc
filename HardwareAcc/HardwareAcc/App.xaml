@@ -6,6 +6,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ResourceDictionaries/Colors.xaml" />
                 <ResourceDictionary Source="/ResourceDictionaries/ButtonStyles.xaml" />
                 <ResourceDictionary Source="/ResourceDictionaries/ChromeWindowStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>

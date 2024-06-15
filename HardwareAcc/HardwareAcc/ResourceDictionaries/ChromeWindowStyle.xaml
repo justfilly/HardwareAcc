@@ -22,7 +22,7 @@
                         </Grid.RowDefinitions>
 
                         <!-- Chrome Content -->
-                        <Grid Grid.Row="0" VerticalAlignment="Top" Background="#01467E">
+                        <Grid Grid.Row="0" VerticalAlignment="Top" Background="{StaticResource Color_ChromeDarkBlue}">
                             <Grid Height="30" WindowChrome.IsHitTestVisibleInChrome="True" HorizontalAlignment="Right">
 
                                 <Grid.ColumnDefinitions>
