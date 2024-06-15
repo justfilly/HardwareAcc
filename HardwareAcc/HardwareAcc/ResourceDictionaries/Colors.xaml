@@ -7,7 +7,7 @@
     
     <!--Chrome-->
     <SolidColorBrush x:Key="Color_ChromeDarkBlue">#01467E</SolidColorBrush>
-    <SolidColorBrush x:Key="Color_ChromeButtonMouseEnter">#8076B0DE</SolidColorBrush>
+    <SolidColorBrush x:Key="Color_ChromeButtonMouseEnter">#80359FF2</SolidColorBrush>
     <SolidColorBrush x:Key="Color_ChromeCloseButtonMouseEnter">#E6E41613</SolidColorBrush>
     
 </ResourceDictionary>

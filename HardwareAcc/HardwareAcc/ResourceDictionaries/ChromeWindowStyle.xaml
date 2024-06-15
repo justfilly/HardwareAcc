@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:svgc="http://sharpvectors.codeplex.com/svgc/">
     
-    <Style x:Key="ChromeWindowStyle" TargetType="Window">
+    <Style x:Key="Window_WithChrome" TargetType="Window">
         <Setter Property="WindowStyle" Value="None"/>
         <Setter Property="AllowsTransparency" Value="True"/>
         <Setter Property="WindowChrome.WindowChrome">
@@ -31,17 +31,17 @@
                                     <ColumnDefinition Width="30" />
                                 </Grid.ColumnDefinitions>
 
-                                <Button Grid.Column="0" Style="{StaticResource ChromeButton}"
+                                <Button Grid.Column="0" Style="{StaticResource Button_Chrome}"
                                         Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=DataContext.MinimizeWindowCommand}">
                                     <svgc:SvgViewbox Source="/Resources/Icons/window_minimize.svg" Stretch="None" />
                                 </Button>
 
-                                <Button Grid.Column="1" Style="{StaticResource ChromeButton}"
+                                <Button Grid.Column="1" Style="{StaticResource Button_Chrome}"
                                         Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=DataContext.MaximizeWindowCommand}">
                                     <svgc:SvgViewbox Source="/Resources/Icons/window_fullscreen.svg" Stretch="None" />
                                 </Button>
 
-                                <Button Grid.Column="2" Style="{StaticResource ChromeCloseButton}"
+                                <Button Grid.Column="2" Style="{StaticResource Button_ChromeClose}"
                                         Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=DataContext.CloseWindowCommand}">
                                     <svgc:SvgViewbox Source="/Resources/Icons/window_close.svg" Stretch="None" />
                                 </Button>

@@ -6,7 +6,7 @@
         xmlns:views="clr-namespace:HardwareAcc.Views"
         mc:Ignorable="d"
         d:DesignHeight="1024" d:DesignWidth="1440"
-        Style="{StaticResource ChromeWindowStyle}">
+        Style="{StaticResource Window_WithChrome}">
     
     <Grid>
         <Grid Margin="0, 0, -0.4, 0" Height="120" VerticalAlignment="Top">
