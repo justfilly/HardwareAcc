@@ -9,5 +9,25 @@
                 <WindowChrome CaptionHeight="30"/>
             </Setter.Value>
         </Setter>
+        
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Window">
+                    <Grid Background="White">
+                        
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Chrome Content -->
+                        <ContentPresenter ContentTemplate="{StaticResource ChromeElements}" Grid.Row="0"/>
+
+                        <!-- Window Content -->
+                        <ContentPresenter Grid.Row="1" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 </ResourceDictionary>
