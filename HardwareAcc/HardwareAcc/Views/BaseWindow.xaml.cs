@@ -7,6 +7,6 @@ public partial class BaseWindow : ChromeWindow
     public BaseWindow()
     {
         InitializeComponent();
-        DataContext = new TestVM();
+        DataContext = new ChromeWindowViewModel(this);
     }
 }

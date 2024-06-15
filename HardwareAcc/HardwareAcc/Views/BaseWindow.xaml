@@ -9,7 +9,6 @@
         Style="{StaticResource ChromeWindowStyle}">
     
     <Grid>
-        <ContentPresenter ContentTemplate="{StaticResource ChromeControls}" />
-        <Button Width="50" Height="50" Command="{Binding TestCommand}"></Button>
+        <ContentPresenter ContentTemplate="{StaticResource ChromeElements}" />
     </Grid>
 </views:ChromeWindow>
