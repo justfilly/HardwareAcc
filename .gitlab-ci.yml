@@ -1,0 +1,69 @@
+stages:
+  - build
+  - test
+  - deploy
+
+build:
+  stage: build
+  tags:
+    - docker
+    - build
+  image: $CI_REGISTRY/desktoptech/docker-images/dotnet-sdk:8.0
+  script:
+    - dotnet build /p:EnableWindowsTargeting=true
+  artifacts:
+    paths:
+      - $CI_PROJECT_DIR/PassportOffice/bin/Debug/net7.0-windows/
+    expire_in: 1 day  
+  rules:
+    - if: '$CI_COMMIT_BRANCH =~ /^feature\//'
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"
+
+sonarqube_analysis:
+  stage: build
+  tags:
+    - docker
+    - build
+  image: $CI_REGISTRY/desktoptech/docker-images/dotnet-sdk:8.0
+  variables:
+    SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"
+    GIT_DEPTH: "0"  
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .sonar/cache
+  script: 
+      - "apt-get update"
+      - "apt-get install --yes --no-install-recommends openjdk-17-jre"
+      - "dotnet tool install --global dotnet-sonarscanner"
+      - "export PATH=\"$PATH:$HOME/.dotnet/tools\""
+      - "dotnet sonarscanner begin /k:\"desktoptech_s5projects_passportoffice_9da50cfb-9e81-48e7-b4b8-7d3bbe21e2a6\" /d:sonar.token=\"$SONAR_TOKEN\" /d:\"sonar.host.url=$SONAR_HOST_URL\" "
+      - "dotnet build /p:EnableWindowsTargeting=true"
+      - "dotnet sonarscanner end /d:sonar.token=\"$SONAR_TOKEN\""
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"
+
+run_unit_tests:
+  stage: test
+  tags:
+    - windows
+    - test
+  script:
+    - dotnet test
+  rules:
+    - if: '$CI_COMMIT_BRANCH =~ /^feature\//'
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"
+
+deploy:
+  stage: deploy
+  tags:
+    - docker
+    - deploy
+  image: $CI_REGISTRY/common/docker-images/alpine:latest
+  script:
+    - echo "Deploying..."
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"
