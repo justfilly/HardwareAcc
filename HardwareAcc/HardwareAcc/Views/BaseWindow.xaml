@@ -6,21 +6,10 @@
         xmlns:views="clr-namespace:HardwareAcc.Views"
         mc:Ignorable="d"
         d:DesignHeight="1024" d:DesignWidth="1440"
-        WindowStyle="None" AllowsTransparency="True">
-    <WindowChrome.WindowChrome>
-        <WindowChrome CaptionHeight="30"/>
-    </WindowChrome.WindowChrome>
-    
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/HardwareAcc;component/Views/ChromeControlsTemplate.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Window.Resources>
+        Style="{StaticResource ChromeWindowStyle}">
     
     <Grid>
-        <ContentPresenter ContentTemplate="{StaticResource ChromeControlsTemplate}" />
+        <ContentPresenter ContentTemplate="{StaticResource ChromeControls}" />
         <Button Width="50" Height="50" Command="{Binding TestCommand}"></Button>
     </Grid>
 </views:ChromeWindow>
