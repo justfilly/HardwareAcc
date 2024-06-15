@@ -12,17 +12,17 @@
                     <ColumnDefinition Width="30"/>
                 </Grid.ColumnDefinitions>
             
-                <Button Grid.Column="0" Style="{StaticResource TransparentButton}" 
+                <Button Grid.Column="0" Style="{StaticResource ChromeButton}" 
                         Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=DataContext.MinimizeWindowCommand}">
                     <converters:SvgViewbox Source="/Resources/Icons/window_minimize.svg" Stretch="None"/>
                 </Button>
                 
-                <Button Grid.Column="1" Style="{StaticResource TransparentButton}" 
+                <Button Grid.Column="1" Style="{StaticResource ChromeButton}" 
                         Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=DataContext.MaximizeWindowCommand}">
                     <converters:SvgViewbox Source="/Resources/Icons/window_fullscreen.svg" Stretch="None"/>
                 </Button>
                 
-                <Button Grid.Column="2" Style="{StaticResource TransparentButton}" 
+                <Button Grid.Column="2" Style="{StaticResource ChromeCloseButton}" 
                         Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=DataContext.CloseWindowCommand}">
                     <converters:SvgViewbox Source="/Resources/Icons/window_close.svg" Stretch="None"/>
                 </Button>
