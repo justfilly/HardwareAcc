@@ -32,12 +32,4 @@
       <Resource Include="Resources\Icons\window_close.svg" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Page Update="ResourceDictionaries\ChromeElements.xaml">
-        <Generator>MSBuild:Compile</Generator>
-        <XamlRuntime>Wpf</XamlRuntime>
-        <SubType>Designer</SubType>
-      </Page>
-    </ItemGroup>
-
 </Project>

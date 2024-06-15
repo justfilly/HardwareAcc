@@ -1,5 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:svgc="http://sharpvectors.codeplex.com/svgc/">
     
     <Style x:Key="ChromeWindowStyle" TargetType="Window">
         <Setter Property="WindowStyle" Value="None"/>
@@ -21,7 +22,31 @@
                         </Grid.RowDefinitions>
 
                         <!-- Chrome Content -->
-                        <ContentPresenter ContentTemplate="{StaticResource ChromeElements}" Grid.Row="0"/>
+                        <Grid Grid.Row="0" VerticalAlignment="Top" Background="#01467E">
+                            <Grid Height="30" WindowChrome.IsHitTestVisibleInChrome="True" HorizontalAlignment="Right">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="30" />
+                                    <ColumnDefinition Width="30" />
+                                    <ColumnDefinition Width="30" />
+                                </Grid.ColumnDefinitions>
+
+                                <Button Grid.Column="0" Style="{StaticResource ChromeButton}"
+                                        Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=DataContext.MinimizeWindowCommand}">
+                                    <svgc:SvgViewbox Source="/Resources/Icons/window_minimize.svg" Stretch="None" />
+                                </Button>
+
+                                <Button Grid.Column="1" Style="{StaticResource ChromeButton}"
+                                        Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=DataContext.MaximizeWindowCommand}">
+                                    <svgc:SvgViewbox Source="/Resources/Icons/window_fullscreen.svg" Stretch="None" />
+                                </Button>
+
+                                <Button Grid.Column="2" Style="{StaticResource ChromeCloseButton}"
+                                        Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}, Path=DataContext.CloseWindowCommand}">
+                                    <svgc:SvgViewbox Source="/Resources/Icons/window_close.svg" Stretch="None" />
+                                </Button>
+                            </Grid>
+                        </Grid>
 
                         <!-- Window Content -->
                         <ContentPresenter Grid.Row="1" />

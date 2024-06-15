@@ -33,6 +33,5 @@ C:\Projects\What happen in september\SP05\HardwareAcc\HardwareAcc\obj\Debug\net7
 C:\Projects\What happen in september\SP05\HardwareAcc\HardwareAcc\obj\Debug\net7.0-windows\HardwareAcc_MarkupCompile.lref
 C:\Projects\What happen in september\SP05\HardwareAcc\HardwareAcc\obj\Debug\net7.0-windows\ResourceDictionaries\ButtonStyles.baml
 C:\Projects\What happen in september\SP05\HardwareAcc\HardwareAcc\obj\Debug\net7.0-windows\ResourceDictionaries\ChromeWindowStyle.baml
-C:\Projects\What happen in september\SP05\HardwareAcc\HardwareAcc\obj\Debug\net7.0-windows\ResourceDictionaries\ChromeElements.baml
 C:\Projects\What happen in september\SP05\HardwareAcc\HardwareAcc\obj\Debug\net7.0-windows\Views\TestWindow.g.cs
 C:\Projects\What happen in september\SP05\HardwareAcc\HardwareAcc\obj\Debug\net7.0-windows\Views\TestWindow.baml

@@ -7,7 +7,6 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/ResourceDictionaries/ButtonStyles.xaml" />
-                <ResourceDictionary Source="/ResourceDictionaries/ChromeElements.xaml" />
                 <ResourceDictionary Source="/ResourceDictionaries/ChromeWindowStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
