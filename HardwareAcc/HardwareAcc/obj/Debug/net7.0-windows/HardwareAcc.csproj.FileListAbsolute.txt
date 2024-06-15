@@ -27,9 +27,10 @@ C:\Projects\What happen in september\SP05\HardwareAcc\HardwareAcc\bin\Debug\net7
 C:\Projects\What happen in september\SP05\HardwareAcc\HardwareAcc\bin\Debug\net7.0-windows\SharpVectors.Rendering.Wpf.dll
 C:\Projects\What happen in september\SP05\HardwareAcc\HardwareAcc\bin\Debug\net7.0-windows\SharpVectors.Runtime.Wpf.dll
 C:\Projects\What happen in september\SP05\HardwareAcc\HardwareAcc\obj\Debug\net7.0-windows\HardwareAcc.csproj.AssemblyReference.cache
-C:\Projects\What happen in september\SP05\HardwareAcc\HardwareAcc\obj\Debug\net7.0-windows\Views\LoginView.baml
-C:\Projects\What happen in september\SP05\HardwareAcc\HardwareAcc\obj\Debug\net7.0-windows\Views\LoginView.g.cs
 C:\Projects\What happen in september\SP05\HardwareAcc\HardwareAcc\obj\Debug\net7.0-windows\HardwareAcc.csproj.CopyComplete
 C:\Projects\What happen in september\SP05\HardwareAcc\HardwareAcc\obj\Debug\net7.0-windows\Views\BaseWindow.baml
 C:\Projects\What happen in september\SP05\HardwareAcc\HardwareAcc\obj\Debug\net7.0-windows\Views\BaseWindow.g.cs
 C:\Projects\What happen in september\SP05\HardwareAcc\HardwareAcc\obj\Debug\net7.0-windows\App.baml
+C:\Projects\What happen in september\SP05\HardwareAcc\HardwareAcc\obj\Debug\net7.0-windows\GeneratedInternalTypeHelper.g.cs
+C:\Projects\What happen in september\SP05\HardwareAcc\HardwareAcc\obj\Debug\net7.0-windows\HardwareAcc_MarkupCompile.lref
+C:\Projects\What happen in september\SP05\HardwareAcc\HardwareAcc\obj\Debug\net7.0-windows\Views\ChromeControlsTemplate.baml
