@@ -1,7 +1,15 @@
 ﻿<Application x:Class="HardwareAcc.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="Views/TestWindow.xaml">
+    
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ResourceDictionaries/Colors.xaml" />
+                <ResourceDictionary Source="/ResourceDictionaries/ButtonStyles.xaml" />
+                <ResourceDictionary Source="/ResourceDictionaries/ChromeWindowStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
