@@ -8,10 +8,10 @@ namespace HardwareAcc.Views;
 public class ChromeWindow : Window
 {
     [DllImport("user32")]
-    internal static extern bool GetMonitorInfo(IntPtr hMonitor, MONITORINFO lpmi);
+    private static extern bool GetMonitorInfo(IntPtr hMonitor, MONITORINFO lpmi);
 
     [DllImport("User32")]
-    internal static extern IntPtr MonitorFromWindow(IntPtr handle, int flags);
+    private static extern IntPtr MonitorFromWindow(IntPtr handle, int flags);
     
     protected ChromeWindow()
     {

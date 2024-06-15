@@ -3,9 +3,9 @@ using HardwareAcc.Commands.Chrome;
 
 namespace HardwareAcc.ViewModels;
 
-public class ChromeWindowViewModel : BaseViewModel
+public abstract class ChromeWindowViewModel : BaseViewModel
 {
-    public ChromeWindowViewModel(Window window)
+    protected ChromeWindowViewModel(Window window)
     {
         MinimizeWindowCommand = new MinimizeWindowCommand(window);
         MaximizeWindowCommand = new MaximizeWindowCommand(window);
