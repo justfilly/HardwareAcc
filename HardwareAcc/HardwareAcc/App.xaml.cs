@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using HardwareAcc.ViewModels;
 using HardwareAcc.Views;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -17,8 +18,8 @@ namespace HardwareAcc
             RegisterServices(serviceCollection);
             _serviceProvider = serviceCollection.BuildServiceProvider();
 
-            TestWindow testWindow = _serviceProvider.GetRequiredService<TestWindow>();
-            testWindow.Show();
+            LoginRegisterWindowView loginRegisterWindow = _serviceProvider.GetRequiredService<LoginRegisterWindowView>();
+            loginRegisterWindow.Show();
         }
 
         protected override void OnExit(ExitEventArgs e)
@@ -31,8 +32,8 @@ namespace HardwareAcc
         
         private void RegisterServices(IServiceCollection serviceCollection)
         {
-            serviceCollection.AddSingleton<TestWindow>();
-            
+            serviceCollection.AddSingleton<LoginRegisterWindowView>();
+            serviceCollection.AddSingleton<LoginRegisterWindowViewModel>();
         }
     }
 }
