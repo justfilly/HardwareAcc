@@ -1,12 +1,9 @@
-using HardwareAcc.ViewModels;
-
 namespace HardwareAcc.Views;
 
 public partial class LoginRegisterWindowView
 {
-    public LoginRegisterWindowView(LoginRegisterWindowViewModel loginRegisterWindowViewModel)
+    public LoginRegisterWindowView()
     {
         InitializeComponent();
-        DataContext = loginRegisterWindowViewModel;
     }
 }

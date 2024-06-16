@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace HardwareAcc
 {
-    public partial class App : Application
+    public partial class App
     {
         private IServiceProvider? _serviceProvider;
 
@@ -19,6 +19,7 @@ namespace HardwareAcc
             _serviceProvider = serviceCollection.BuildServiceProvider();
 
             LoginRegisterWindowView loginRegisterWindow = _serviceProvider.GetRequiredService<LoginRegisterWindowView>();
+            loginRegisterWindow.DataContext = _serviceProvider.GetRequiredService<LoginRegisterWindowViewModel>();
             loginRegisterWindow.Show();
         }
 
