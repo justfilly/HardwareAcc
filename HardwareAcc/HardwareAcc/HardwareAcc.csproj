@@ -25,6 +25,24 @@
     <ItemGroup>
       <Resource Include="Resources\Icons\window_fullscreen.svg" />
       <Resource Include="Resources\Icons\window_minimize.svg" />
+      <None Remove="Resources\Fonts\Inter\Inter-Black.ttf" />
+      <Resource Include="Resources\Fonts\Inter\Inter-Black.ttf" />
+      <None Remove="Resources\Fonts\Inter\Inter-Bold.ttf" />
+      <Resource Include="Resources\Fonts\Inter\Inter-Bold.ttf" />
+      <None Remove="Resources\Fonts\Inter\Inter-ExtraBold.ttf" />
+      <Resource Include="Resources\Fonts\Inter\Inter-ExtraBold.ttf" />
+      <None Remove="Resources\Fonts\Inter\Inter-ExtraLight.ttf" />
+      <Resource Include="Resources\Fonts\Inter\Inter-ExtraLight.ttf" />
+      <None Remove="Resources\Fonts\Inter\Inter-Light.ttf" />
+      <Resource Include="Resources\Fonts\Inter\Inter-Light.ttf" />
+      <None Remove="Resources\Fonts\Inter\Inter-Medium.ttf" />
+      <Resource Include="Resources\Fonts\Inter\Inter-Medium.ttf" />
+      <None Remove="Resources\Fonts\Inter\Inter-Regular.ttf" />
+      <Resource Include="Resources\Fonts\Inter\Inter-Regular.ttf" />
+      <None Remove="Resources\Fonts\Inter\Inter-SemiBold.ttf" />
+      <Resource Include="Resources\Fonts\Inter\Inter-SemiBold.ttf" />
+      <None Remove="Resources\Fonts\Inter\Inter-Thin.ttf" />
+      <Resource Include="Resources\Fonts\Inter\Inter-Thin.ttf" />
     </ItemGroup>
 
     <ItemGroup>

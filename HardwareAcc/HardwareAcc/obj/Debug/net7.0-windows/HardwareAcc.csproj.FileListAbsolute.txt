@@ -38,3 +38,4 @@ C:\Projects\What happen in september\SP05\HardwareAcc\HardwareAcc\obj\Debug\net7
 C:\Projects\What happen in september\SP05\HardwareAcc\HardwareAcc\obj\Debug\net7.0-windows\ResourceDictionaries\Colors.baml
 C:\Projects\What happen in september\SP05\HardwareAcc\HardwareAcc\obj\Debug\net7.0-windows\Views\LoginRegisterWindowView.g.cs
 C:\Projects\What happen in september\SP05\HardwareAcc\HardwareAcc\obj\Debug\net7.0-windows\Views\LoginRegisterWindowView.baml
+C:\Projects\What happen in september\SP05\HardwareAcc\HardwareAcc\obj\Debug\net7.0-windows\ResourceDictionaries\Fonts.baml

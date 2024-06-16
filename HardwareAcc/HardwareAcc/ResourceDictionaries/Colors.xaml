@@ -1,6 +1,10 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <!--Base-->
+
+    <SolidColorBrush x:Key="Color_White">#FFFFFF</SolidColorBrush>
+    
+    
+    <!--Scheme-->
     <SolidColorBrush x:Key="Color_Base">#EEEEEE</SolidColorBrush>
     <SolidColorBrush x:Key="Color_Primary">#0060AC</SolidColorBrush>
     <SolidColorBrush x:Key="Color_Neutral">#E41613</SolidColorBrush>

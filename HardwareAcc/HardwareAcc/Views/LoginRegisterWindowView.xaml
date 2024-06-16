@@ -9,6 +9,30 @@
         Title="HardwareAcc"
         Style="{StaticResource Window_WithChrome}">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
         
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="125"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            
+            <Grid Grid.Row="0" Background="{StaticResource Color_Primary}">
+                <TextBlock Text="Welcome to HardwareAcc" FontSize="36" FontWeight="Bold" Foreground="{StaticResource Color_White}" 
+                           Margin="25,25, 0 ,0"></TextBlock>
+                <TextBlock Text="Your best hardware accounting software"></TextBlock>
+            </Grid>
+            
+            <Grid Grid.Row="1">
+                
+            </Grid>
+        </Grid>
+        
+        <Grid Grid.Column="1">
+            
+        </Grid>
     </Grid>
 </views:ChromeWindow>

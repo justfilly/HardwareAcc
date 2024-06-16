@@ -3,6 +3,9 @@
                     xmlns:svgc="http://sharpvectors.codeplex.com/svgc/">
     
     <Style x:Key="Window_WithChrome" TargetType="Window">
+        
+        <Setter Property="FontFamily" Value="{StaticResource Font/Inter}" />
+        
         <Setter Property="WindowStyle" Value="None"/>
         <Setter Property="AllowsTransparency" Value="True"/>
         <Setter Property="WindowChrome.WindowChrome">
