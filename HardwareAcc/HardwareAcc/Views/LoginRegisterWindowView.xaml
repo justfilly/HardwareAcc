@@ -5,7 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:views="clr-namespace:HardwareAcc.Views"
         mc:Ignorable="d"
-        d:DesignWidth="1440" d:DesignHeight="1024"
+        d:DesignWidth="1920" d:DesignHeight="1010"
         Title="HardwareAcc"
         Style="{StaticResource Window_WithChrome}">
     <Grid>
@@ -20,19 +20,27 @@
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
             
-            <Grid Grid.Row="0" Background="{StaticResource Color_Primary}">
-                <TextBlock Text="Welcome to HardwareAcc" FontSize="36" FontWeight="Bold" Foreground="{StaticResource Color_White}" 
-                           Margin="25,25, 0 ,0"></TextBlock>
-                <TextBlock Text="Your best hardware accounting software"></TextBlock>
-            </Grid>
+            <Border Grid.Row="0" Background="{StaticResource Color_Primary}" CornerRadius="0, 0, 30, 0">
+                <StackPanel>
+                    <TextBlock Text="Welcome to HardwareAcc" 
+                               FontSize="36" FontWeight="Bold" Foreground="{StaticResource Color_White}" 
+                               Margin="25,25, 0 ,0">
+                    </TextBlock>
+                    
+                    <TextBlock Text="Your best hardware accounting software"
+                               FontSize="16" FontWeight="Bold" Foreground="{StaticResource Color_White}"
+                               Margin="25, 0, 0, 0">
+                    </TextBlock>
+                </StackPanel>
+            </Border>
             
             <Grid Grid.Row="1">
-                
+                <Image Source="/Resources/Images/LoginRegister.jpg" Stretch="Uniform" StretchDirection="UpOnly"/>
             </Grid>
         </Grid>
         
         <Grid Grid.Column="1">
-            
+            <Grid Background="Black" Height="1050"></Grid>
         </Grid>
     </Grid>
 </views:ChromeWindow>
