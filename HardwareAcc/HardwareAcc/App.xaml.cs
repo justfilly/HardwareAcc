@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using HardwareAcc.ViewModels;
+using HardwareAcc.ViewModels.LoginRegister;
 using HardwareAcc.Views;
 using HardwareAcc.Views.LoginRegister;
 using Microsoft.Extensions.DependencyInjection;

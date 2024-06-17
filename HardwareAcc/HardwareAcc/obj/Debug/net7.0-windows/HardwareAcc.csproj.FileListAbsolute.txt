@@ -42,3 +42,5 @@ C:\Projects\What happen in september\SP05\HardwareAcc\HardwareAcc\obj\Debug\net7
 C:\Projects\What happen in september\SP05\HardwareAcc\HardwareAcc\obj\Debug\net7.0-windows\Views\LoginRegister\LoginRegisterWindowView.baml
 C:\Projects\What happen in september\SP05\HardwareAcc\HardwareAcc\obj\Debug\net7.0-windows\Views\LoginRegister\Pages\LoginPageView.baml
 C:\Projects\What happen in september\SP05\HardwareAcc\HardwareAcc\obj\Debug\net7.0-windows\ResourceDictionaries\GlobalStyles.baml
+C:\Projects\What happen in september\SP05\HardwareAcc\HardwareAcc\obj\Debug\net7.0-windows\Views\InputUserControlView.g.cs
+C:\Projects\What happen in september\SP05\HardwareAcc\HardwareAcc\obj\Debug\net7.0-windows\Views\InputUserControlView.baml

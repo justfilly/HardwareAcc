@@ -1,3 +1,6 @@
+using System.Windows;
+using HardwareAcc.Views;
+
 namespace HardwareAcc.ViewModels;
 
 public class InputUserControlViewModel : BaseViewModel
@@ -12,5 +15,5 @@ public class InputUserControlViewModel : BaseViewModel
             _inputText = value;
             OnPropertyChanged(nameof(InputText));
         }
-    }   
+    }
 }

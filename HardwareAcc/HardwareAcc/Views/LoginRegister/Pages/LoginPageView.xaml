@@ -3,11 +3,13 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:HardwareAcc.Views.LoginRegister.Pages"
+      xmlns:views="clr-namespace:HardwareAcc.Views"
+      xmlns:pages="clr-namespace:HardwareAcc.ViewModels.LoginRegister.Pages"
       mc:Ignorable="d"
       d:DesignWidth="960" d:DesignHeight="1010"
       Title="HardwareAcc"
-      Style="{StaticResource GlobalStyle_Page}">
+      Style="{StaticResource GlobalStyle_Page}" 
+      d:DataContext="{d:DesignInstance pages:LoginPageViewModel}">
     <Grid>
         <StackPanel HorizontalAlignment="Center">
             <TextBlock Text="Log in" 
@@ -15,7 +17,9 @@
                        Foreground="{StaticResource Color_TitleBlack}">
             </TextBlock>
             
-            
+            <TextBox Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <views:InputUserControlView InputText="{Binding Username, Mode=TwoWay}"></views:InputUserControlView>
+            <TextBlock Foreground="Green" Text="{Binding Username}"></TextBlock>
         </StackPanel>
     </Grid>
 </Page>
