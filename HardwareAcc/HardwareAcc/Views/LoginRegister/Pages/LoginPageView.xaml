@@ -15,23 +15,7 @@
                        Foreground="{StaticResource Color_TitleBlack}">
             </TextBlock>
             
-            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
-                <Label Content="Username"
-                       FontSize="14" FontWeight="Light"
-                       Foreground="{StaticResource Color_InputFieldLabel}"
-                       Margin="10, 5, 0, 0">
-                </Label>
-                
-                <Border CornerRadius="5" BorderThickness="1" BorderBrush="{StaticResource Color_InputFieldBorder}" >
-                    <TextBox Background="Transparent" BorderThickness="0" Height="35" Width="400" />
-                </Border>
-                
-                <Label Content="Please enter your username"
-                       FontSize="14" FontWeight="Light" 
-                       Foreground="{StaticResource Color_Neutral}"
-                       Margin="10, 5, 0, 0">
-                </Label>
-            </StackPanel>
+            
         </StackPanel>
     </Grid>
 </Page>

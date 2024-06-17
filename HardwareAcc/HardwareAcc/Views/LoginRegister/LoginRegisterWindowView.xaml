@@ -16,7 +16,7 @@
         
         <Grid Grid.Column="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="125"></RowDefinition>
+                <RowDefinition Height="115"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
             
@@ -24,12 +24,12 @@
                 <StackPanel>
                     <TextBlock Text="Welcome to HardwareAcc" 
                                FontSize="36" FontWeight="Bold" Foreground="{StaticResource Color_White}" 
-                               Margin="25,25, 0 ,0">
+                               Margin="20,20, 0 ,0">
                     </TextBlock>
                     
                     <TextBlock Text="Your best hardware accounting software"
                                FontSize="16" FontWeight="Bold" Foreground="{StaticResource Color_White}"
-                               Margin="25, 0, 0, 0">
+                               Margin="20, 0, 0, 0">
                     </TextBlock>
                 </StackPanel>
             </Border>
