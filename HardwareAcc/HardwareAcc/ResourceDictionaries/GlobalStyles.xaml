@@ -1,0 +1,12 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    
+    <Style TargetType="{x:Type Window}" x:Key="GlobalStyle_Window">
+        <Setter Property="FontFamily" Value="{StaticResource Font/Inter}" />
+    </Style>
+    
+    <Style TargetType="{x:Type Page}" x:Key="GlobalStyle_Page">
+        <Setter Property="FontFamily" Value="{StaticResource Font/Inter}" />
+    </Style>
+</ResourceDictionary>

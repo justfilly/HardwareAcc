@@ -14,4 +14,11 @@
     <SolidColorBrush x:Key="Color_ChromeButtonMouseEnter">#80359FF2</SolidColorBrush>
     <SolidColorBrush x:Key="Color_ChromeCloseButtonMouseEnter">#E6E41613</SolidColorBrush>
     
+    <SolidColorBrush x:Key="Color_TitleBlack">#333333</SolidColorBrush>
+    <SolidColorBrush x:Key="Color_InputFieldLabel">#646464</SolidColorBrush>
+    
+    <SolidColorBrush x:Key="Color_InputFieldBorder">#A0A0A0</SolidColorBrush>
+    
+    
+    
 </ResourceDictionary>

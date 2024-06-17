@@ -2,6 +2,7 @@
 using System.Windows;
 using HardwareAcc.ViewModels;
 using HardwareAcc.Views;
+using HardwareAcc.Views.LoginRegister;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HardwareAcc

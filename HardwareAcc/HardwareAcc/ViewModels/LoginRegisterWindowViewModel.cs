@@ -1,4 +1,5 @@
 using HardwareAcc.Views;
+using HardwareAcc.Views.LoginRegister;
 
 namespace HardwareAcc.ViewModels;
 
