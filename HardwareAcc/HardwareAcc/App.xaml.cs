@@ -1,20 +1,25 @@
 ﻿using System;
+using System.IO;
 using System.Windows;
+using HardwareAcc.Services.DBConnectionService;
 using HardwareAcc.Views;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HardwareAcc
 {
-    public partial class App : Application
+    public partial class App
     {
         private IServiceProvider? _serviceProvider;
-
+        
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
+            IConfiguration configuration = CreateConfiguration();
+            
             ServiceCollection serviceCollection = new();
-            RegisterServices(serviceCollection);
+            RegisterServices(serviceCollection, configuration);
             _serviceProvider = serviceCollection.BuildServiceProvider();
 
             TestWindow testWindow = _serviceProvider.GetRequiredService<TestWindow>();
@@ -28,11 +33,23 @@ namespace HardwareAcc
             
             base.OnExit(e);
         }
-        
-        private void RegisterServices(IServiceCollection serviceCollection)
+
+        private IConfiguration CreateConfiguration()
         {
-            serviceCollection.AddSingleton<TestWindow>();
+            IConfigurationBuilder builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+
+            return builder.Build();
+        }
+
+        private void RegisterServices(IServiceCollection serviceCollection, IConfiguration configuration)
+        {
+            serviceCollection.AddSingleton(configuration);
+
+            serviceCollection.AddSingleton<IDBConnectionService, DBConnectionService>();
             
+            serviceCollection.AddSingleton<TestWindow>();
         }
     }
 }
