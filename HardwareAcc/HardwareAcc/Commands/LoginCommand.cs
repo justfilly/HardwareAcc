@@ -17,6 +17,6 @@ public class LoginCommand : BaseCommand
 
     public override void Execute(object? parameter)
     {
-        throw new NotImplementedException();
+        _authService.ValidateCredentialsAsync(_loginPageViewModel.Username, _loginPageViewModel.Password);
     }
 }

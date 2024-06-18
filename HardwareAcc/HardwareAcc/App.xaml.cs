@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using HardwareAcc.Services.AuthService;
 using HardwareAcc.ViewModels;
 using HardwareAcc.ViewModels.LoginRegister;
 using HardwareAcc.Views;
@@ -33,10 +34,11 @@ namespace HardwareAcc
             base.OnExit(e);
         }
         
-        private void RegisterServices(IServiceCollection serviceCollection)
+        private static void RegisterServices(IServiceCollection serviceCollection)
         {
             serviceCollection.AddSingleton<LoginRegisterWindowView>();
             serviceCollection.AddSingleton<LoginRegisterWindowViewModel>();
+            serviceCollection.AddScoped<IAuthService, AuthService>();
         }
     }
 }
