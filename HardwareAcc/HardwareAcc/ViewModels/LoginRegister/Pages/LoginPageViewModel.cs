@@ -1,9 +1,12 @@
 using System.Diagnostics;
+using HardwareAcc.Commands;
 
 namespace HardwareAcc.ViewModels.LoginRegister.Pages;
 
 public class LoginPageViewModel : BaseViewModel
 {
+    public RegisterNavigateCommand RegisterNavigateCommand { get; } = new();
+    
     private string _username = "";
     public string Username
     {

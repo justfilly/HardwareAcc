@@ -19,6 +19,8 @@
     
     <SolidColorBrush x:Key="Color_InputFieldBorder">#A0A0A0</SolidColorBrush>
     
+    <SolidColorBrush x:Key="Color_TextLightGray">#878787</SolidColorBrush>
+    
     
     
 </ResourceDictionary>
