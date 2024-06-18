@@ -5,7 +5,9 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ResourceDictionaries/Fonts.xaml" />
                 <ResourceDictionary Source="/ResourceDictionaries/Colors.xaml" />
+                <ResourceDictionary Source="/ResourceDictionaries/GlobalStyles.xaml" />
                 <ResourceDictionary Source="/ResourceDictionaries/ButtonStyles.xaml" />
                 <ResourceDictionary Source="/ResourceDictionaries/ChromeWindowStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>

@@ -2,8 +2,10 @@
 using System.IO;
 using System.Windows;
 using HardwareAcc.Services.DBConnectionService;
-using HardwareAcc.Views;
+using HardwareAcc.Services.AuthService;
+using HardwareAcc.ViewModels.LoginRegister;
 using Microsoft.Extensions.Configuration;
+using HardwareAcc.Views.LoginRegister;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HardwareAcc
@@ -22,8 +24,9 @@ namespace HardwareAcc
             RegisterServices(serviceCollection, configuration);
             _serviceProvider = serviceCollection.BuildServiceProvider();
 
-            TestWindow testWindow = _serviceProvider.GetRequiredService<TestWindow>();
-            testWindow.Show();
+            LoginRegisterWindowView loginRegisterWindow = _serviceProvider.GetRequiredService<LoginRegisterWindowView>();
+            loginRegisterWindow.DataContext = _serviceProvider.GetRequiredService<LoginRegisterWindowViewModel>();
+            loginRegisterWindow.Show();
         }
 
         protected override void OnExit(ExitEventArgs e)
@@ -33,7 +36,7 @@ namespace HardwareAcc
             
             base.OnExit(e);
         }
-
+        
         private static IConfiguration CreateConfiguration()
         {
             IConfigurationBuilder builder = new ConfigurationBuilder()
@@ -42,14 +45,16 @@ namespace HardwareAcc
 
             return builder.Build();
         }
-
+        
         private static void RegisterServices(IServiceCollection serviceCollection, IConfiguration configuration)
         {
             serviceCollection.AddSingleton(configuration);
 
             serviceCollection.AddSingleton<IDBConnectionService, DBConnectionService>();
+            serviceCollection.AddScoped<IAuthService, AuthService>();
             
-            serviceCollection.AddSingleton<TestWindow>();
+            serviceCollection.AddSingleton<LoginRegisterWindowView>();
+            serviceCollection.AddSingleton<LoginRegisterWindowViewModel>();
         }
     }
 }

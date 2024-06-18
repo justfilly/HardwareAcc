@@ -1,0 +1,33 @@
+<UserControl x:Class="HardwareAcc.Views.InputUserControlView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:views="clr-namespace:HardwareAcc.Views"
+             mc:Ignorable="d">
+    
+    <Grid DataContext="{Binding RelativeSource={RelativeSource AncestorType=views:InputUserControlView}}">
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+            <Label Content="{Binding LabelText, UpdateSourceTrigger=PropertyChanged}"
+                   FontSize="12" FontWeight="Light"
+                   Foreground="{StaticResource Color_InputFieldLabel}"
+                   Margin="10, 0, 0, 0">
+            </Label>
+                
+            <Border CornerRadius="5" BorderThickness="1" BorderBrush="{StaticResource Color_InputFieldBorder}" >
+                <TextBox Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}"
+                         FontSize="14"
+                         Padding="10, 0, 0, 0"
+                         VerticalContentAlignment="Center"
+                         Height="30" Width="400" 
+                         Background="Transparent" BorderThickness="0" />
+            </Border>
+            
+            <Label Content="Please enter your username"
+                   FontSize="12" FontWeight="Light" 
+                   Foreground="{StaticResource Color_Neutral}"
+                   Margin="10, 2, 0, 0">
+            </Label>
+        </StackPanel>
+    </Grid>
+</UserControl>
