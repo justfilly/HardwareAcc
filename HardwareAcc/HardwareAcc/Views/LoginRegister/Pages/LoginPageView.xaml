@@ -17,7 +17,17 @@
                        Foreground="{StaticResource Color_TitleBlack}">
             </TextBlock>
             
-            <views:InputUserControlView InputText="{Binding Username, Mode=TwoWay}"/>
+            <views:InputUserControlView 
+                LabelText="Username"
+                InputText="{Binding Username, Mode=TwoWay}">
+            </views:InputUserControlView>
+
+            <views:InputUserControlView 
+                LabelText="Password" 
+                InputText="{Binding Password, Mode=TwoWay}">
+            </views:InputUserControlView>
+
+            <TextBlock Text="{Binding Username}"></TextBlock>
         </StackPanel>
     </Grid>
 </Page>

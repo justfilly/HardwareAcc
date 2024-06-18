@@ -13,11 +13,18 @@ public class LoginPageViewModel : BaseViewModel
         {
             _username = value;
             OnPropertyChanged(nameof(Username));
-            Debug.WriteLine("xxxxxxxxxxxxxxxxx");
-            Debug.WriteLine("xxxxxxxxxxxxxxxxx");
-            Debug.WriteLine(_username);
-            Debug.WriteLine("xxxxxxxxxxxxxxxxx");
-            Debug.WriteLine("xxxxxxxxxxxxxxxxx");
+        }
+    }
+    
+    private string _password = "";
+    public string Password
+    {
+        get => _password;
+    
+        set
+        {
+            _password = value;
+            OnPropertyChanged(nameof(Password));
         }
     }
 }

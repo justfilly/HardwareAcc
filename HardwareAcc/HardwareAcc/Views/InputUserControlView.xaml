@@ -8,16 +8,16 @@
     
     <Grid DataContext="{Binding RelativeSource={RelativeSource AncestorType=views:InputUserControlView}}">
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
-            <Label Content="Username"
+            <Label Content="{Binding LabelText, UpdateSourceTrigger=PropertyChanged}"
                    FontSize="12" FontWeight="Light"
                    Foreground="{StaticResource Color_InputFieldLabel}"
                    Margin="10, 0, 0, 0">
             </Label>
                 
             <Border CornerRadius="5" BorderThickness="1" BorderBrush="{StaticResource Color_InputFieldBorder}" >
-                <TextBox Height="30" Width="400" 
-                         Background="Transparent" BorderThickness="0" 
-                         Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}"
+                         Height="30" Width="400" 
+                         Background="Transparent" BorderThickness="0" />
             </Border>
             
             <Label Content="Please enter your username"
