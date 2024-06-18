@@ -29,7 +29,8 @@
                 Margin="0, 16, 0, 0">
             </views:InputUserControlView>
 
-            <Button Style="{StaticResource Button_Main }"
+            <Button Command="{Binding LoginCommand}" 
+                    Style="{StaticResource Button_Main }"
                     Width="250" Height="35"
                     Content="Log in"
                     Margin="0, 32, 0, 0">
