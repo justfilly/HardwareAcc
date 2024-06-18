@@ -58,5 +58,24 @@
         </Setter>
     </Style>
     
+    <Style x:Key="Button_Main" TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource Color_Neutral}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource Color_Neutral}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Foreground" Value="{StaticResource Color_White}"/>
+        <Setter Property="FontSize" Value="14"></Setter>
+        <Setter Property="FontWeight" Value="Bold"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border BorderThickness="0"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="5">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
 </ResourceDictionary>
