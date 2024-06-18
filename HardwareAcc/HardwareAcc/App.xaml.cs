@@ -34,7 +34,7 @@ namespace HardwareAcc
             base.OnExit(e);
         }
 
-        private IConfiguration CreateConfiguration()
+        private static IConfiguration CreateConfiguration()
         {
             IConfigurationBuilder builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
@@ -43,7 +43,7 @@ namespace HardwareAcc
             return builder.Build();
         }
 
-        private void RegisterServices(IServiceCollection serviceCollection, IConfiguration configuration)
+        private static void RegisterServices(IServiceCollection serviceCollection, IConfiguration configuration)
         {
             serviceCollection.AddSingleton(configuration);
 
