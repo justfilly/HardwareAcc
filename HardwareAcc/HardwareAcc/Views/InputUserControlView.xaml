@@ -3,10 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:viewModels="clr-namespace:HardwareAcc.ViewModels"
-             mc:Ignorable="d" 
-             d:DataContext="{d:DesignInstance viewModels:InputUserControlViewModel}">
-    <Grid>
+             xmlns:views="clr-namespace:HardwareAcc.Views"
+             mc:Ignorable="d">
+    
+    <Grid DataContext="{Binding RelativeSource={RelativeSource AncestorType=views:InputUserControlView}}">
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
             <Label Content="Username"
                    FontSize="12" FontWeight="Light"
@@ -17,7 +17,7 @@
             <Border CornerRadius="5" BorderThickness="1" BorderBrush="{StaticResource Color_InputFieldBorder}" >
                 <TextBox Height="30" Width="400" 
                          Background="Transparent" BorderThickness="0" 
-                         Text="{Binding InputText, RelativeSource={RelativeSource AncestorType=UserControl}, UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}"/>
             </Border>
             
             <Label Content="Please enter your username"

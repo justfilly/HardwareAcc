@@ -17,9 +17,7 @@
                        Foreground="{StaticResource Color_TitleBlack}">
             </TextBlock>
             
-            <TextBox Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-            <views:InputUserControlView InputText="{Binding Username, Mode=TwoWay}"></views:InputUserControlView>
-            <TextBlock Foreground="Green" Text="{Binding Username}"></TextBlock>
+            <views:InputUserControlView InputText="{Binding Username, Mode=TwoWay}"/>
         </StackPanel>
     </Grid>
 </Page>
