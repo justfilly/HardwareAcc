@@ -43,7 +43,6 @@ sonarqube_analysis:
       - "dotnet sonarscanner begin /k:\"desktoptech_hardwareacc_132eb9b5-0b74-41c9-a33b-2c3bc1adcd5f\" /d:sonar.token=\"$SONAR_TOKEN\" /d:\"sonar.host.url=$SONAR_HOST_URL\" -d:sonar.qualitygate.wait=true"
       - "dotnet build /p:EnableWindowsTargeting=true"
       - "dotnet sonarscanner end /d:sonar.token=\"$SONAR_TOKEN\""
-  when: manual
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "dev"
     - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"
