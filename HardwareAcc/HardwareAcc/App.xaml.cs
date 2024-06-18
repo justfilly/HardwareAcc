@@ -13,7 +13,7 @@ namespace HardwareAcc
     public partial class App
     {
         private IServiceProvider? _serviceProvider;
-
+        
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
