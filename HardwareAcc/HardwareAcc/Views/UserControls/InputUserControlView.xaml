@@ -16,6 +16,9 @@
                 
             <Border CornerRadius="5" BorderThickness="1" BorderBrush="{StaticResource Color_InputFieldBorder}" >
                 <TextBox Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}"
+                         FontSize="14"
+                         Padding="10, 0, 0, 0"
+                         VerticalContentAlignment="Center"
                          Height="30" Width="400" 
                          Background="Transparent" BorderThickness="0" />
             </Border>

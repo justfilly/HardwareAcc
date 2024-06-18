@@ -19,7 +19,8 @@
             
             <views:InputUserControlView 
                 LabelText="Username"
-                InputText="{Binding Username, Mode=TwoWay}">
+                InputText="{Binding Username, Mode=TwoWay}"
+                Margin="0, 32, 0, 0">
             </views:InputUserControlView>
 
             <views:InputUserControlView 
