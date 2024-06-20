@@ -7,11 +7,11 @@ public class RegisterNamePageViewModel : BaseViewModel
 {
     public RegisterNamePageViewModel(INavigationService navigationService)
     {
-        LoginNavigateCommand = new LoginNavigateCommand(navigationService);
+        LoginNavigateCommand = new NavigationCommand<LoginPageViewModel>(navigationService);
     }
 
     public object RegisterContactInfoNavigateCommand { get; } = null!;
-    public LoginNavigateCommand LoginNavigateCommand { get; }
+    public NavigationCommand<LoginPageViewModel> LoginNavigateCommand { get; }
     
     private string _firstName = "";
     public string FirstName

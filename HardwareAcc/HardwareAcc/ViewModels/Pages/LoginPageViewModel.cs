@@ -9,11 +9,11 @@ public class LoginPageViewModel : BaseViewModel
     public LoginPageViewModel(IAuthService authService, INavigationService navigationService)
     {
         LoginCommand = new LoginCommand(this, authService);
-        RegisterNavigateCommand = new RegisterNavigateCommand(navigationService);
+        RegisterNavigateCommand = new NavigationCommand<RegisterNamePageViewModel>(navigationService);
     }
     
     public LoginCommand LoginCommand { get; }
-    public RegisterNavigateCommand RegisterNavigateCommand { get; }
+    public NavigationCommand<RegisterNamePageViewModel> RegisterNavigateCommand { get; }
     
     private string _login = "";
     public string Login
