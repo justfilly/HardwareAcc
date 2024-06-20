@@ -1,4 +1,3 @@
-using System;
 using HardwareAcc.Services.AuthService;
 using HardwareAcc.ViewModels.LoginRegister.Pages;
 
@@ -17,6 +16,6 @@ public class LoginCommand : BaseCommand
 
     public override void Execute(object? parameter)
     {
-        _authService.ValidateCredentialsAsync(_loginPageViewModel.Username, _loginPageViewModel.Password);
+        _authService.ValidateCredentialsAsync(_loginPageViewModel.Login, _loginPageViewModel.Password);
     }
 }

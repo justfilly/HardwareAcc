@@ -1,11 +1,26 @@
+using System;
 using System.Threading.Tasks;
+using HardwareAcc.Models;
+using HardwareAcc.Services.Repositories;
 
 namespace HardwareAcc.Services.AuthService;
 
 public class AuthService : IAuthService
 {
-    public Task<bool> ValidateCredentialsAsync(string username, string password)
+    private readonly IUserRepository _userRepository;
+
+    public AuthService(IUserRepository userRepository)
     {
-        throw new System.NotImplementedException();
+        _userRepository = userRepository;
+    }
+
+    public async Task<bool> ValidateCredentialsAsync(string login, string password)
+    {
+        User? user = await _userRepository.GetUserByLoginAsync(login);
+
+        if (user == null)
+            return false;
+
+        return user.Password == password;
     }
 }

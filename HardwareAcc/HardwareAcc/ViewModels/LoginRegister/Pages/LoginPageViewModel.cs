@@ -14,15 +14,15 @@ public class LoginPageViewModel : BaseViewModel
     public LoginCommand LoginCommand { get; }
     public RegisterNavigateCommand RegisterNavigateCommand { get; }
     
-    private string _username = "";
-    public string Username
+    private string _login = "";
+    public string Login
     {
-        get => _username;
+        get => _login;
     
         set
         {
-            _username = value;
-            OnPropertyChanged(nameof(Username));
+            _login = value;
+            OnPropertyChanged(nameof(Login));
         }
     }
     
