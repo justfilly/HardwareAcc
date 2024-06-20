@@ -46,7 +46,7 @@
                 </userControls:InputUserControlView>
 
                 <Button Command="{Binding RegisterContactInfoNavigateCommand}" 
-                        Style="{StaticResource Button_Main }"
+                        Style="{StaticResource Button_NeutralColorWithText }"
                         Width="250" Height="35"
                         Content="Continue"
                         Margin="0, 32, 0, 0">

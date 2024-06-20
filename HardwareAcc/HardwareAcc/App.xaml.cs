@@ -60,6 +60,7 @@ namespace HardwareAcc
             
             viewLocator.Register<LoginPageViewModel, LoginPageView>();
             viewLocator.Register<RegisterNamePageViewModel, RegisterNamePageView>();
+            viewLocator.Register<RegisterContactInfoPageViewModel, RegisterContactInfoPageView>();
         }
         
         private void RegisterServices(IServiceCollection serviceCollection, IConfiguration configuration)
@@ -81,6 +82,9 @@ namespace HardwareAcc
 
             serviceCollection.AddSingleton<RegisterNamePageView>();
             serviceCollection.AddSingleton<RegisterNamePageViewModel>();
+            
+            serviceCollection.AddSingleton<RegisterContactInfoPageView>();
+            serviceCollection.AddSingleton<RegisterContactInfoPageViewModel>();
         }
     }
 }

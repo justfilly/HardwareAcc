@@ -21,6 +21,6 @@
     
     <SolidColorBrush x:Key="Color_TextLightGray">#878787</SolidColorBrush>
     
-    
+    <SolidColorBrush x:Key="Color_BackButtonGray">#676767</SolidColorBrush>
     
 </ResourceDictionary>
