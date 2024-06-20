@@ -3,9 +3,9 @@ using System.IO;
 using System.Windows;
 using HardwareAcc.Services.DBConnectionService;
 using HardwareAcc.Services.AuthService;
-using HardwareAcc.ViewModels.LoginRegister;
+using HardwareAcc.ViewModels;
+using HardwareAcc.Views;
 using Microsoft.Extensions.Configuration;
-using HardwareAcc.Views.LoginRegister;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HardwareAcc
@@ -24,8 +24,8 @@ namespace HardwareAcc
             RegisterServices(serviceCollection, configuration);
             _serviceProvider = serviceCollection.BuildServiceProvider();
 
-            LoginRegisterWindowView loginRegisterWindow = _serviceProvider.GetRequiredService<LoginRegisterWindowView>();
-            loginRegisterWindow.DataContext = _serviceProvider.GetRequiredService<LoginRegisterWindowViewModel>();
+            MainWindowView loginRegisterWindow = _serviceProvider.GetRequiredService<MainWindowView>();
+            loginRegisterWindow.DataContext = _serviceProvider.GetRequiredService<MainWindowViewModel>();
             loginRegisterWindow.Show();
         }
 
@@ -53,8 +53,8 @@ namespace HardwareAcc
             serviceCollection.AddSingleton<IDBConnectionService, DBConnectionService>();
             serviceCollection.AddScoped<IAuthService, AuthService>();
             
-            serviceCollection.AddSingleton<LoginRegisterWindowView>();
-            serviceCollection.AddSingleton<LoginRegisterWindowViewModel>();
+            serviceCollection.AddSingleton<MainWindowView>();
+            serviceCollection.AddSingleton<MainWindowViewModel>();
         }
     }
 }

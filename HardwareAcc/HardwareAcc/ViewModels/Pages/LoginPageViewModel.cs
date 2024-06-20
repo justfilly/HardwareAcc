@@ -1,7 +1,7 @@
 using HardwareAcc.Commands;
 using HardwareAcc.Services.AuthService;
 
-namespace HardwareAcc.ViewModels.LoginRegister.Pages;
+namespace HardwareAcc.ViewModels.Pages;
 
 public class LoginPageViewModel : BaseViewModel
 {

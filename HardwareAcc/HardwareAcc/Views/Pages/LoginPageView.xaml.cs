@@ -1,7 +1,7 @@
 using HardwareAcc.Services.AuthService;
-using HardwareAcc.ViewModels.LoginRegister.Pages;
+using HardwareAcc.ViewModels.Pages;
 
-namespace HardwareAcc.Views.LoginRegister.Pages;
+namespace HardwareAcc.Views.Pages;
 
 public partial class LoginPageView
 {

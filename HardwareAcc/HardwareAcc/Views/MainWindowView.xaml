@@ -1,4 +1,4 @@
-<views:ChromeWindow x:Class="HardwareAcc.Views.LoginRegister.LoginRegisterWindowView"
+<views:ChromeWindow x:Class="HardwareAcc.Views.MainWindowView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
