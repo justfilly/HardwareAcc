@@ -4,5 +4,5 @@ namespace HardwareAcc.Services.AuthService;
 
 public interface IAuthService
 {
-    Task<bool> ValidateCredentialsAsync(string username, string password);
+    Task<bool> ValidateCredentialsAsync(string login, string password);
 }

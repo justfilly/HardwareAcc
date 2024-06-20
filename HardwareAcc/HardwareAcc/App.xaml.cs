@@ -9,6 +9,7 @@ using HardwareAcc.ViewModels;
 using HardwareAcc.ViewModels.Pages;
 using HardwareAcc.Views;
 using HardwareAcc.Views.Pages;
+using HardwareAcc.Services.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -67,6 +68,7 @@ namespace HardwareAcc
 
             serviceCollection.AddSingleton<IServiceProvider>(_ => _serviceProvider!);
             serviceCollection.AddSingleton<IDBConnectionService, DBConnectionService>();
+            serviceCollection.AddScoped<IUserRepository, UserRepository>();
             serviceCollection.AddScoped<IAuthService, AuthService>();
             serviceCollection.AddScoped<IViewLocator, ViewLocator>();
             serviceCollection.AddScoped<INavigationService, NavigationService>();
