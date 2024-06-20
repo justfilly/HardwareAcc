@@ -1,5 +1,5 @@
 using HardwareAcc.Services.AuthService;
-using HardwareAcc.ViewModels.LoginRegister.Pages;
+using HardwareAcc.ViewModels.Pages;
 
 namespace HardwareAcc.Commands;
 

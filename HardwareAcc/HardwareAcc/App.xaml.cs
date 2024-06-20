@@ -1,17 +1,17 @@
 ﻿using System;
 using System.IO;
-using System.Threading.Tasks;
 using System.Windows;
 using HardwareAcc.Services.DBConnectionService;
 using HardwareAcc.Services.AuthService;
+using HardwareAcc.Services.Navigation;
+using HardwareAcc.Services.ViewLocator;
+using HardwareAcc.ViewModels;
+using HardwareAcc.ViewModels.Pages;
+using HardwareAcc.Views;
+using HardwareAcc.Views.Pages;
 using HardwareAcc.Services.Repositories;
-using HardwareAcc.ViewModels.LoginRegister;
-using HardwareAcc.ViewModels.LoginRegister.Pages;
 using Microsoft.Extensions.Configuration;
-using HardwareAcc.Views.LoginRegister;
-using HardwareAcc.Views.LoginRegister.Pages;
 using Microsoft.Extensions.DependencyInjection;
-using MySqlConnector;
 
 namespace HardwareAcc
 {
@@ -29,9 +29,12 @@ namespace HardwareAcc
             RegisterServices(serviceCollection, configuration);
             _serviceProvider = serviceCollection.BuildServiceProvider();
 
-            LoginRegisterWindowView loginRegisterWindow = _serviceProvider.GetRequiredService<LoginRegisterWindowView>();
-            loginRegisterWindow.DataContext = _serviceProvider.GetRequiredService<LoginRegisterWindowViewModel>();
+            RegisterViews();
+            
+            MainWindowView loginRegisterWindow = _serviceProvider.GetRequiredService<MainWindowView>();
+            loginRegisterWindow.DataContext = _serviceProvider.GetRequiredService<MainWindowViewModel>();
             loginRegisterWindow.Show();
+            _serviceProvider.GetRequiredService<INavigationService>().Navigate<LoginPageViewModel>();
         }
 
         protected override void OnExit(ExitEventArgs e)
@@ -50,20 +53,34 @@ namespace HardwareAcc
 
             return builder.Build();
         }
+
+        private void RegisterViews()
+        {
+            IViewLocator viewLocator = _serviceProvider!.GetRequiredService<IViewLocator>();
+            
+            viewLocator.Register<LoginPageViewModel, LoginPageView>();
+            viewLocator.Register<RegisterPageViewModel, RegisterPageView>();
+        }
         
-        private static void RegisterServices(IServiceCollection serviceCollection, IConfiguration configuration)
+        private void RegisterServices(IServiceCollection serviceCollection, IConfiguration configuration)
         {
             serviceCollection.AddSingleton(configuration);
 
+            serviceCollection.AddSingleton<IServiceProvider>(_ => _serviceProvider!);
             serviceCollection.AddSingleton<IDBConnectionService, DBConnectionService>();
             serviceCollection.AddScoped<IUserRepository, UserRepository>();
             serviceCollection.AddScoped<IAuthService, AuthService>();
-
-            serviceCollection.AddSingleton<LoginRegisterWindowView>();
-            serviceCollection.AddSingleton<LoginRegisterWindowViewModel>();
+            serviceCollection.AddScoped<IViewLocator, ViewLocator>();
+            serviceCollection.AddScoped<INavigationService, NavigationService>();
             
+            serviceCollection.AddSingleton<MainWindowView>();
+            serviceCollection.AddSingleton<MainWindowViewModel>();
+
             serviceCollection.AddSingleton<LoginPageView>();
             serviceCollection.AddSingleton<LoginPageViewModel>();
+
+            serviceCollection.AddSingleton<RegisterPageView>();
+            serviceCollection.AddSingleton<RegisterPageViewModel>();
         }
     }
 }
