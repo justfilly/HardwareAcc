@@ -9,38 +9,6 @@
         Title="HardwareAcc"
         Style="{StaticResource Window_WithChrome}">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"></ColumnDefinition>
-            <ColumnDefinition Width="1*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        
-        <Grid Grid.Column="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="115"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-            </Grid.RowDefinitions>
-            
-            <Border Grid.Row="0" Background="{StaticResource Color_Primary}" CornerRadius="0, 0, 30, 0">
-                <StackPanel>
-                    <TextBlock Text="Welcome to HardwareAcc" 
-                               FontSize="36" FontWeight="Bold" Foreground="{StaticResource Color_White}" 
-                               Margin="20,20, 0 ,0">
-                    </TextBlock>
-                    
-                    <TextBlock Text="Your best hardware accounting software"
-                               FontSize="16" FontWeight="Bold" Foreground="{StaticResource Color_White}"
-                               Margin="20, 0, 0, 0">
-                    </TextBlock>
-                </StackPanel>
-            </Border>
-            
-            <Grid Grid.Row="1">
-                <Image Source="/Resources/Images/LoginRegister.jpg" Stretch="Uniform" StretchDirection="UpOnly"/>
-            </Grid>
-        </Grid>
-        
-        <Grid Grid.Column="1">
-            <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
-        </Grid>
+        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
     </Grid>
 </views:ChromeWindow>
