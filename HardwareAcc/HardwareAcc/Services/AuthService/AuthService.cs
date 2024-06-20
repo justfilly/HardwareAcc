@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using HardwareAcc.Models;
 using HardwareAcc.Services.Repositories;
@@ -15,10 +14,13 @@ public class AuthService : IAuthService
         _userRepository = userRepository;
     }
 
-    public Task<bool> ValidateCredentialsAsync(string login, string password)
+    public async Task<bool> ValidateCredentialsAsync(string login, string password)
     {
-        User? user = _userRepository.GetUserByLoginAsync(login).Result;
-        
-        throw new NotImplementedException();
+        User? user = await _userRepository.GetUserByLoginAsync(login);
+
+        if (user == null)
+            return false;
+
+        return user.Password == password;
     }
 }
