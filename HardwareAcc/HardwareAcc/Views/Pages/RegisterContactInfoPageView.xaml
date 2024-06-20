@@ -38,17 +38,17 @@
                            Foreground="{StaticResource Color_TitleBlack}">
                 </TextBlock>
             
-                <userControls:InputUserControlView 
+                <userControls:InputField 
                     LabelText="Email"
                     InputText="{Binding Email, Mode=TwoWay}"
                     Margin="0, 32, 0, 0">
-                </userControls:InputUserControlView>
+                </userControls:InputField>
 
-                <userControls:InputUserControlView 
+                <userControls:InputField 
                     LabelText="Phone number" 
                     InputText="{Binding PhoneNumber, Mode=TwoWay}"
                     Margin="0, 16, 0, 0">
-                </userControls:InputUserControlView>
+                </userControls:InputField>
                 
 
                 <Button Command="{Binding RegisterCredentialsNavigateCommand}" 

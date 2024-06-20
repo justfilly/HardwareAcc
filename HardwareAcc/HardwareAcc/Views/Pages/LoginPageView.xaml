@@ -27,17 +27,17 @@
                            Foreground="{StaticResource Color_TitleBlack}">
                 </TextBlock>
             
-                <userControls:InputUserControlView 
+                <userControls:InputField 
                     LabelText="Username"
                     InputText="{Binding Username, Mode=TwoWay}"
                     Margin="0, 32, 0, 0">
-                </userControls:InputUserControlView>
+                </userControls:InputField>
 
-                <userControls:InputUserControlView 
+                <userControls:PasswordInputField 
                     LabelText="Password" 
-                    InputText="{Binding Password, Mode=TwoWay}"
+                    PasswordText="{Binding Password, Mode=TwoWay}"
                     Margin="0, 16, 0, 0">
-                </userControls:InputUserControlView>
+                </userControls:PasswordInputField>
 
                 <Button Command="{Binding LoginCommand}" 
                         Style="{StaticResource Button_NeutralColorWithText }"

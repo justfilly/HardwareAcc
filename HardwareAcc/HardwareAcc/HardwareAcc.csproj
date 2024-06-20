@@ -45,6 +45,10 @@
       <Resource Include="Resources\Images\LoginRegister.jpg" />
       <None Remove="Resources\Icons\back_button.svg" />
       <Resource Include="Resources\Icons\back_button.svg" />
+      <None Remove="Resources\Icons\hide_password.svg" />
+      <Resource Include="Resources\Icons\hide_password.svg" />
+      <None Remove="Resources\Icons\show_password.svg" />
+      <Resource Include="Resources\Icons\show_password.svg" />
     </ItemGroup>
 
     <ItemGroup>
@@ -53,7 +57,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Page Update="Views\UserControls\InputUserControlView.xaml">
+      <Page Update="Views\UserControls\InputField.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>

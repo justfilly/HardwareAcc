@@ -1,22 +1,23 @@
 using System.Windows;
+using System.Windows.Controls;
 
 namespace HardwareAcc.Views.UserControls;
 
-public partial class InputUserControlView
+public partial class PasswordInputField
 {
-    public InputUserControlView()
+    public PasswordInputField()
     {
         InitializeComponent();
     }
     
     public static readonly DependencyProperty InputTextDependencyProperty =
         DependencyProperty.Register(
-            name:nameof(InputText),
+            name:nameof(PasswordText),
             propertyType:typeof(string),
-            ownerType:typeof(InputUserControlView),
+            ownerType:typeof(PasswordInputField),
             new PropertyMetadata(string.Empty));
     
-    public string InputText
+    public string PasswordText
     {
         get => (string)GetValue(InputTextDependencyProperty);
         set => SetValue(InputTextDependencyProperty, value);
@@ -26,7 +27,7 @@ public partial class InputUserControlView
         DependencyProperty.Register(
             name: nameof(LabelText),
             propertyType: typeof(string),
-            ownerType: typeof(InputUserControlView),
+            ownerType: typeof(PasswordInputField),
             new PropertyMetadata(string.Empty));
 
     public string LabelText
