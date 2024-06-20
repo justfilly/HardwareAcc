@@ -4,7 +4,7 @@ namespace HardwareAcc.Models
 {
     public class User
     {
-        public int UserId { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [StringLength(50)]

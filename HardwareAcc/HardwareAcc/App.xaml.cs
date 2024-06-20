@@ -1,12 +1,17 @@
 ﻿using System;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using HardwareAcc.Services.DBConnectionService;
 using HardwareAcc.Services.AuthService;
+using HardwareAcc.Services.Repositories;
 using HardwareAcc.ViewModels.LoginRegister;
+using HardwareAcc.ViewModels.LoginRegister.Pages;
 using Microsoft.Extensions.Configuration;
 using HardwareAcc.Views.LoginRegister;
+using HardwareAcc.Views.LoginRegister.Pages;
 using Microsoft.Extensions.DependencyInjection;
+using MySqlConnector;
 
 namespace HardwareAcc
 {
@@ -14,7 +19,7 @@ namespace HardwareAcc
     {
         private IServiceProvider? _serviceProvider;
         
-        protected override void OnStartup(StartupEventArgs e)
+        protected override async void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
@@ -51,10 +56,14 @@ namespace HardwareAcc
             serviceCollection.AddSingleton(configuration);
 
             serviceCollection.AddSingleton<IDBConnectionService, DBConnectionService>();
+            serviceCollection.AddScoped<IUserRepository, UserRepository>();
             serviceCollection.AddScoped<IAuthService, AuthService>();
-            
+
             serviceCollection.AddSingleton<LoginRegisterWindowView>();
             serviceCollection.AddSingleton<LoginRegisterWindowViewModel>();
+            
+            serviceCollection.AddSingleton<LoginPageView>();
+            serviceCollection.AddSingleton<LoginPageViewModel>();
         }
     }
 }

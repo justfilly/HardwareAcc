@@ -1,6 +1,6 @@
 using System;
 using System.Data;
-using System.Diagnostics;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using MySqlConnector;
 
@@ -19,10 +19,10 @@ public class DBConnectionService : IDBConnectionService
     public MySqlConnection GetConnection()
     {
         _connection ??= new MySqlConnection(_connectionString);
-
+        
         if (_connection.State != ConnectionState.Open) 
             _connection.Open();
-
+        
         return _connection;
     }
 

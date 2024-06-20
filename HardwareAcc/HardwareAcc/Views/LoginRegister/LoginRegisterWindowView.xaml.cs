@@ -1,13 +1,12 @@
-using HardwareAcc.Services.AuthService;
 using HardwareAcc.Views.LoginRegister.Pages;
 
 namespace HardwareAcc.Views.LoginRegister;
 
 public partial class LoginRegisterWindowView
 {
-    public LoginRegisterWindowView(IAuthService authService)
+    public LoginRegisterWindowView(LoginPageView loginPageView)
     {
         InitializeComponent();
-        MainFrame.Navigate(new LoginPageView(authService));
+        MainFrame.Navigate(loginPageView);
     }
 }

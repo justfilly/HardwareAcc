@@ -20,7 +20,7 @@
             
             <userControls:InputUserControlView 
                 LabelText="Username"
-                InputText="{Binding Username, Mode=TwoWay}"
+                InputText="{Binding Login, Mode=TwoWay}"
                 Margin="0, 32, 0, 0">
             </userControls:InputUserControlView>
 
