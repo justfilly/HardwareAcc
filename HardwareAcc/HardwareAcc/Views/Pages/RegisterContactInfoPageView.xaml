@@ -1,15 +1,16 @@
-<Page x:Class="HardwareAcc.Views.Pages.LoginPageView"
+<Page x:Class="HardwareAcc.Views.Pages.RegisterContactInfoPageView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:userControls="clr-namespace:HardwareAcc.Views.UserControls"
       xmlns:pages="clr-namespace:HardwareAcc.ViewModels.Pages"
+      xmlns:userControls="clr-namespace:HardwareAcc.Views.UserControls"
+      xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
       mc:Ignorable="d"
       d:DesignWidth="1920" d:DesignHeight="1010"
       Title="HardwareAcc"
       Style="{StaticResource GlobalStyle_Page}" 
-      d:DataContext="{d:DesignInstance pages:LoginPageViewModel}">
+      d:DataContext="{d:DesignInstance pages:RegisterContactInfoPageViewModel}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"></ColumnDefinition>
@@ -21,43 +22,41 @@
         </Grid>
         
         <Grid Grid.Column="1">
+            <Button Command="{Binding RegisterNameNavigateCommand}"
+                Style="{StaticResource Button_Rounded}"
+                Width="35" Height="35"
+                Background="{StaticResource Color_BackButtonGray}" 
+                BorderBrush="{StaticResource Color_BackButtonGray}"
+                VerticalAlignment="Top" HorizontalAlignment="Right"
+                Margin="0, 15, 15, 0">
+                <svgc:SvgViewbox Source="/Resources/Icons/back_button.svg" Stretch="None" />
+            </Button>
+            
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Text="Log in" 
+                <TextBlock Text="Contact Info" 
                            FontSize="32" FontWeight="Bold" TextAlignment="Center" 
                            Foreground="{StaticResource Color_TitleBlack}">
                 </TextBlock>
             
                 <userControls:InputUserControlView 
-                    LabelText="Username"
-                    InputText="{Binding Username, Mode=TwoWay}"
+                    LabelText="Email"
+                    InputText="{Binding Email, Mode=TwoWay}"
                     Margin="0, 32, 0, 0">
                 </userControls:InputUserControlView>
 
                 <userControls:InputUserControlView 
-                    LabelText="Password" 
-                    InputText="{Binding Password, Mode=TwoWay}"
+                    LabelText="Phone number" 
+                    InputText="{Binding PhoneNumber, Mode=TwoWay}"
                     Margin="0, 16, 0, 0">
                 </userControls:InputUserControlView>
+                
 
-                <Button Command="{Binding LoginCommand}" 
+                <Button Command="{Binding RegisterCredentialsNavigateCommand}" 
                         Style="{StaticResource Button_NeutralColorWithText }"
                         Width="250" Height="35"
-                        Content="Log in"
+                        Content="Almost Done"
                         Margin="0, 32, 0, 0">
                 </Button>
-            
-                <TextBlock TextAlignment="Center" FontWeight="Bold" FontSize="12" Margin="0, 16, 0, 0">
-                    <Run Foreground="{StaticResource Color_TextLightGray}">
-                        Don’t have an account?
-                    </Run>
-                
-                    <Hyperlink Command="{Binding RegisterNavigateCommand}">
-                        <Run TextDecorations="Underline" Foreground="{StaticResource Color_Neutral}">
-                            Create one!
-                        </Run>
-
-                    </Hyperlink>
-                </TextBlock>
             </StackPanel>
         </Grid>
     </Grid>
