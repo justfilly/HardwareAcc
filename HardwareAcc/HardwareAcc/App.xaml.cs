@@ -61,6 +61,7 @@ namespace HardwareAcc
             viewLocator.Register<LoginPageViewModel, LoginPageView>();
             viewLocator.Register<RegisterNamePageViewModel, RegisterNamePageView>();
             viewLocator.Register<RegisterContactInfoPageViewModel, RegisterContactInfoPageView>();
+            viewLocator.Register<RegisterCredentialsPageViewModel, RegisterCredentialsPageView>();
         }
         
         private void RegisterServices(IServiceCollection serviceCollection, IConfiguration configuration)
@@ -68,6 +69,7 @@ namespace HardwareAcc
             serviceCollection.AddSingleton(configuration);
 
             serviceCollection.AddSingleton<IServiceProvider>(_ => _serviceProvider!);
+            
             serviceCollection.AddSingleton<IDBConnectionService, DBConnectionService>();
             serviceCollection.AddScoped<IUserRepository, UserRepository>();
             serviceCollection.AddScoped<IAuthService, AuthService>();
@@ -85,6 +87,9 @@ namespace HardwareAcc
             
             serviceCollection.AddSingleton<RegisterContactInfoPageView>();
             serviceCollection.AddSingleton<RegisterContactInfoPageViewModel>();
+            
+            serviceCollection.AddSingleton<RegisterCredentialsPageView>();
+            serviceCollection.AddSingleton<RegisterCredentialsPageViewModel>();
         }
     }
 }

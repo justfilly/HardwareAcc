@@ -3,11 +3,11 @@ using HardwareAcc.ViewModels;
 
 namespace HardwareAcc.Commands;
 
-public class NavigationCommand<TViewModel> : BaseCommand where TViewModel : BaseViewModel
+public class NavigateCommand<TViewModel> : BaseCommand where TViewModel : BaseViewModel
 {
     private readonly INavigationService _navigationService;
 
-    public NavigationCommand(INavigationService navigationService)
+    public NavigateCommand(INavigationService navigationService)
     {
         _navigationService = navigationService;
     }

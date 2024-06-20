@@ -8,12 +8,12 @@ public class RegisterNamePageViewModel : BaseViewModel
     public RegisterNamePageViewModel(INavigationService navigationService)
     {
         
-        RegisterContactInfoNavigateCommand = new NavigationCommand<RegisterContactInfoPageViewModel>(navigationService);
-        LoginNavigateCommand = new NavigationCommand<LoginPageViewModel>(navigationService);
+        RegisterContactInfoNavigateCommand = new NavigateCommand<RegisterContactInfoPageViewModel>(navigationService);
+        LoginNavigateCommand = new NavigateCommand<LoginPageViewModel>(navigationService);
     }
 
-    public NavigationCommand<RegisterContactInfoPageViewModel> RegisterContactInfoNavigateCommand { get; }
-    public NavigationCommand<LoginPageViewModel> LoginNavigateCommand { get; }
+    public NavigateCommand<RegisterContactInfoPageViewModel> RegisterContactInfoNavigateCommand { get; }
+    public NavigateCommand<LoginPageViewModel> LoginNavigateCommand { get; }
     
     private string _firstName = "";
     public string FirstName

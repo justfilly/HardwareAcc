@@ -7,10 +7,12 @@ public class RegisterContactInfoPageViewModel : BaseViewModel
 {
     public RegisterContactInfoPageViewModel(INavigationService navigationService)
     {
-        RegisterNameNavigateCommand = new NavigationCommand<RegisterNamePageViewModel>(navigationService);
+        RegisterCredentialsNavigateCommand = new NavigateCommand<RegisterCredentialsPageViewModel>(navigationService);
+        RegisterNameNavigateCommand = new NavigateCommand<RegisterNamePageViewModel>(navigationService);
     }
 
-    public NavigationCommand<RegisterNamePageViewModel> RegisterNameNavigateCommand { get; }
+    public NavigateCommand<RegisterCredentialsPageViewModel> RegisterCredentialsNavigateCommand { get; }
+    public NavigateCommand<RegisterNamePageViewModel> RegisterNameNavigateCommand { get; }
     
     private string _email = "";
     public string Email
