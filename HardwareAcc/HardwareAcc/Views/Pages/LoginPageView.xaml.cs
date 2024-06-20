@@ -1,13 +1,9 @@
-using HardwareAcc.Services.AuthService;
-using HardwareAcc.ViewModels.Pages;
-
 namespace HardwareAcc.Views.Pages;
 
 public partial class LoginPageView
 {
-    public LoginPageView(IAuthService authService)
+    public LoginPageView()
     {
-        DataContext = new LoginPageViewModel(authService);
         InitializeComponent();
     }
 }

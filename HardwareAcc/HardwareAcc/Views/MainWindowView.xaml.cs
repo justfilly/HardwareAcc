@@ -1,13 +1,9 @@
-using HardwareAcc.Services.AuthService;
-using HardwareAcc.Views.Pages;
-
 namespace HardwareAcc.Views;
 
 public partial class MainWindowView
 {
-    public MainWindowView(IAuthService authService)
+    public MainWindowView()
     {
         InitializeComponent();
-        MainFrame.Navigate(new LoginPageView(authService));
     }
 }

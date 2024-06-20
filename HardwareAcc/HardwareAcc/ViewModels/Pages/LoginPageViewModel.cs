@@ -1,18 +1,19 @@
 using HardwareAcc.Commands;
 using HardwareAcc.Services.AuthService;
+using HardwareAcc.Services.Navigation;
 
 namespace HardwareAcc.ViewModels.Pages;
 
 public class LoginPageViewModel : BaseViewModel
 {
-    public LoginPageViewModel(IAuthService authService)
+    public LoginPageViewModel(IAuthService authService, INavigationService navigationService)
     {
         LoginCommand = new LoginCommand(this, authService);
-        RegisterNavigateCommand = new RegisterNavigateCommand();
+        RegisterPageNavigateCommand = new RegisterPageNavigateCommand(navigationService);
     }
     
     public LoginCommand LoginCommand { get; }
-    public RegisterNavigateCommand RegisterNavigateCommand { get; }
+    public RegisterPageNavigateCommand RegisterPageNavigateCommand { get; }
     
     private string _username = "";
     public string Username

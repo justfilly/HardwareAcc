@@ -52,7 +52,7 @@
                         Don’t have an account?
                     </Run>
                 
-                    <Hyperlink Command="{Binding RegisterNavigateCommand}">
+                    <Hyperlink Command="{Binding RegisterPageNavigateCommand}">
                         <Run TextDecorations="Underline" Foreground="{StaticResource Color_Neutral}">
                             Create one!
                         </Run>
