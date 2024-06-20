@@ -59,7 +59,7 @@ namespace HardwareAcc
             IViewLocator viewLocator = _serviceProvider!.GetRequiredService<IViewLocator>();
             
             viewLocator.Register<LoginPageViewModel, LoginPageView>();
-            viewLocator.Register<RegisterPageViewModel, RegisterPageView>();
+            viewLocator.Register<RegisterNamePageViewModel, RegisterNamePageView>();
         }
         
         private void RegisterServices(IServiceCollection serviceCollection, IConfiguration configuration)
@@ -79,8 +79,8 @@ namespace HardwareAcc
             serviceCollection.AddSingleton<LoginPageView>();
             serviceCollection.AddSingleton<LoginPageViewModel>();
 
-            serviceCollection.AddSingleton<RegisterPageView>();
-            serviceCollection.AddSingleton<RegisterPageViewModel>();
+            serviceCollection.AddSingleton<RegisterNamePageView>();
+            serviceCollection.AddSingleton<RegisterNamePageViewModel>();
         }
     }
 }

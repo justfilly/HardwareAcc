@@ -3,11 +3,11 @@ using HardwareAcc.ViewModels.Pages;
 
 namespace HardwareAcc.Commands;
 
-public class LoginPageNavigateCommand : BaseCommand
+public class LoginNavigateCommand : BaseCommand
 {
     private readonly INavigationService _navigationService;
 
-    public LoginPageNavigateCommand(INavigationService navigationService)
+    public LoginNavigateCommand(INavigationService navigationService)
     {
         _navigationService = navigationService;
     }

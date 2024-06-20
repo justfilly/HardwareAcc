@@ -3,17 +3,17 @@ using HardwareAcc.ViewModels.Pages;
 
 namespace HardwareAcc.Commands;
 
-public class RegisterPageNavigateCommand : BaseCommand
+public class RegisterNavigateCommand : BaseCommand
 {
     private readonly INavigationService _navigationService;
 
-    public RegisterPageNavigateCommand(INavigationService navigationService)
+    public RegisterNavigateCommand(INavigationService navigationService)
     {
         _navigationService = navigationService;
     }
 
     public override void Execute(object? parameter)
     {
-        _navigationService.Navigate<RegisterPageViewModel>();
+        _navigationService.Navigate<RegisterNamePageViewModel>();
     }
 }

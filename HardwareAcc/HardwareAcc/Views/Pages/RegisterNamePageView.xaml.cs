@@ -2,9 +2,9 @@ using System.Windows.Controls;
 
 namespace HardwareAcc.Views.Pages;
 
-public partial class RegisterPageView : Page
+public partial class RegisterNamePageView : Page
 {
-    public RegisterPageView()
+    public RegisterNamePageView()
     {
         InitializeComponent();
     }
