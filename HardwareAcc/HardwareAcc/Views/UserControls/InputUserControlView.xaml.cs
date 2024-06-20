@@ -1,6 +1,6 @@
 using System.Windows;
 
-namespace HardwareAcc.Views;
+namespace HardwareAcc.Views.UserControls;
 
 public partial class InputUserControlView
 {
