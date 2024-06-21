@@ -27,23 +27,23 @@
                            Foreground="{StaticResource Color_TitleBlack}">
                 </TextBlock>
             
-                <userControls:InputUserControlView 
+                <userControls:InputField 
                     LabelText="First Name"
                     InputText="{Binding FirstName, Mode=TwoWay}"
                     Margin="0, 32, 0, 0">
-                </userControls:InputUserControlView>
+                </userControls:InputField>
 
-                <userControls:InputUserControlView 
+                <userControls:InputField 
                     LabelText="Second Name" 
                     InputText="{Binding SecondName, Mode=TwoWay}"
                     Margin="0, 16, 0, 0">
-                </userControls:InputUserControlView>
+                </userControls:InputField>
                 
-                <userControls:InputUserControlView 
+                <userControls:InputField 
                     LabelText="Patronymic" 
                     InputText="{Binding Patronymic, Mode=TwoWay}"
                     Margin="0, 16, 0, 0">
-                </userControls:InputUserControlView>
+                </userControls:InputField>
 
                 <Button Command="{Binding RegisterContactInfoNavigateCommand}" 
                         Style="{StaticResource Button_NeutralColorWithText }"
