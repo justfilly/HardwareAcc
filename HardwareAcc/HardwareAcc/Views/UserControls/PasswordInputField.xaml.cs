@@ -1,3 +1,4 @@
+using System;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -15,14 +16,19 @@ public partial class PasswordInputField
         
         FontFamily passwordFont = (FontFamily)FindResource("Font_Password");
         FontFamily normalFont = (FontFamily)FindResource("Font_Inter");
-        
-        
         PasswordInputBox.FontFamily = passwordFont;
+        
+        Uri hidePasswordIconUri = new("/Resources/Icons/hide_password.svg", UriKind.Relative);
+        Uri showPasswordIconUri = new("/Resources/Icons/show_password.svg", UriKind.Relative);
+        TogglePasswordVisibilityIcon.Source = showPasswordIconUri;
         
         TogglePasswordVisibilityCommand = new TogglePasswordVisibilityCommand(this,
             PasswordInputBox,
             passwordFont,
-            normalFont);
+            normalFont,
+            TogglePasswordVisibilityIcon,
+            hidePasswordIconUri,
+            showPasswordIconUri);
     }
 
     public TogglePasswordVisibilityCommand TogglePasswordVisibilityCommand { get; }
