@@ -2,9 +2,9 @@ using System.Windows;
 
 namespace HardwareAcc.Views.UserControls;
 
-public partial class InputField
+public partial class TextInputField
 {
-    public InputField()
+    public TextInputField()
     {
         InitializeComponent();
     }
@@ -13,7 +13,7 @@ public partial class InputField
         DependencyProperty.Register(
             name:nameof(InputText),
             propertyType:typeof(string),
-            ownerType:typeof(InputField),
+            ownerType:typeof(TextInputField),
             new PropertyMetadata(string.Empty));
     
     public string InputText
@@ -26,7 +26,7 @@ public partial class InputField
         DependencyProperty.Register(
             name: nameof(LabelText),
             propertyType: typeof(string),
-            ownerType: typeof(InputField),
+            ownerType: typeof(TextInputField),
             new PropertyMetadata(string.Empty));
 
     public string LabelText

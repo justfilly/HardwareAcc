@@ -8,7 +8,7 @@
       mc:Ignorable="d"
       d:DesignWidth="1920" d:DesignHeight="1010"
       Title="HardwareAcc"
-      Style="{StaticResource GlobalStyle_Page}" 
+      Style="{StaticResource Style_Page}" 
       d:DataContext="{d:DesignInstance pages:LoginPageViewModel}">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -27,11 +27,11 @@
                            Foreground="{StaticResource Color_TitleBlack}">
                 </TextBlock>
             
-                <userControls:InputField 
+                <userControls:TextInputField 
                     LabelText="Username"
                     InputText="{Binding Username, Mode=TwoWay}"
                     Margin="0, 32, 0, 0">
-                </userControls:InputField>
+                </userControls:TextInputField>
 
                 <userControls:PasswordInputField 
                     LabelText="Password" 

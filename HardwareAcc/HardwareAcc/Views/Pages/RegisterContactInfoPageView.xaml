@@ -9,7 +9,7 @@
       mc:Ignorable="d"
       d:DesignWidth="1920" d:DesignHeight="1010"
       Title="HardwareAcc"
-      Style="{StaticResource GlobalStyle_Page}" 
+      Style="{StaticResource Style_Page}" 
       d:DataContext="{d:DesignInstance pages:RegisterContactInfoPageViewModel}">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -38,17 +38,17 @@
                            Foreground="{StaticResource Color_TitleBlack}">
                 </TextBlock>
             
-                <userControls:InputField 
+                <userControls:TextInputField 
                     LabelText="Email"
                     InputText="{Binding Email, Mode=TwoWay}"
                     Margin="0, 32, 0, 0">
-                </userControls:InputField>
+                </userControls:TextInputField>
 
-                <userControls:InputField 
+                <userControls:TextInputField 
                     LabelText="Phone number" 
                     InputText="{Binding PhoneNumber, Mode=TwoWay}"
                     Margin="0, 16, 0, 0">
-                </userControls:InputField>
+                </userControls:TextInputField>
                 
 
                 <Button Command="{Binding RegisterCredentialsNavigateCommand}" 
