@@ -1,5 +1,6 @@
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 using HardwareAcc.Commands;
 
 namespace HardwareAcc.Views.UserControls;
@@ -11,7 +12,17 @@ public partial class PasswordInputField
     public PasswordInputField()
     {
         InitializeComponent();
-        TogglePasswordVisibilityCommand = new TogglePasswordVisibilityCommand(this);
+        
+        FontFamily passwordFont = (FontFamily)FindResource("Font_Password");
+        FontFamily normalFont = (FontFamily)FindResource("Font_Inter");
+        
+        
+        PasswordInputBox.FontFamily = passwordFont;
+        
+        TogglePasswordVisibilityCommand = new TogglePasswordVisibilityCommand(this,
+            PasswordInputBox,
+            passwordFont,
+            normalFont);
     }
 
     public TogglePasswordVisibilityCommand TogglePasswordVisibilityCommand { get; }
@@ -41,7 +52,7 @@ public partial class PasswordInputField
         get => (string)GetValue(LabelTextDependencyProperty);
         set => SetValue(LabelTextDependencyProperty, value);
     }
-
+    
     private void HandleCanExecute(object sender, CanExecuteRoutedEventArgs e)
     {
         if ( e.Command == ApplicationCommands.Cut || e.Command == ApplicationCommands.Copy) 
