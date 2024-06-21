@@ -12,8 +12,7 @@
             <Label Content="{Binding LabelText, UpdateSourceTrigger=PropertyChanged, FallbackValue=Input}"
                    FontSize="12" FontWeight="Light"
                    Foreground="{StaticResource Color_InputFieldLabel}"
-                   Margin="10, 0, 0, 0"
-                   Validation.ErrorTemplate="{StaticResource Template_ValidationError}">
+                   Margin="10, 0, 0, 0">
             </Label>
                 
             <Border CornerRadius="5" BorderThickness="1" BorderBrush="{StaticResource Color_InputFieldBorder}" >
@@ -21,21 +20,23 @@
                          Padding="10, 0, 0, 0"
                          VerticalContentAlignment="Center"
                          Height="30" Width="400" 
-                         Background="Transparent" BorderThickness="0">
-                         <TextBox.Text>
-                             <Binding Path="InputText" UpdateSourceTrigger="PropertyChanged">
+                         Background="Transparent" BorderThickness="0"
+                         TextChanged="TextBox_OnTextChanged">
+                    <TextBox.Text>
+                             <Binding Path="InputText" UpdateSourceTrigger="PropertyChanged" ValidatesOnDataErrors="True">
                                  <Binding.ValidationRules>
                                      <validationRules:NotEmptyValidationRule></validationRules:NotEmptyValidationRule>
                                  </Binding.ValidationRules>
                              </Binding>
-                         </TextBox.Text>     
-                </TextBox>
+                         </TextBox.Text>
+                </TextBox>    
             </Border>
             
-            <Label Content="{Binding ElementName=TextBox,  Path=(Validation.Errors)[0].ErrorContent}"
+            <Label x:Name="ErrorLabel"
                    FontSize="12" FontWeight="Light" 
                    Foreground="{StaticResource Color_Neutral}"
-                   Margin="10, 2, 0, 0">
+                   Margin="10, 2, 0, 0"
+                   Visibility="Visible">
             </Label>
         </StackPanel>
     </Grid>

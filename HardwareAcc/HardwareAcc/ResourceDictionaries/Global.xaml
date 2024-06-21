@@ -12,10 +12,10 @@
     
     <ControlTemplate x:Key="Template_ValidationError">
         <StackPanel>
-            <Border BorderBrush="Red" BorderThickness="1">
+            <Border BorderBrush="Blue" BorderThickness="1">
                 <AdornedElementPlaceholder/>
             </Border>
-            <TextBlock Foreground="Red" FontSize="12" Text="{Binding [0].ErrorContent}"/>
+            <TextBlock Foreground="Blue" FontSize="12" Text="{Binding [0].ErrorContent}"/>
         </StackPanel>
     </ControlTemplate>
 </ResourceDictionary>
