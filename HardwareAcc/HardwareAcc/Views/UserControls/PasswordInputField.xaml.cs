@@ -8,7 +8,7 @@ namespace HardwareAcc.Views.UserControls;
 
 public partial class PasswordInputField
 {
-    public bool PasswordVisibility = false;
+    public bool PasswordVisibility { get; set; }
     
     public PasswordInputField()
     {
