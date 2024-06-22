@@ -25,9 +25,9 @@ public class LoginCommand : BaseCommand
             string login = _loginPageViewModel.Login;
             string password = _loginPageViewModel.Password;
             
-            bool isAuthenticated = await _authService.ValidateCredentialsAsync(login, password);
+            bool isLoginCredentialsValid = await _authService.ValidateLoginCredentialsAsync(login, password);
 
-            if (isAuthenticated)
+            if (isLoginCredentialsValid)
             {
                 await _authService.LogInAsync(login, password);
                 _navigationService.Navigate<AccountingPageViewModel>();

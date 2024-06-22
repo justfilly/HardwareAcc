@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using HardwareAcc.Models;
 using HardwareAcc.Services.Auth;
 using HardwareAcc.Services.Navigation;
@@ -29,32 +30,48 @@ public class RegisterCommand : BaseCommand
     
     public override async void Execute(object? parameter)
     {
-        bool isNameValid = 
+        if (IsUserDataValid())
+        {
+            bool isRegisterCredentialsValid = await _authService.ValidateRegisterCredentialsAsync(
+                _registerCredentialsPageViewModel.Login,
+                _registerContactInfoPageViewModel.Email,
+                _registerContactInfoPageViewModel.PhoneNumber
+            );
+
+            if (isRegisterCredentialsValid)
+            {
+                User user = new User
+                {
+                    RoleId = 2,
+                
+                    FirstName = _registerNamePageViewModel.FirstName,
+                    SecondName = _registerNamePageViewModel.SecondName,
+                    Patronymic = _registerNamePageViewModel.Patronymic,
+           
+                    Login = _registerCredentialsPageViewModel.Login,
+                    Password = _registerCredentialsPageViewModel.Password,
+
+                    Email = _registerContactInfoPageViewModel.Email,
+                    PhoneNumber = _registerContactInfoPageViewModel.PhoneNumber
+                };
+       
+                await _authService.RegisterAsync(user);
+                _navigationService.Navigate<LoginPageViewModel>();
+            }
+        }
+    }
+
+    private bool IsUserDataValid()
+    {
+        bool isNameValid =
             _registerNamePageViewModel is { IsFirstNameValid: true, IsSecondNameValid: true, IsPatronymicValid: true };
-        
-        bool isContactInfoValid = 
+
+        bool isContactInfoValid =
             _registerContactInfoPageViewModel is { IsEmailValid: true, IsPhoneNumberValid: true };
-        
-        bool isCredentialsValid = 
+
+        bool isCredentialsValid =
             _registerCredentialsPageViewModel is { IsLoginValid: true, IsPasswordValid: true, IsConfirmPasswordValid: true };
         
-        if (isNameValid && isContactInfoValid && isCredentialsValid)
-        {
-            User user = new User
-            {
-                FirstName = _registerNamePageViewModel.FirstName,
-                SecondName = _registerNamePageViewModel.SecondName,
-                Patronymic = _registerNamePageViewModel.Patronymic,
-           
-                Login = _registerCredentialsPageViewModel.Login,
-                Password = _registerCredentialsPageViewModel.Password,
-
-                Email = _registerContactInfoPageViewModel.Email,
-                PhoneNumber = _registerContactInfoPageViewModel.PhoneNumber
-            };
-       
-            await _authService.RegisterAsync(user);
-            _navigationService.Navigate<LoginPageViewModel>();
-        }
+        return isNameValid && isContactInfoValid && isCredentialsValid;
     }
 }
