@@ -10,6 +10,7 @@
                 <ResourceDictionary Source="/ResourceDictionaries/Global.xaml" />
                 <ResourceDictionary Source="/ResourceDictionaries/ButtonStyles.xaml" />
                 <ResourceDictionary Source="/ResourceDictionaries/ChromeWindowStyle.xaml" />
+                <ResourceDictionary Source="/ResourceDictionaries/Converters.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

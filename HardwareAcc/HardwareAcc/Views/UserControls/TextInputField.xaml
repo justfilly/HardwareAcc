@@ -22,17 +22,13 @@
                          Height="30" Width="400" 
                          Background="Transparent" BorderThickness="0"
                          TextChanged="TextBox_OnTextChanged">
-                    <TextBox.Text>
-                             <Binding Path="InputText" UpdateSourceTrigger="PropertyChanged" ValidatesOnDataErrors="True">
-                                 <Binding.ValidationRules>
-                                     <validationRules:NotEmptyValidationRule></validationRules:NotEmptyValidationRule>
-                                 </Binding.ValidationRules>
-                             </Binding>
-                         </TextBox.Text>
+                    <Binding Path="InputText" UpdateSourceTrigger="PropertyChanged" ValidatesOnDataErrors="True">
+                    </Binding>
                 </TextBox>    
             </Border>
             
             <Label x:Name="ErrorLabel"
+                   Content=" "
                    FontSize="12" FontWeight="Light" 
                    Foreground="{StaticResource Color_Neutral}"
                    Margin="10, 2, 0, 0"

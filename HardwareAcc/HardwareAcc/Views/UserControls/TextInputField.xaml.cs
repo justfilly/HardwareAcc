@@ -1,14 +1,22 @@
-using System.Diagnostics;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace HardwareAcc.Views.UserControls;
 
 public partial class TextInputField
 {
+    private readonly Binding _textBinding;
+    
     public TextInputField()
     {
         InitializeComponent();
+        
+        _textBinding = BindingOperations.GetBinding(TextBox, TextBox.TextProperty)!;
+        ValidationRules.CollectionChanged += ValidationRules_CollectionChanged!;
+        Unloaded += TextInputField_Unloaded; 
     }
     
     public static readonly DependencyProperty InputTextDependencyProperty =
@@ -39,24 +47,54 @@ public partial class TextInputField
 
     public static readonly DependencyProperty HasErrorsDependencyProperty =
         DependencyProperty.Register(
-            name: nameof(HasErrors),
+            name: nameof(IsValid),
             propertyType: typeof(bool),
             ownerType: typeof(TextInputField),
             new PropertyMetadata(false));
 
-    public bool HasErrors
+    public bool IsValid
     {
         get => (bool)GetValue(HasErrorsDependencyProperty);
         set => SetValue(HasErrorsDependencyProperty, value);
     }
-    
+
     private void TextBox_OnTextChanged(object sender, TextChangedEventArgs e)
     {
-        HasErrors = Validation.GetHasError(TextBox);
+        IsValid = !Validation.GetHasError(TextBox);
 
         if (Validation.GetErrors(TextBox).Count > 0)
             ErrorLabel.Content = (string)Validation.GetErrors(TextBox)[0].ErrorContent;
         else
             ErrorLabel.Content = string.Empty;
+    }
+
+    public static readonly DependencyProperty ValidationRulesProperty =
+        DependencyProperty.Register(
+            nameof(ValidationRules), 
+            typeof(ObservableCollection<ValidationRule>), 
+            typeof(TextInputField), 
+            new PropertyMetadata(new ObservableCollection<ValidationRule>()));
+    
+    public ObservableCollection<ValidationRule> ValidationRules
+    {
+        get => (ObservableCollection<ValidationRule>)GetValue(ValidationRulesProperty);
+        set => SetValue(ValidationRulesProperty, value);
+    }
+    
+    private void ValidationRules_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e) => 
+        UpdateValidationRules();
+
+    private void UpdateValidationRules()
+    {
+        _textBinding.ValidationRules.Clear();        
+        
+        foreach (ValidationRule validationRule in ValidationRules) 
+            _textBinding.ValidationRules.Add(validationRule);
+    }
+    
+    private void TextInputField_Unloaded(object sender, RoutedEventArgs e)
+    {
+        ValidationRules.CollectionChanged -= ValidationRules_CollectionChanged!;
+        Unloaded -= TextInputField_Unloaded;
     }
 }
