@@ -9,7 +9,6 @@ namespace HardwareAcc.Views.UserControls;
 public partial class TextInputField
 {
     private readonly Binding _textBinding;
-    
     public TextInputField()
     {
         InitializeComponent();

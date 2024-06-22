@@ -28,13 +28,14 @@
                            Foreground="{StaticResource Color_TitleBlack}">
                 </TextBlock>
                 
-                <userControls:TextInputField x:Name="LoginInputField"
+                <userControls:TextInputField
                     LabelText="Login"
                     InputText="{Binding Login, Mode=TwoWay}"
                     IsValid="{Binding IsValidLogin, Mode=TwoWay}"
                     Margin="0, 32, 0, 0">
                     <userControls:TextInputField.ValidationRules>
-                        <validationRules:NotEmptyValidationRule/>
+                        <validationRules:NotEmptyValidationRule FieldName="Login"/>
+                        <validationRules:LengthValidationRule FieldName="Login" MinLength="5" MaxLength="50"/>
                     </userControls:TextInputField.ValidationRules>
                 </userControls:TextInputField>
 
