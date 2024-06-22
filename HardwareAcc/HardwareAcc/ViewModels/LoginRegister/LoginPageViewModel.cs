@@ -3,13 +3,13 @@ using HardwareAcc.Commands;
 using HardwareAcc.Services.Auth;
 using HardwareAcc.Services.Navigation;
 
-namespace HardwareAcc.ViewModels.Pages;
+namespace HardwareAcc.ViewModels.LoginRegister;
 
 public class LoginPageViewModel : BaseViewModel
 {
     public LoginPageViewModel(IAuthService authService, INavigationService navigationService)
     {
-        LoginCommand = new LoginCommand(this, authService);
+        LoginCommand = new LoginCommand(this, authService, navigationService);
         RegisterNavigateCommand = new NavigateCommand<RegisterNamePageViewModel>(navigationService);
     }
     

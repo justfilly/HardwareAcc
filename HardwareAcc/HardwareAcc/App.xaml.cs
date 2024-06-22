@@ -1,15 +1,16 @@
 ﻿using System;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Windows;
 using HardwareAcc.Services.Auth;
 using HardwareAcc.Services.DBConnection;
 using HardwareAcc.Services.Navigation;
 using HardwareAcc.Services.ViewLocator;
 using HardwareAcc.ViewModels;
-using HardwareAcc.ViewModels.Pages;
 using HardwareAcc.Views;
-using HardwareAcc.Views.Pages;
 using HardwareAcc.Services.Repositories;
+using HardwareAcc.ViewModels.LoginRegister;
+using HardwareAcc.Views.LoginRegister;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -62,6 +63,7 @@ namespace HardwareAcc
             viewLocator.Register<RegisterNamePageViewModel, RegisterNamePageView>();
             viewLocator.Register<RegisterContactInfoPageViewModel, RegisterContactInfoPageView>();
             viewLocator.Register<RegisterCredentialsPageViewModel, RegisterCredentialsPageView>();
+            viewLocator.Register<AccountingPageViewModel, AccountingPageView>();
         }
         
         private void RegisterServices(IServiceCollection serviceCollection, IConfiguration configuration)
@@ -90,6 +92,9 @@ namespace HardwareAcc
             
             serviceCollection.AddSingleton<RegisterCredentialsPageView>();
             serviceCollection.AddSingleton<RegisterCredentialsPageViewModel>();
+            
+            serviceCollection.AddSingleton<AccountingPageView>();
+            serviceCollection.AddSingleton<AccountingPageViewModel>();
         }
     }
 }

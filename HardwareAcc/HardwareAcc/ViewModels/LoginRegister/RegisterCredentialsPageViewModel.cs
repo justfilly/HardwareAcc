@@ -1,7 +1,7 @@
 using HardwareAcc.Commands;
 using HardwareAcc.Services.Navigation;
 
-namespace HardwareAcc.ViewModels.Pages;
+namespace HardwareAcc.ViewModels.LoginRegister;
 
 public class RegisterCredentialsPageViewModel : BaseViewModel
 {
