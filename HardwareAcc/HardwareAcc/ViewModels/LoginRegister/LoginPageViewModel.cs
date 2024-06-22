@@ -28,6 +28,18 @@ public class LoginPageViewModel : BaseViewModel
         }
     }
     
+    private bool _isLoginValid;
+    public bool IsLoginValid
+    {
+        get => _isLoginValid;
+
+        set
+        {
+            _isLoginValid = value;
+            OnPropertyChanged(nameof(IsLoginValid));
+        }
+    }
+    
     private string _password = "";
     public string Password
     {
@@ -40,20 +52,15 @@ public class LoginPageViewModel : BaseViewModel
         }
     }
 
-    private bool _isValidLogin;
-    public bool IsValidLogin
+    private bool _isPasswordValid;
+    public bool IsPasswordValid
     {
-        get
-        {
-            Debug.WriteLine(_isValidLogin);
-            return _isValidLogin;
-        }
-
+        get => _isPasswordValid;
+    
         set
         {
-            Debug.WriteLine(value);
-            _isValidLogin = value;
-            OnPropertyChanged(nameof(IsValidLogin));
+            _isPasswordValid = value;
+            OnPropertyChanged(nameof(IsPasswordValid));
         }
     }
 }

@@ -20,11 +20,14 @@ public class LoginCommand : BaseCommand
 
     public override void Execute(object? parameter)
     {
-        bool isValid = _authService.ValidateCredentialsAsync(_loginPageViewModel.Login, _loginPageViewModel.Password).Result;
-
-        if (isValid)
+        if (_loginPageViewModel.IsLoginValid == true && _loginPageViewModel.IsPasswordValid == true)
         {
-            _navigationService.Navigate<AccountingPageViewModel>();
+            bool isAuthenticated = _authService.ValidateCredentialsAsync(_loginPageViewModel.Login, _loginPageViewModel.Password).Result;
+
+            if (isAuthenticated)
+            {
+                _navigationService.Navigate<AccountingPageViewModel>();
+            }
         }
     }
 }
