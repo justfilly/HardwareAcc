@@ -18,19 +18,6 @@ namespace HardwareAcc
 {
     public partial class App
     {
-        private async void Test()
-        {
-            /*IUserRepository userRepository = _serviceProvider.GetRequiredService<IUserRepository>();
-
-            userRepository.GetUserByLoginAsync("gege");
-            userRepository.GetUserByLoginAsync("hweb");*/
-            
-            IAuthService authService = _serviceProvider.GetRequiredService<IAuthService>();
-
-            await authService.ValidateCredentialsAsync("gewgw", "15125");
-            await authService.ValidateCredentialsAsync("gewgw", "15125");
-        }
-
         private IServiceProvider? _serviceProvider;
         
         protected override void OnStartup(StartupEventArgs e)
@@ -49,8 +36,6 @@ namespace HardwareAcc
             loginRegisterWindow.DataContext = _serviceProvider.GetRequiredService<MainWindowViewModel>();
             loginRegisterWindow.Show();
             _serviceProvider.GetRequiredService<INavigationService>().Navigate<LoginPageViewModel>();
-            
-            //Test();
         }
 
         protected override void OnExit(ExitEventArgs e)

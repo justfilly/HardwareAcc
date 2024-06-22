@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using HardwareAcc.Commands;
 using HardwareAcc.Services.Auth;
 using HardwareAcc.Services.Navigation;
@@ -16,7 +15,7 @@ public class LoginPageViewModel : BaseViewModel
     public LoginCommand LoginCommand { get; }
     public NavigateCommand<RegisterNamePageViewModel> RegisterNavigateCommand { get; }
     
-    private string _login = "";
+    private string _login = "ponychek";
     public string Login
     {
         get => _login;
@@ -40,7 +39,7 @@ public class LoginPageViewModel : BaseViewModel
         }
     }
     
-    private string _password = "";
+    private string _password = "12345678";
     public string Password
     {
         get => _password;
