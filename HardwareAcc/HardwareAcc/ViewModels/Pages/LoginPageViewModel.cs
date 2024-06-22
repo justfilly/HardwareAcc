@@ -1,5 +1,6 @@
+using System.Diagnostics;
 using HardwareAcc.Commands;
-using HardwareAcc.Services.AuthService;
+using HardwareAcc.Services.Auth;
 using HardwareAcc.Services.Navigation;
 
 namespace HardwareAcc.ViewModels.Pages;
@@ -36,6 +37,23 @@ public class LoginPageViewModel : BaseViewModel
         {
             _password = value;
             OnPropertyChanged(nameof(Password));
+        }
+    }
+
+    private bool _isValidLogin;
+    public bool IsValidLogin
+    {
+        get
+        {
+            Debug.WriteLine(_isValidLogin);
+            return _isValidLogin;
+        }
+
+        set
+        {
+            Debug.WriteLine(value);
+            _isValidLogin = value;
+            OnPropertyChanged(nameof(IsValidLogin));
         }
     }
 }

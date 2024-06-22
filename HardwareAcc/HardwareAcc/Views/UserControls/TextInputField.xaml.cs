@@ -1,57 +1,33 @@
-using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Input;
-using System.Windows.Media;
-using HardwareAcc.Commands;
 
 namespace HardwareAcc.Views.UserControls;
 
-public partial class PasswordInputField
+public partial class TextInputField
 {
     private readonly Binding _textBinding;
-    public bool PasswordVisibility { get; set; }
-    
-    public PasswordInputField()
+    public TextInputField()
     {
         InitializeComponent();
         
         ValidationRules = new ObservableCollection<ValidationRule>();
         
-        _textBinding = BindingOperations.GetBinding(PasswordTextBox, TextBox.TextProperty)!;
+        _textBinding = BindingOperations.GetBinding(TextBox, TextBox.TextProperty)!;
         ValidationRules.CollectionChanged += ValidationRules_CollectionChanged!;
         Unloaded += TextInputField_Unloaded; 
-        
-        FontFamily passwordFont = (FontFamily)FindResource("Font_Password");
-        FontFamily normalFont = (FontFamily)FindResource("Font_Inter");
-        PasswordTextBox.FontFamily = passwordFont;
-        
-        Uri hidePasswordIconUri = new("/Resources/Icons/hide_password.svg", UriKind.Relative);
-        Uri showPasswordIconUri = new("/Resources/Icons/show_password.svg", UriKind.Relative);
-        TogglePasswordVisibilityIcon.Source = showPasswordIconUri;
-        
-        TogglePasswordVisibilityCommand = new TogglePasswordVisibilityCommand(this,
-            PasswordTextBox,
-            passwordFont,
-            normalFont,
-            TogglePasswordVisibilityIcon,
-            hidePasswordIconUri,
-            showPasswordIconUri);
     }
-
-    public TogglePasswordVisibilityCommand TogglePasswordVisibilityCommand { get; }
-
+    
     public static readonly DependencyProperty InputTextDependencyProperty =
         DependencyProperty.Register(
-            name:nameof(PasswordText),
+            name:nameof(InputText),
             propertyType:typeof(string),
-            ownerType:typeof(PasswordInputField),
+            ownerType:typeof(TextInputField),
             new PropertyMetadata(string.Empty));
-
-    public string PasswordText
+    
+    public string InputText
     {
         get => (string)GetValue(InputTextDependencyProperty);
         set => SetValue(InputTextDependencyProperty, value);
@@ -61,7 +37,7 @@ public partial class PasswordInputField
         DependencyProperty.Register(
             name: nameof(LabelText),
             propertyType: typeof(string),
-            ownerType: typeof(PasswordInputField),
+            ownerType: typeof(TextInputField),
             new PropertyMetadata(string.Empty));
 
     public string LabelText
@@ -69,21 +45,12 @@ public partial class PasswordInputField
         get => (string)GetValue(LabelTextDependencyProperty);
         set => SetValue(LabelTextDependencyProperty, value);
     }
-    
-    private void HandleCanExecute(object sender, CanExecuteRoutedEventArgs e)
-    {
-        if ( e.Command == ApplicationCommands.Cut || e.Command == ApplicationCommands.Copy) 
-        {
-            e.CanExecute = PasswordVisibility;
-            e.Handled = true;
-        }
-    }
-    
+
     public static readonly DependencyProperty HasErrorsDependencyProperty =
         DependencyProperty.Register(
             name: nameof(IsValid),
             propertyType: typeof(bool),
-            ownerType: typeof(PasswordInputField),
+            ownerType: typeof(TextInputField),
             new PropertyMetadata(false));
 
     public bool IsValid
@@ -92,22 +59,21 @@ public partial class PasswordInputField
         set => SetValue(HasErrorsDependencyProperty, value);
     }
 
-
-    private void PasswordTextBox_OnTextChanged(object sender, TextChangedEventArgs e)
+    private void TextBox_OnTextChanged(object sender, TextChangedEventArgs e)
     {
-        IsValid = !Validation.GetHasError(PasswordTextBox);
+        IsValid = !Validation.GetHasError(TextBox);
 
-        if (Validation.GetErrors(PasswordTextBox).Count > 0)
-            ErrorLabel.Content = (string)Validation.GetErrors(PasswordTextBox)[0].ErrorContent;
+        if (Validation.GetErrors(TextBox).Count > 0)
+            ErrorLabel.Content = (string)Validation.GetErrors(TextBox)[0].ErrorContent;
         else
             ErrorLabel.Content = string.Empty;
     }
-    
+
     public static readonly DependencyProperty ValidationRulesProperty =
         DependencyProperty.Register(
             nameof(ValidationRules), 
             typeof(ObservableCollection<ValidationRule>), 
-            typeof(PasswordInputField), 
+            typeof(TextInputField), 
             new PropertyMetadata(null));
     
     public ObservableCollection<ValidationRule> ValidationRules

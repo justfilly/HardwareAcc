@@ -5,10 +5,11 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:userControls="clr-namespace:HardwareAcc.Views.UserControls"
       xmlns:pages="clr-namespace:HardwareAcc.ViewModels.Pages"
+      xmlns:validationRules="clr-namespace:HardwareAcc.ValidationRules"
       mc:Ignorable="d"
       d:DesignWidth="1920" d:DesignHeight="1010"
       Title="HardwareAcc"
-      Style="{StaticResource GlobalStyle_Page}" 
+      Style="{StaticResource Style_Page}" 
       d:DataContext="{d:DesignInstance pages:LoginPageViewModel}">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -26,17 +27,28 @@
                            FontSize="32" FontWeight="Bold" TextAlignment="Center" 
                            Foreground="{StaticResource Color_TitleBlack}">
                 </TextBlock>
-            
-                <userControls:InputField 
-                    LabelText="Username"
-                    InputText="{Binding Username, Mode=TwoWay}"
+                
+                <userControls:TextInputField
+                    LabelText="Login"
+                    InputText="{Binding Login, Mode=TwoWay}"
+                    IsValid="{Binding IsValidLogin, Mode=TwoWay}"
                     Margin="0, 32, 0, 0">
-                </userControls:InputField>
-
+                    <userControls:TextInputField.ValidationRules>
+                        <validationRules:NotEmptyValidationRule FieldName="Login"/>
+                        <validationRules:LengthValidationRule FieldName="Login" MinLength="5" MaxLength="50"/>
+                        <validationRules:LoginRegexValidationRule/>
+                    </userControls:TextInputField.ValidationRules>
+                </userControls:TextInputField>
+                
                 <userControls:PasswordInputField 
                     LabelText="Password" 
                     PasswordText="{Binding Password, Mode=TwoWay}"
                     Margin="0, 16, 0, 0">
+                    <userControls:PasswordInputField.ValidationRules>
+                        <validationRules:NotEmptyValidationRule FieldName="Password"/>
+                        <validationRules:LengthValidationRule FieldName="Password" MinLength="8" MaxLength="60"/>
+                        <validationRules:PasswordValidationRule/>
+                    </userControls:PasswordInputField.ValidationRules>
                 </userControls:PasswordInputField>
 
                 <Button Command="{Binding LoginCommand}" 
@@ -55,7 +67,6 @@
                         <Run TextDecorations="Underline" Foreground="{StaticResource Color_Neutral}">
                             Create one!
                         </Run>
-
                     </Hyperlink>
                 </TextBlock>
             </StackPanel>

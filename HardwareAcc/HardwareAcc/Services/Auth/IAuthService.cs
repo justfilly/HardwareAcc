@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace HardwareAcc.Services.AuthService;
+namespace HardwareAcc.Services.Auth;
 
 public interface IAuthService
 {

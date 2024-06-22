@@ -1,0 +1,21 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    
+    <Style TargetType="{x:Type Window}" x:Key="Style_Window">
+        <Setter Property="FontFamily" Value="{StaticResource Font_Inter}" />
+    </Style>
+    
+    <Style TargetType="{x:Type Page}" x:Key="Style_Page">
+        <Setter Property="FontFamily" Value="{StaticResource Font_Inter}" />
+    </Style>
+    
+    <ControlTemplate x:Key="Template_ValidationError">
+        <StackPanel>
+            <Border BorderBrush="Blue" BorderThickness="1">
+                <AdornedElementPlaceholder/>
+            </Border>
+            <TextBlock Foreground="Blue" FontSize="12" Text="{Binding [0].ErrorContent}"/>
+        </StackPanel>
+    </ControlTemplate>
+</ResourceDictionary>

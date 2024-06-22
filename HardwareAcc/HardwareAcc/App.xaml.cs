@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Windows;
-using HardwareAcc.Services.DBConnectionService;
-using HardwareAcc.Services.AuthService;
+using HardwareAcc.Services.Auth;
+using HardwareAcc.Services.DBConnection;
 using HardwareAcc.Services.Navigation;
 using HardwareAcc.Services.ViewLocator;
 using HardwareAcc.ViewModels;

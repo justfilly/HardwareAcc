@@ -2,7 +2,7 @@ using System.Data;
 using Microsoft.Extensions.Configuration;
 using MySqlConnector;
 
-namespace HardwareAcc.Services.DBConnectionService;
+namespace HardwareAcc.Services.DBConnection;
 
 public sealed class DBConnectionService : IDBConnectionService
 {
