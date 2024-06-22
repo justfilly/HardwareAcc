@@ -6,6 +6,7 @@
       xmlns:pages="clr-namespace:HardwareAcc.ViewModels.Pages"
       xmlns:userControls="clr-namespace:HardwareAcc.Views.UserControls"
       xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
+      xmlns:validationRules="clr-namespace:HardwareAcc.ValidationRules"
       mc:Ignorable="d"
       d:DesignWidth="1920" d:DesignHeight="1010"
       Title="HardwareAcc"
@@ -42,12 +43,22 @@
                     LabelText="Email"
                     InputText="{Binding Email, Mode=TwoWay}"
                     Margin="0, 32, 0, 0">
+                    <userControls:TextInputField.ValidationRules>
+                        <validationRules:NotEmptyValidationRule FieldName="Email"/>
+                        <validationRules:LengthValidationRule FieldName="Email" MinLength="5" MaxLength="100"/>
+                        <validationRules:EmailValidationRule></validationRules:EmailValidationRule>
+                    </userControls:TextInputField.ValidationRules>
                 </userControls:TextInputField>
 
                 <userControls:TextInputField 
                     LabelText="Phone number" 
                     InputText="{Binding PhoneNumber, Mode=TwoWay}"
                     Margin="0, 16, 0, 0">
+                    <userControls:TextInputField.ValidationRules>
+                        <validationRules:NotEmptyValidationRule FieldName="Phone number"/>
+                        <validationRules:LengthValidationRule FieldName="Phone number" MinLength="9" MaxLength="15"/>
+                        <validationRules:PhoneNumberValidationRule/>
+                    </userControls:TextInputField.ValidationRules>
                 </userControls:TextInputField>
                 
 
