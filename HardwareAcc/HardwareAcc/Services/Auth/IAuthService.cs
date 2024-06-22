@@ -10,6 +10,6 @@ public interface IAuthService
     void LogOut();
     
     Task RegisterAsync(User user);
-    Task<bool> ValidateRegisterCredentialsAsync(string login, string? email, string? phoneNumber);
+    Task<bool> ValidateRegisterCredentialsAsync(string login, string? email = "", string? phoneNumber = "");
 
 }
