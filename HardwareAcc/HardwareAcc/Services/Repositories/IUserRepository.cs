@@ -6,4 +6,5 @@ namespace HardwareAcc.Services.Repositories;
 public interface IUserRepository
 {
     Task<User?> GetUserByLoginAsync(string login);
+    Task AddUserAsync(User user);
 }

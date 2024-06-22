@@ -1,14 +1,22 @@
 using HardwareAcc.Commands;
+using HardwareAcc.Services.Auth;
 using HardwareAcc.Services.Navigation;
 
 namespace HardwareAcc.ViewModels.LoginRegister;
 
 public class RegisterCredentialsPageViewModel : BaseViewModel
 {
-    public RegisterCredentialsPageViewModel(INavigationService navigationService)
+    public RegisterCredentialsPageViewModel(INavigationService navigationService,
+        IAuthService authService,
+        RegisterNamePageViewModel registerNamePageViewModel,
+        RegisterContactInfoPageViewModel registerContactInfoPageViewModel)
     {
         RegisterContactInfoNavigateCommand = new NavigateCommand<RegisterContactInfoPageViewModel>(navigationService);
-        RegisterCommand = new RegisterCommand();
+        RegisterCommand = new RegisterCommand(authService,
+            registerNamePageViewModel,
+            registerContactInfoPageViewModel,
+            this,
+            navigationService);
     }
     
     public NavigateCommand<RegisterContactInfoPageViewModel> RegisterContactInfoNavigateCommand { get; }
