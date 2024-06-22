@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using HardwareAcc.Models;
 using HardwareAcc.Services.DBConnection;
@@ -48,8 +49,32 @@ public class UserRepository : IUserRepository
         return null;
     }
 
-    public Task AddUserAsync(User user)
+    public async Task AddUserAsync(User user)
     {
-        throw new System.NotImplementedException();
+        await using MySqlConnection connection = _dbConnectionService.GetConnection();
+
+        await using MySqlCommand command = connection.CreateCommand();
+        command.CommandText = @"
+                INSERT INTO hardwareacc.users (login, password, role_id, email, phone_number, first_name, second_name, patronymic)
+                VALUES (@login, @password, @role_id, @Email, @PhoneNumber, @FirstName, @SecondName, @Patronymic)";
+
+        command.Parameters.AddWithValue("@login", user.Login);
+        command.Parameters.AddWithValue("@password", user.Password);
+        command.Parameters.AddWithValue("@role_id", user.RoleId);
+        command.Parameters.AddWithValue("@FirstName", user.FirstName);
+        command.Parameters.AddWithValue("@SecondName", user.SecondName);
+        command.Parameters.AddWithValue("@Patronymic", user.Patronymic);
+
+        if (string.IsNullOrEmpty(user.Email))
+            command.Parameters.AddWithValue("@Email", DBNull.Value);
+        else
+            command.Parameters.AddWithValue("@Email", user.Email);
+
+        if (string.IsNullOrEmpty(user.PhoneNumber))
+            command.Parameters.AddWithValue("@PhoneNumber", DBNull.Value);
+        else
+            command.Parameters.AddWithValue("@PhoneNumber", user.PhoneNumber);
+
+        await command.ExecuteNonQueryAsync();
     }
 }
