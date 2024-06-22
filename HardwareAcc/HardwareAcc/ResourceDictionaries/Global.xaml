@@ -2,11 +2,11 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     
     
-    <Style TargetType="{x:Type Window}" x:Key="Style_Window">
+    <Style TargetType="{x:Type Window}" x:Key="Style_BaseWindow">
         <Setter Property="FontFamily" Value="{StaticResource Font_Inter}" />
     </Style>
     
-    <Style TargetType="{x:Type Page}" x:Key="Style_Page">
+    <Style TargetType="{x:Type Page}" x:Key="Style_BasePage">
         <Setter Property="FontFamily" Value="{StaticResource Font_Inter}" />
     </Style>
     

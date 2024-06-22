@@ -1,6 +1,6 @@
 using System.Windows.Controls;
 
-namespace HardwareAcc.Views.Pages;
+namespace HardwareAcc.Views.LoginRegister;
 
 public partial class RegisterCredentialsPageView : Page
 {

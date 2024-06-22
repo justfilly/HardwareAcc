@@ -1,6 +1,4 @@
-using HardwareAcc.ValidationRules;
-
-namespace HardwareAcc.Views.Pages;
+namespace HardwareAcc.Views.LoginRegister;
 
 public partial class LoginPageView
 {

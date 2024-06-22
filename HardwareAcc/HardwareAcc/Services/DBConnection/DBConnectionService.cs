@@ -7,7 +7,6 @@ namespace HardwareAcc.Services.DBConnection;
 public sealed class DBConnectionService : IDBConnectionService
 {
     private readonly string? _connectionString;
-    private MySqlConnection? _connection;
     
     public DBConnectionService(IConfiguration configuration)
     {
@@ -16,14 +15,11 @@ public sealed class DBConnectionService : IDBConnectionService
 
     public MySqlConnection GetConnection()
     {
-        _connection ??= new MySqlConnection(_connectionString);
-        
-        if (_connection.State != ConnectionState.Open) 
-            _connection.Open();
-        
-        return _connection;
+        MySqlConnection connection = new(_connectionString);
+        if (connection.State != ConnectionState.Open)
+            connection.Open();
+
+        return connection;
     }
 
-    public void Dispose() => 
-        _connection?.Dispose();
 }
