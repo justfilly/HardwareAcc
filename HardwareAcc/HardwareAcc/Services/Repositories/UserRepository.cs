@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using HardwareAcc.Models;
-using HardwareAcc.Services.DBConnectionService;
+using HardwareAcc.Services.DBConnection;
 using MySqlConnector;
 
 namespace HardwareAcc.Services.Repositories;

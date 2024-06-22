@@ -1,8 +1,7 @@
 using System;
-using System.Threading.Tasks;
 using MySqlConnector;
 
-namespace HardwareAcc.Services.DBConnectionService;
+namespace HardwareAcc.Services.DBConnection;
 
 public interface IDBConnectionService : IDisposable
 {

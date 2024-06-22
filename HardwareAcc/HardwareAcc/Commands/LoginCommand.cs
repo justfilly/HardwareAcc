@@ -1,4 +1,4 @@
-using HardwareAcc.Services.AuthService;
+using HardwareAcc.Services.Auth;
 using HardwareAcc.ViewModels.Pages;
 
 namespace HardwareAcc.Commands;

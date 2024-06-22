@@ -1,5 +1,4 @@
 using System.Globalization;
-using System.Text.RegularExpressions;
 using System.Windows.Controls;
 
 namespace HardwareAcc.ValidationRules;
@@ -10,11 +9,9 @@ public class PhoneNumberValidationRule : ValidationRule
 
     public override ValidationResult Validate(object value, CultureInfo cultureInfo)
     {
-        string input = (value as string)!;
+        string input = value as string ?? "";
 
-        Regex regex = new (@"^\+?\d{1,3}[-\s]?\d{3,}$");
-
-        if (!regex.IsMatch(input))
+        if (RegexProvider.PhoneNumber().IsMatch(input) == false)
         {
             return new ValidationResult(false, $"{FieldName} is not in a valid format");
         }

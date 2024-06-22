@@ -12,7 +12,7 @@ public class LengthValidationRule : ValidationRule
     
     public override ValidationResult Validate(object value, CultureInfo cultureInfo)
     {
-        string input = (value as string)!;
+        string input = value as string ?? "";
 
         string pattern = $@"^[\s\S]{{{MinLength},{MaxLength}}}$";
         Regex regex = new(pattern);

@@ -1,6 +1,6 @@
 using System.Diagnostics;
 using HardwareAcc.Commands;
-using HardwareAcc.Services.AuthService;
+using HardwareAcc.Services.Auth;
 using HardwareAcc.Services.Navigation;
 
 namespace HardwareAcc.ViewModels.Pages;

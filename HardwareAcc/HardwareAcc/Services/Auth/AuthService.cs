@@ -1,9 +1,8 @@
-using System;
 using System.Threading.Tasks;
 using HardwareAcc.Models;
 using HardwareAcc.Services.Repositories;
 
-namespace HardwareAcc.Services.AuthService;
+namespace HardwareAcc.Services.Auth;
 
 public class AuthService : IAuthService
 {
