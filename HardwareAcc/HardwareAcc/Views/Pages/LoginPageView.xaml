@@ -36,13 +36,19 @@
                     <userControls:TextInputField.ValidationRules>
                         <validationRules:NotEmptyValidationRule FieldName="Login"/>
                         <validationRules:LengthValidationRule FieldName="Login" MinLength="5" MaxLength="50"/>
+                        <validationRules:LoginRegexValidationRule/>
                     </userControls:TextInputField.ValidationRules>
                 </userControls:TextInputField>
-
+                
                 <userControls:PasswordInputField 
                     LabelText="Password" 
                     PasswordText="{Binding Password, Mode=TwoWay}"
                     Margin="0, 16, 0, 0">
+                    <userControls:PasswordInputField.ValidationRules>
+                        <validationRules:NotEmptyValidationRule FieldName="Password"/>
+                        <validationRules:LengthValidationRule FieldName="Password" MinLength="8" MaxLength="60"/>
+                        <validationRules:PasswordValidationRule/>
+                    </userControls:PasswordInputField.ValidationRules>
                 </userControls:PasswordInputField>
 
                 <Button Command="{Binding LoginCommand}" 
@@ -61,7 +67,6 @@
                         <Run TextDecorations="Underline" Foreground="{StaticResource Color_Neutral}">
                             Create one!
                         </Run>
-
                     </Hyperlink>
                 </TextBlock>
             </StackPanel>

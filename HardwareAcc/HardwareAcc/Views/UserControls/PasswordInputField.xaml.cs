@@ -1,5 +1,9 @@
 using System;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using HardwareAcc.Commands;
@@ -8,22 +12,29 @@ namespace HardwareAcc.Views.UserControls;
 
 public partial class PasswordInputField
 {
+    private readonly Binding _textBinding;
     public bool PasswordVisibility { get; set; }
     
     public PasswordInputField()
     {
         InitializeComponent();
         
+        ValidationRules = new ObservableCollection<ValidationRule>();
+        
+        _textBinding = BindingOperations.GetBinding(PasswordTextBox, TextBox.TextProperty)!;
+        ValidationRules.CollectionChanged += ValidationRules_CollectionChanged!;
+        Unloaded += TextInputField_Unloaded; 
+        
         FontFamily passwordFont = (FontFamily)FindResource("Font_Password");
         FontFamily normalFont = (FontFamily)FindResource("Font_Inter");
-        PasswordInputBox.FontFamily = passwordFont;
+        PasswordTextBox.FontFamily = passwordFont;
         
         Uri hidePasswordIconUri = new("/Resources/Icons/hide_password.svg", UriKind.Relative);
         Uri showPasswordIconUri = new("/Resources/Icons/show_password.svg", UriKind.Relative);
         TogglePasswordVisibilityIcon.Source = showPasswordIconUri;
         
         TogglePasswordVisibilityCommand = new TogglePasswordVisibilityCommand(this,
-            PasswordInputBox,
+            PasswordTextBox,
             passwordFont,
             normalFont,
             TogglePasswordVisibilityIcon,
@@ -66,5 +77,59 @@ public partial class PasswordInputField
             e.CanExecute = PasswordVisibility;
             e.Handled = true;
         }
+    }
+    
+    public static readonly DependencyProperty HasErrorsDependencyProperty =
+        DependencyProperty.Register(
+            name: nameof(IsValid),
+            propertyType: typeof(bool),
+            ownerType: typeof(PasswordInputField),
+            new PropertyMetadata(false));
+
+    public bool IsValid
+    {
+        get => (bool)GetValue(HasErrorsDependencyProperty);
+        set => SetValue(HasErrorsDependencyProperty, value);
+    }
+
+
+    private void PasswordTextBox_OnTextChanged(object sender, TextChangedEventArgs e)
+    {
+        IsValid = !Validation.GetHasError(PasswordTextBox);
+
+        if (Validation.GetErrors(PasswordTextBox).Count > 0)
+            ErrorLabel.Content = (string)Validation.GetErrors(PasswordTextBox)[0].ErrorContent;
+        else
+            ErrorLabel.Content = string.Empty;
+    }
+    
+    public static readonly DependencyProperty ValidationRulesProperty =
+        DependencyProperty.Register(
+            nameof(ValidationRules), 
+            typeof(ObservableCollection<ValidationRule>), 
+            typeof(PasswordInputField), 
+            new PropertyMetadata(null));
+    
+    public ObservableCollection<ValidationRule> ValidationRules
+    {
+        get => (ObservableCollection<ValidationRule>)GetValue(ValidationRulesProperty);
+        set => SetValue(ValidationRulesProperty, value);
+    }
+    
+    private void ValidationRules_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e) => 
+        UpdateValidationRules();
+
+    private void UpdateValidationRules()
+    {
+        _textBinding.ValidationRules.Clear();        
+        
+        foreach (ValidationRule validationRule in ValidationRules) 
+            _textBinding.ValidationRules.Add(validationRule);
+    }
+    
+    private void TextInputField_Unloaded(object sender, RoutedEventArgs e)
+    {
+        ValidationRules.CollectionChanged -= ValidationRules_CollectionChanged!;
+        Unloaded -= TextInputField_Unloaded;
     }
 }

@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:pages="clr-namespace:HardwareAcc.ViewModels.Pages"
       xmlns:userControls="clr-namespace:HardwareAcc.Views.UserControls"
+      xmlns:validationRules="clr-namespace:HardwareAcc.ValidationRules"
       mc:Ignorable="d"
       d:DesignWidth="1920" d:DesignHeight="1010"
       Title="HardwareAcc"
@@ -31,18 +32,33 @@
                     LabelText="First Name"
                     InputText="{Binding FirstName, Mode=TwoWay}"
                     Margin="0, 32, 0, 0">
+                    <userControls:TextInputField.ValidationRules>
+                        <validationRules:NotEmptyValidationRule FieldName="First Name"/>
+                        <validationRules:LengthValidationRule FieldName="First Name" MinLength="2" MaxLength="50"/>
+                        <validationRules:LettersOnlyValidationRule FieldName="First Name"/>
+                    </userControls:TextInputField.ValidationRules>
                 </userControls:TextInputField>
 
                 <userControls:TextInputField 
                     LabelText="Second Name" 
                     InputText="{Binding SecondName, Mode=TwoWay}"
                     Margin="0, 16, 0, 0">
+                    <userControls:TextInputField.ValidationRules>
+                        <validationRules:NotEmptyValidationRule FieldName="Second Name"/>
+                        <validationRules:LengthValidationRule FieldName="Second Name" MinLength="2" MaxLength="50"/>
+                        <validationRules:LettersOnlyValidationRule FieldName="Second Name"/>
+                    </userControls:TextInputField.ValidationRules>
                 </userControls:TextInputField>
                 
                 <userControls:TextInputField 
                     LabelText="Patronymic" 
                     InputText="{Binding Patronymic, Mode=TwoWay}"
                     Margin="0, 16, 0, 0">
+                    <userControls:TextInputField.ValidationRules>
+                        <validationRules:NotEmptyValidationRule FieldName="Patronymic"/>
+                        <validationRules:LengthValidationRule FieldName="Patronymic" MinLength="2" MaxLength="50"/>
+                        <validationRules:LettersOnlyValidationRule FieldName="Patronymic"/>
+                    </userControls:TextInputField.ValidationRules>
                 </userControls:TextInputField>
 
                 <Button Command="{Binding RegisterContactInfoNavigateCommand}" 

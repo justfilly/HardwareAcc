@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:userControls="clr-namespace:HardwareAcc.Views.UserControls"
-             xmlns:validationRules="clr-namespace:HardwareAcc.ValidationRules"
              mc:Ignorable="d">
     
     <Grid DataContext="{Binding RelativeSource={RelativeSource AncestorType=userControls:TextInputField}}">
@@ -16,14 +15,14 @@
             </Label>
                 
             <Border CornerRadius="5" BorderThickness="1" BorderBrush="{StaticResource Color_InputFieldBorder}" >
-                <TextBox x:Name="TextBox" FontSize="14"
+                <TextBox x:Name="TextBox" 
+                         Text="{Binding InputText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                         FontSize="14"
                          Padding="10, 0, 0, 0"
                          VerticalContentAlignment="Center"
                          Height="30" Width="400" 
                          Background="Transparent" BorderThickness="0"
                          TextChanged="TextBox_OnTextChanged">
-                    <Binding Path="InputText" UpdateSourceTrigger="PropertyChanged" ValidatesOnDataErrors="True">
-                    </Binding>
                 </TextBox>    
             </Border>
             

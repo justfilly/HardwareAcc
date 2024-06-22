@@ -13,6 +13,8 @@ public partial class TextInputField
     {
         InitializeComponent();
         
+        ValidationRules = new ObservableCollection<ValidationRule>();
+        
         _textBinding = BindingOperations.GetBinding(TextBox, TextBox.TextProperty)!;
         ValidationRules.CollectionChanged += ValidationRules_CollectionChanged!;
         Unloaded += TextInputField_Unloaded; 
@@ -72,7 +74,7 @@ public partial class TextInputField
             nameof(ValidationRules), 
             typeof(ObservableCollection<ValidationRule>), 
             typeof(TextInputField), 
-            new PropertyMetadata(new ObservableCollection<ValidationRule>()));
+            new PropertyMetadata(null));
     
     public ObservableCollection<ValidationRule> ValidationRules
     {

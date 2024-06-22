@@ -12,7 +12,7 @@ public class LettersOnlyValidationRule : ValidationRule
     {
         string input = (value as string)!;
         
-        Regex regex = new("^[a-zA-Z]+$");
+        Regex regex = new("^[a-zA-Zа-яА-Я]+$");
         
         if (regex.IsMatch(input) == false)
         {
