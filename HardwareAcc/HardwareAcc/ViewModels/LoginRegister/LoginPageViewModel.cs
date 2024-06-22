@@ -15,7 +15,7 @@ public class LoginPageViewModel : BaseViewModel
     public LoginCommand LoginCommand { get; }
     public NavigateCommand<RegisterNamePageViewModel> RegisterNavigateCommand { get; }
     
-    private string _login = "ponychek";
+    private string _login = "";
     public string Login
     {
         get => _login;
@@ -39,7 +39,7 @@ public class LoginPageViewModel : BaseViewModel
         }
     }
     
-    private string _password = "12345678";
+    private string _password = "";
     public string Password
     {
         get => _password;
