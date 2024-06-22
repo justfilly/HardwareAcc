@@ -34,6 +34,18 @@ public class RegisterCredentialsPageViewModel : BaseViewModel
         }
     }
     
+    private bool _isLoginValid;
+    public bool IsLoginValid
+    {
+        get => _isLoginValid;
+    
+        set
+        {
+            _isLoginValid = value;
+            OnPropertyChanged(nameof(IsLoginValid));
+        }
+    }
+    
     private string _password = "";
     public string Password
     {
@@ -46,6 +58,18 @@ public class RegisterCredentialsPageViewModel : BaseViewModel
         }
     }
     
+    private bool _isPasswordValid;
+    public bool IsPasswordValid
+    {
+        get => _isPasswordValid;
+    
+        set
+        {
+            _isPasswordValid = value;
+            OnPropertyChanged(nameof(IsPasswordValid));
+        }
+    }
+    
     private string _confirmPassword = "";
     public string ConfirmPassword
     {
@@ -55,6 +79,18 @@ public class RegisterCredentialsPageViewModel : BaseViewModel
         {
             _confirmPassword = value;
             OnPropertyChanged(nameof(ConfirmPassword));
+        }
+    }
+    
+    private bool _isConfirmPasswordValid;
+    public bool IsConfirmPasswordValid
+    {
+        get => _isConfirmPasswordValid;
+    
+        set
+        {
+            _isConfirmPasswordValid = value;
+            OnPropertyChanged(nameof(IsConfirmPasswordValid));
         }
     }
 }

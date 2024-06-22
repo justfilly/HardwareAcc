@@ -5,13 +5,16 @@ namespace HardwareAcc.ViewModels.LoginRegister;
 
 public class RegisterContactInfoPageViewModel : BaseViewModel
 {
+    private readonly INavigationService _navigationService;
+
     public RegisterContactInfoPageViewModel(INavigationService navigationService)
     {
-        RegisterCredentialsNavigateCommand = new NavigateCommand<RegisterCredentialsPageViewModel>(navigationService);
+        _navigationService = navigationService;
+        RegisterCredentialsNavigateCommand = new RelayCommand(NavigateToCredentialsPage, CanExecuteNavigateToCredentialsPage);
         RegisterNameNavigateCommand = new NavigateCommand<RegisterNamePageViewModel>(navigationService);
     }
-
-    public NavigateCommand<RegisterCredentialsPageViewModel> RegisterCredentialsNavigateCommand { get; }
+    
+    public RelayCommand RegisterCredentialsNavigateCommand { get; }
     public NavigateCommand<RegisterNamePageViewModel> RegisterNameNavigateCommand { get; }
     
     private string _email = "";
@@ -26,6 +29,18 @@ public class RegisterContactInfoPageViewModel : BaseViewModel
         }
     }
     
+    private bool _isEmailValid = true;
+    public bool IsEmailValid
+    {
+        get => _isEmailValid;
+    
+        set
+        {
+            _isEmailValid = value;
+            OnPropertyChanged(nameof(IsEmailValid));
+        }
+    }
+    
     private string _phoneNumber = "";
     public string PhoneNumber
     {
@@ -37,4 +52,25 @@ public class RegisterContactInfoPageViewModel : BaseViewModel
             OnPropertyChanged(nameof(PhoneNumber));
         }
     }
+    
+    private bool _isPhoneNumberValid = true;
+    public bool IsPhoneNumberValid
+    {
+        get => _isPhoneNumberValid;
+    
+        set
+        {
+            _isPhoneNumberValid = value;
+            OnPropertyChanged(nameof(IsPhoneNumberValid));
+        }
+    }
+    
+    private void NavigateToCredentialsPage() => 
+        _navigationService.Navigate<RegisterCredentialsPageViewModel>();
+
+    private bool CanExecuteNavigateToCredentialsPage()
+    {
+        return IsEmailValid && IsPhoneNumberValid;
+    }
+
 }

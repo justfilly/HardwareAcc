@@ -29,20 +29,32 @@ public class RegisterCommand : BaseCommand
     
     public override async void Execute(object? parameter)
     {
-       User user = new User
-       {
-           FirstName = _registerNamePageViewModel.FirstName,
-           SecondName = _registerNamePageViewModel.SecondName,
-           Patronymic = _registerNamePageViewModel.Patronymic,
+        bool isNameValid = 
+            _registerNamePageViewModel is { IsFirstNameValid: true, IsSecondNameValid: true, IsPatronymicValid: true };
+        
+        bool isContactInfoValid = 
+            _registerContactInfoPageViewModel is { IsEmailValid: true, IsPhoneNumberValid: true };
+        
+        bool isCredentialsValid = 
+            _registerCredentialsPageViewModel is { IsLoginValid: true, IsPasswordValid: true, IsConfirmPasswordValid: true };
+        
+        if (isNameValid && isContactInfoValid && isCredentialsValid)
+        {
+            User user = new User
+            {
+                FirstName = _registerNamePageViewModel.FirstName,
+                SecondName = _registerNamePageViewModel.SecondName,
+                Patronymic = _registerNamePageViewModel.Patronymic,
            
-           Login = _registerCredentialsPageViewModel.Login,
-           Password = _registerCredentialsPageViewModel.Password,
+                Login = _registerCredentialsPageViewModel.Login,
+                Password = _registerCredentialsPageViewModel.Password,
 
-           Email = _registerContactInfoPageViewModel.Email,
-           PhoneNumber = _registerContactInfoPageViewModel.PhoneNumber
-       };
+                Email = _registerContactInfoPageViewModel.Email,
+                PhoneNumber = _registerContactInfoPageViewModel.PhoneNumber
+            };
        
-       await _authService.RegisterAsync(user);
-       _navigationService.Navigate<LoginPageViewModel>();
+            await _authService.RegisterAsync(user);
+            _navigationService.Navigate<LoginPageViewModel>();
+        }
     }
 }
