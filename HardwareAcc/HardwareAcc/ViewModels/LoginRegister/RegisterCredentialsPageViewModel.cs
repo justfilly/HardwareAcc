@@ -1,14 +1,22 @@
 using HardwareAcc.Commands;
+using HardwareAcc.Services.Auth;
 using HardwareAcc.Services.Navigation;
 
 namespace HardwareAcc.ViewModels.LoginRegister;
 
 public class RegisterCredentialsPageViewModel : BaseViewModel
 {
-    public RegisterCredentialsPageViewModel(INavigationService navigationService)
+    public RegisterCredentialsPageViewModel(INavigationService navigationService,
+        IAuthService authService,
+        RegisterNamePageViewModel registerNamePageViewModel,
+        RegisterContactInfoPageViewModel registerContactInfoPageViewModel)
     {
         RegisterContactInfoNavigateCommand = new NavigateCommand<RegisterContactInfoPageViewModel>(navigationService);
-        RegisterCommand = new RegisterCommand();
+        RegisterCommand = new RegisterCommand(authService,
+            registerNamePageViewModel,
+            registerContactInfoPageViewModel,
+            this,
+            navigationService);
     }
     
     public NavigateCommand<RegisterContactInfoPageViewModel> RegisterContactInfoNavigateCommand { get; }
@@ -26,6 +34,18 @@ public class RegisterCredentialsPageViewModel : BaseViewModel
         }
     }
     
+    private bool _isLoginValid;
+    public bool IsLoginValid
+    {
+        get => _isLoginValid;
+    
+        set
+        {
+            _isLoginValid = value;
+            OnPropertyChanged(nameof(IsLoginValid));
+        }
+    }
+    
     private string _password = "";
     public string Password
     {
@@ -38,6 +58,18 @@ public class RegisterCredentialsPageViewModel : BaseViewModel
         }
     }
     
+    private bool _isPasswordValid;
+    public bool IsPasswordValid
+    {
+        get => _isPasswordValid;
+    
+        set
+        {
+            _isPasswordValid = value;
+            OnPropertyChanged(nameof(IsPasswordValid));
+        }
+    }
+    
     private string _confirmPassword = "";
     public string ConfirmPassword
     {
@@ -47,6 +79,18 @@ public class RegisterCredentialsPageViewModel : BaseViewModel
         {
             _confirmPassword = value;
             OnPropertyChanged(nameof(ConfirmPassword));
+        }
+    }
+    
+    private bool _isConfirmPasswordValid;
+    public bool IsConfirmPasswordValid
+    {
+        get => _isConfirmPasswordValid;
+    
+        set
+        {
+            _isConfirmPasswordValid = value;
+            OnPropertyChanged(nameof(IsConfirmPasswordValid));
         }
     }
 }

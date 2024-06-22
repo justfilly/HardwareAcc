@@ -5,14 +5,18 @@ namespace HardwareAcc.ViewModels.LoginRegister;
 
 public class RegisterNamePageViewModel : BaseViewModel
 {
+    private readonly INavigationService _navigationService;
+
     public RegisterNamePageViewModel(INavigationService navigationService)
     {
+        _navigationService = navigationService;
+        RegisterContactInfoNavigateCommand = 
+            new RelayCommand(NavigateToContactInfoPage, CanExecuteNavigateToContactInfoPage);
         
-        RegisterContactInfoNavigateCommand = new NavigateCommand<RegisterContactInfoPageViewModel>(navigationService);
         LoginNavigateCommand = new NavigateCommand<LoginPageViewModel>(navigationService);
     }
-
-    public NavigateCommand<RegisterContactInfoPageViewModel> RegisterContactInfoNavigateCommand { get; }
+    
+    public RelayCommand RegisterContactInfoNavigateCommand { get; }
     public NavigateCommand<LoginPageViewModel> LoginNavigateCommand { get; }
     
     private string _firstName = "";
@@ -27,6 +31,18 @@ public class RegisterNamePageViewModel : BaseViewModel
         }
     }
     
+    private bool _isFirstNameValid;
+    public bool IsFirstNameValid
+    {
+        get => _isFirstNameValid;
+    
+        set
+        {
+            _isFirstNameValid = value;
+            OnPropertyChanged(nameof(IsFirstNameValid));
+        }
+    }
+    
     private string _secondName = "";
     public string SecondName
     {
@@ -36,6 +52,18 @@ public class RegisterNamePageViewModel : BaseViewModel
         {
             _secondName = value;
             OnPropertyChanged(nameof(SecondName));
+        }
+    }
+    
+    private bool _isSecondNameValid;
+    public bool IsSecondNameValid
+    {
+        get => _isSecondNameValid;
+    
+        set
+        {
+            _isSecondNameValid = value;
+            OnPropertyChanged(nameof(IsSecondNameValid));
         }
     }
 
@@ -50,6 +78,22 @@ public class RegisterNamePageViewModel : BaseViewModel
             OnPropertyChanged(nameof(Patronymic));
         }
     }
+
+    private bool _isPatronymicValid;
+    public bool IsPatronymicValid
+    {
+        get => _isPatronymicValid;
     
+        set
+        {
+            _isPatronymicValid = value;
+            OnPropertyChanged(nameof(IsPatronymicValid));
+        }
+    }
     
+    private void NavigateToContactInfoPage() => 
+        _navigationService.Navigate<RegisterContactInfoPageViewModel>();
+
+    private bool CanExecuteNavigateToContactInfoPage() => 
+        IsFirstNameValid && IsSecondNameValid && IsPatronymicValid;
 }

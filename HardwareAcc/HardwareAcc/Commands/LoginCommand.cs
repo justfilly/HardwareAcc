@@ -22,10 +22,14 @@ public class LoginCommand : BaseCommand
     {
         if (_loginPageViewModel.IsLoginValid == true && _loginPageViewModel.IsPasswordValid == true)
         {
-            bool isAuthenticated = await _authService.ValidateCredentialsAsync(_loginPageViewModel.Login, _loginPageViewModel.Password);
+            string login = _loginPageViewModel.Login;
+            string password = _loginPageViewModel.Password;
+            
+            bool isLoginCredentialsValid = await _authService.ValidateLoginCredentialsAsync(login, password);
 
-            if (isAuthenticated)
+            if (isLoginCredentialsValid)
             {
+                await _authService.LogInAsync(login, password);
                 _navigationService.Navigate<AccountingPageViewModel>();
             }
         }

@@ -42,22 +42,22 @@
                 <userControls:TextInputField 
                     LabelText="Email"
                     InputText="{Binding Email, Mode=TwoWay}"
+                    IsValid="{Binding IsEmailValid, Mode=TwoWay}"
                     Margin="0, 32, 0, 0">
                     <userControls:TextInputField.ValidationRules>
-                        <validationRules:NotEmptyValidationRule FieldName="Email"/>
-                        <validationRules:LengthValidationRule FieldName="Email" MinLength="5" MaxLength="100"/>
-                        <validationRules:EmailValidationRule></validationRules:EmailValidationRule>
+                        <validationRules:LengthValidationRule FieldName="Email" MinLength="5" MaxLength="100" IgnoreEmpty="True"/>
+                        <validationRules:EmailValidationRule IgnoreEmpty="True"/>
                     </userControls:TextInputField.ValidationRules>
                 </userControls:TextInputField>
 
                 <userControls:TextInputField 
                     LabelText="Phone number" 
                     InputText="{Binding PhoneNumber, Mode=TwoWay}"
+                    IsValid="{Binding IsPhoneNumberValid, Mode=TwoWay}"
                     Margin="0, 16, 0, 0">
                     <userControls:TextInputField.ValidationRules>
-                        <validationRules:NotEmptyValidationRule FieldName="Phone number"/>
-                        <validationRules:LengthValidationRule FieldName="Phone number" MinLength="9" MaxLength="15"/>
-                        <validationRules:PhoneNumberValidationRule/>
+                        <validationRules:LengthValidationRule FieldName="Phone number" MinLength="9" MaxLength="15" IgnoreEmpty="True"/>
+                        <validationRules:PhoneNumberValidationRule IgnoreEmpty="True"/>
                     </userControls:TextInputField.ValidationRules>
                 </userControls:TextInputField>
                 

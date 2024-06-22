@@ -2,6 +2,7 @@
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows;
+using HardwareAcc.Commands;
 using HardwareAcc.Services.Auth;
 using HardwareAcc.Services.DBConnection;
 using HardwareAcc.Services.Navigation;
@@ -73,10 +74,10 @@ namespace HardwareAcc
             serviceCollection.AddSingleton<IServiceProvider>(_ => _serviceProvider!);
             
             serviceCollection.AddSingleton<IDBConnectionService, DBConnectionService>();
-            serviceCollection.AddScoped<IUserRepository, UserRepository>();
-            serviceCollection.AddScoped<IAuthService, AuthService>();
-            serviceCollection.AddScoped<IViewLocator, ViewLocator>();
-            serviceCollection.AddScoped<INavigationService, NavigationService>();
+            serviceCollection.AddSingleton<IUserRepository, UserRepository>();
+            serviceCollection.AddSingleton<IAuthService, AuthService>();
+            serviceCollection.AddSingleton<IViewLocator, ViewLocator>();
+            serviceCollection.AddSingleton<INavigationService, NavigationService>();
             
             serviceCollection.AddSingleton<MainWindowView>();
             serviceCollection.AddSingleton<MainWindowViewModel>();
