@@ -3,26 +3,89 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
       xmlns:viewModels="clr-namespace:HardwareAcc.ViewModels"
+      xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
       mc:Ignorable="d"
       Title="HardwareAcc"
       d:DesignWidth="1920" d:DesignHeight="1010"
       Style="{StaticResource Style_BasePage}"
       d:DataContext="{d:DesignInstance viewModels:AccountingPageViewModel}">
     <Grid>
-        <StackPanel Orientation="Horizontal">
-            <TextBlock FontSize="40" Text="Accounting"></TextBlock>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="160"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="0" Background="{StaticResource Color_Primary}">
+            <StackPanel Orientation="Horizontal">
+                <Button Command="{Binding MenuCommand}"
+                        Style="{StaticResource Button_Transparent}"
+                        Width="26" Height="26"
+                        VerticalAlignment="Top" HorizontalAlignment="Left"
+                        Margin="30, 30, 0, 0">
+                    <svgc:SvgViewbox Source="/Resources/Icons/menu_button.svg" Stretch="None" />
+                </Button>
             
-            <Button Command="{Binding RegisterContactInfoNavigateCommand}"
-                    Style="{StaticResource Button_Rounded}"
-                    Width="35" Height="35"
-                    Background="{StaticResource Color_BackButtonGray}" 
-                    BorderBrush="{StaticResource Color_BackButtonGray}"
-                    VerticalAlignment="Top" HorizontalAlignment="Left"
-                    Margin="15, 15, 15, 0">
-                <svgc:SvgViewbox Source="/Resources/Icons/back_button.svg" Stretch="None" />
-            </Button>
-        </StackPanel>
+                <TextBlock Text="Accounting" 
+                           FontSize="22" FontWeight="Medium" 
+                           Foreground="{StaticResource Color_White}"
+                           Margin="20, 30, 0, 0" >
+                </TextBlock>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="30, 0, 0, 0">
+                <Button Height="52"
+                        Padding="20,0"
+                        Background="{StaticResource Color_TabButtonPressed}"
+                        BorderThickness="0, 5, 0, 0" 
+                        BorderBrush="{StaticResource Color_TabButtonBorderPressed}">
+                    <TextBlock Text="HARDWARE"
+                               FontSize="14"
+                               Foreground="{StaticResource Color_White}">
+                    </TextBlock>
+                </Button>
+                
+                <Button Height="52"
+                        Padding="20,0"
+                        Background="Transparent"
+                        BorderThickness="0, 0, 0, 0" 
+                        BorderBrush="{StaticResource Color_TabButtonBorderPressed}">
+                    <TextBlock Text="USERS"
+                               FontSize="14"
+                               Foreground="{StaticResource Color_White}">
+                    </TextBlock>
+                </Button>
+                
+                <Button Style="{StaticResource Button_Tab}">
+                    <TextBlock Text="USERS"></TextBlock>
+                </Button>
+                
+                <Button Height="52"
+                        Padding="20,0"
+                        Background="Transparent"
+                        BorderThickness="0, 0, 0, 0" 
+                        BorderBrush="{StaticResource Color_TabButtonBorderPressed}">
+                    <TextBlock Text="AUDIENCES"
+                               FontSize="14"
+                               Foreground="{StaticResource Color_White}">
+                    </TextBlock>
+                </Button>
+                
+                <Button Height="52"
+                        Padding="20,0"
+                        Background="Transparent"
+                        BorderThickness="0, 0, 0, 0" 
+                        BorderBrush="{StaticResource Color_TabButtonBorderPressed}">
+                    <TextBlock Text="STATUSES"
+                               FontSize="14"
+                               Foreground="{StaticResource Color_White}">
+                    </TextBlock>
+                </Button>
+            </StackPanel>
+        </Grid>
+        
+        <Grid Grid.Row="1" Background="{StaticResource Color_BackgroundLightGray}">
+            <Frame x:Name="TabsFrame" NavigationUIVisibility="Hidden"/>
+        </Grid>
     </Grid>
 </Page>

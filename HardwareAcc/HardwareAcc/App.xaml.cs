@@ -36,7 +36,7 @@ namespace HardwareAcc
             MainWindowView loginRegisterWindow = _serviceProvider.GetRequiredService<MainWindowView>();
             loginRegisterWindow.DataContext = _serviceProvider.GetRequiredService<MainWindowViewModel>();
             loginRegisterWindow.Show();
-            _serviceProvider.GetRequiredService<INavigationService>().Navigate<LoginPageViewModel>();
+            _serviceProvider.GetRequiredService<INavigationService>().Navigate<AccountingPageViewModel>();
         }
 
         protected override void OnExit(ExitEventArgs e)

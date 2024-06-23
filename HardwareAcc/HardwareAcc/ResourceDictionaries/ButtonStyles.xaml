@@ -80,5 +80,24 @@
         <Setter Property="FontSize" Value="14"></Setter>
         <Setter Property="FontWeight" Value="Bold"></Setter>
     </Style>
+    
+    <Style x:Key="Button_Tab" TargetType="Button">
+        <Setter Property="Height" Value="52" />
+        <Setter Property="Padding" Value="20,0" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0,0,0,0" />
+        <Setter Property="BorderBrush" Value="{StaticResource Color_TabButtonBorderPressed}" />
+        
+        <Setter Property="TextBlock.FontSize" Value="14" />
+        <Setter Property="TextBlock.Foreground" Value="{StaticResource Color_White}" />
+        
+        <Style.Triggers>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{StaticResource Color_TabButtonPressed}" />
+                <Setter Property="BorderThickness" Value="0,5,0,0" />
+                <Setter Property="BorderBrush" Value="{StaticResource Color_TabButtonBorderPressed}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 
 </ResourceDictionary>
