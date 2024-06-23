@@ -1,5 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:userControls="clr-namespace:HardwareAcc.Views.UserControls">
     
     <Style x:Key="Button_Transparent" TargetType="Button">
         <Setter Property="Background" Value="Transparent"/>
@@ -83,20 +84,42 @@
     
     <Style x:Key="Button_Tab" TargetType="Button">
         <Setter Property="Height" Value="52" />
-        <Setter Property="Padding" Value="20,0" />
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderThickness" Value="0,0,0,0" />
         <Setter Property="BorderBrush" Value="{StaticResource Color_TabButtonBorderPressed}" />
         
-        <Setter Property="TextBlock.FontSize" Value="14" />
-        <Setter Property="TextBlock.Foreground" Value="{StaticResource Color_White}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}" 
+                            Background="{TemplateBinding Background}">
+                        
+                        <TextBlock Text="{Binding Text, RelativeSource={RelativeSource AncestorType=userControls:TabButton}}"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   Padding="20,0"
+                                   Foreground="{StaticResource Color_White}"
+                                   FontSize="14">
+                        </TextBlock>
+                    </Border>
+                    
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
         
         <Style.Triggers>
-            <Trigger Property="IsPressed" Value="True">
+            <DataTrigger Binding="{Binding IsTabActive, RelativeSource={RelativeSource AncestorType=userControls:TabButton}}" Value="True">
                 <Setter Property="Background" Value="{StaticResource Color_TabButtonPressed}" />
                 <Setter Property="BorderThickness" Value="0,5,0,0" />
-                <Setter Property="BorderBrush" Value="{StaticResource Color_TabButtonBorderPressed}" />
-            </Trigger>
+            </DataTrigger>
+            
+            <DataTrigger Binding="{Binding IsTabActive, RelativeSource={RelativeSource AncestorType=userControls:TabButton}}" Value="False">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="BorderThickness" Value="0,0,0,0" />
+            </DataTrigger>
         </Style.Triggers>
     </Style>
 

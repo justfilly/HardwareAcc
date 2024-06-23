@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:viewModels="clr-namespace:HardwareAcc.ViewModels"
       xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
+      xmlns:userControls="clr-namespace:HardwareAcc.Views.UserControls"
       mc:Ignorable="d"
       Title="HardwareAcc"
       d:DesignWidth="1920" d:DesignHeight="1010"
@@ -34,53 +35,29 @@
             </StackPanel>
             
             <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="30, 0, 0, 0">
-                <Button Height="52"
-                        Padding="20,0"
-                        Background="{StaticResource Color_TabButtonPressed}"
-                        BorderThickness="0, 5, 0, 0" 
-                        BorderBrush="{StaticResource Color_TabButtonBorderPressed}">
-                    <TextBlock Text="HARDWARE"
-                               FontSize="14"
-                               Foreground="{StaticResource Color_White}">
-                    </TextBlock>
-                </Button>
+                <userControls:TabButton 
+                    Command="{Binding HardwareTabCommand}"
+                    Text="HARDWARE"
+                    IsTabActive="{Binding IsHardwareTabActive}">
+                </userControls:TabButton>       
                 
-                <Button Height="52"
-                        Padding="20,0"
-                        Background="Transparent"
-                        BorderThickness="0, 0, 0, 0" 
-                        BorderBrush="{StaticResource Color_TabButtonBorderPressed}">
-                    <TextBlock Text="USERS"
-                               FontSize="14"
-                               Foreground="{StaticResource Color_White}">
-                    </TextBlock>
-                </Button>
+                <userControls:TabButton 
+                    Command="{Binding UsersTabCommand}"
+                    Text="USERS"
+                    IsTabActive="{Binding IsUsersTabActive}">
+                </userControls:TabButton>    
                 
-                <Button Style="{StaticResource Button_Tab}">
-                    <TextBlock Text="USERS"></TextBlock>
-                </Button>
+                <userControls:TabButton 
+                    Command="{Binding AudiencesTabCommand}"
+                    Text="AUDIENCES"
+                    IsTabActive="{Binding IsAudiencesTabActive}">
+                </userControls:TabButton>    
                 
-                <Button Height="52"
-                        Padding="20,0"
-                        Background="Transparent"
-                        BorderThickness="0, 0, 0, 0" 
-                        BorderBrush="{StaticResource Color_TabButtonBorderPressed}">
-                    <TextBlock Text="AUDIENCES"
-                               FontSize="14"
-                               Foreground="{StaticResource Color_White}">
-                    </TextBlock>
-                </Button>
-                
-                <Button Height="52"
-                        Padding="20,0"
-                        Background="Transparent"
-                        BorderThickness="0, 0, 0, 0" 
-                        BorderBrush="{StaticResource Color_TabButtonBorderPressed}">
-                    <TextBlock Text="STATUSES"
-                               FontSize="14"
-                               Foreground="{StaticResource Color_White}">
-                    </TextBlock>
-                </Button>
+                <userControls:TabButton 
+                    Command="{Binding StatusesTabCommand}"
+                    Text="STATUSES"
+                    IsTabActive="{Binding IsStatusesTabActive}">
+                </userControls:TabButton>    
             </StackPanel>
         </Grid>
         
