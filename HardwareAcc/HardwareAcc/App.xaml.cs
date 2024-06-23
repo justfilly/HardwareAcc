@@ -11,7 +11,9 @@ using HardwareAcc.ViewModels;
 using HardwareAcc.Views;
 using HardwareAcc.Services.Repositories;
 using HardwareAcc.ViewModels.LoginRegister;
+using HardwareAcc.ViewModels.Tabs;
 using HardwareAcc.Views.LoginRegister;
+using HardwareAcc.Views.Tabs;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -36,7 +38,7 @@ namespace HardwareAcc
             MainWindowView loginRegisterWindow = _serviceProvider.GetRequiredService<MainWindowView>();
             loginRegisterWindow.DataContext = _serviceProvider.GetRequiredService<MainWindowViewModel>();
             loginRegisterWindow.Show();
-            _serviceProvider.GetRequiredService<INavigationService>().Navigate<LoginPageViewModel>();
+            _serviceProvider.GetRequiredService<INavigationService>().Navigate<AccountingPageViewModel>();
         }
 
         protected override void OnExit(ExitEventArgs e)
@@ -65,6 +67,11 @@ namespace HardwareAcc
             viewLocator.Register<RegisterContactInfoPageViewModel, RegisterContactInfoPageView>();
             viewLocator.Register<RegisterCredentialsPageViewModel, RegisterCredentialsPageView>();
             viewLocator.Register<AccountingPageViewModel, AccountingPageView>();
+            
+            viewLocator.Register<HardwareTabPageViewModel, HardwareTabPageView>();
+            viewLocator.Register<UsersTabPageViewModel, UsersTabPageView>();
+            viewLocator.Register<AudiencesTabPageViewModel, AudiencesTabPageView>();
+            viewLocator.Register<StatusesTabPageViewModel, StatusesTabPageView>();
         }
         
         private void RegisterServices(IServiceCollection serviceCollection, IConfiguration configuration)
@@ -73,6 +80,7 @@ namespace HardwareAcc
 
             serviceCollection.AddSingleton<IServiceProvider>(_ => _serviceProvider!);
             
+            // Services.
             serviceCollection.AddSingleton<IDBConnectionService, DBConnectionService>();
             serviceCollection.AddSingleton<IUserRepository, UserRepository>();
             serviceCollection.AddSingleton<IAuthService, AuthService>();
@@ -82,6 +90,7 @@ namespace HardwareAcc
             serviceCollection.AddSingleton<MainWindowView>();
             serviceCollection.AddSingleton<MainWindowViewModel>();
 
+            // Pages.
             serviceCollection.AddSingleton<LoginPageView>();
             serviceCollection.AddSingleton<LoginPageViewModel>();
 
@@ -96,6 +105,19 @@ namespace HardwareAcc
             
             serviceCollection.AddSingleton<AccountingPageView>();
             serviceCollection.AddSingleton<AccountingPageViewModel>();
+            
+            // Tabs.
+            serviceCollection.AddSingleton<HardwareTabPageView>();
+            serviceCollection.AddSingleton<HardwareTabPageViewModel>();
+            
+            serviceCollection.AddSingleton<UsersTabPageView>();
+            serviceCollection.AddSingleton<UsersTabPageViewModel>();
+            
+            serviceCollection.AddSingleton<AudiencesTabPageView>();
+            serviceCollection.AddSingleton<AudiencesTabPageViewModel>();
+            
+            serviceCollection.AddSingleton<StatusesTabPageView>();
+            serviceCollection.AddSingleton<StatusesTabPageViewModel>();
         }
     }
 }

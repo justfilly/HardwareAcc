@@ -22,12 +22,18 @@ public class NavigationService : INavigationService
 
     public void Navigate<TViewModel>() where TViewModel : BaseViewModel
     {
+        Page view = GetPage<TViewModel>();
+        _mainWindowView.MainFrame.Content = view;
+    }
+
+    public Page GetPage<TViewModel>() where TViewModel : BaseViewModel
+    {
         TViewModel viewModel = _serviceProvider.GetRequiredService<TViewModel>();
         
         Type viewType = _viewLocator.GetViewType(viewModel.GetType());
         Page view = (Page)_serviceProvider.GetRequiredService(viewType);
         view.DataContext = viewModel;
         
-        _mainWindowView.MainFrame.Content = view;
+        return view;
     }
 }

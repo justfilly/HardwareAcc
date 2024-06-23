@@ -3,26 +3,68 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
       xmlns:viewModels="clr-namespace:HardwareAcc.ViewModels"
+      xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
+      xmlns:userControls="clr-namespace:HardwareAcc.Views.UserControls"
       mc:Ignorable="d"
       Title="HardwareAcc"
       d:DesignWidth="1920" d:DesignHeight="1010"
       Style="{StaticResource Style_BasePage}"
       d:DataContext="{d:DesignInstance viewModels:AccountingPageViewModel}">
     <Grid>
-        <StackPanel Orientation="Horizontal">
-            <TextBlock FontSize="40" Text="Accounting"></TextBlock>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="160"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="0" Background="{StaticResource Color_Primary}">
+            <StackPanel Orientation="Horizontal">
+                <Button Command="{Binding MenuCommand}"
+                        Style="{StaticResource Button_Transparent}"
+                        Width="22" Height="22"
+                        VerticalAlignment="Top" HorizontalAlignment="Left"
+                        Margin="30, 32, 0, 0">
+                    <svgc:SvgViewbox Source="/Resources/Icons/menu_button.svg" Stretch="None" />
+                </Button>
             
-            <Button Command="{Binding RegisterContactInfoNavigateCommand}"
-                    Style="{StaticResource Button_Rounded}"
-                    Width="35" Height="35"
-                    Background="{StaticResource Color_BackButtonGray}" 
-                    BorderBrush="{StaticResource Color_BackButtonGray}"
-                    VerticalAlignment="Top" HorizontalAlignment="Left"
-                    Margin="15, 15, 15, 0">
-                <svgc:SvgViewbox Source="/Resources/Icons/back_button.svg" Stretch="None" />
-            </Button>
-        </StackPanel>
+                <TextBlock Text="Accounting" 
+                           FontSize="22" FontWeight="Medium" 
+                           Foreground="{StaticResource Color_White}"
+                           Margin="20, 30, 0, 0" >
+                </TextBlock>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="30, 0, 0, 0">
+                <userControls:TabButton 
+                    x:Name="HardwareTabButton"
+                    Command="{Binding HardwareTabCommand}"
+                    Text="HARDWARE"
+                    IsTabActive="{Binding IsHardwareTabActive}">
+                </userControls:TabButton>       
+                
+                <userControls:TabButton 
+                    x:Name="UsersTabButton"
+                    Command="{Binding UsersTabCommand}"
+                    Text="USERS"
+                    IsTabActive="{Binding IsUsersTabActive}">
+                </userControls:TabButton>    
+                
+                <userControls:TabButton 
+                    Command="{Binding AudiencesTabCommand}"
+                    Text="AUDIENCES"
+                    IsTabActive="{Binding IsAudiencesTabActive}">
+                </userControls:TabButton>    
+                
+                <userControls:TabButton 
+                    Command="{Binding StatusesTabCommand}"
+                    Text="STATUSES"
+                    IsTabActive="{Binding IsStatusesTabActive}">
+                </userControls:TabButton>    
+            </StackPanel>
+        </Grid>
+        
+        <Grid Grid.Row="1">
+            <Frame x:Name="TabsFrame" Content="{Binding TabPage}" NavigationUIVisibility="Hidden"/>
+        </Grid>
     </Grid>
 </Page>
