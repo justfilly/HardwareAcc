@@ -7,7 +7,7 @@ namespace HardwareAcc.ViewModels;
 
 public class AccountingPageViewModel : BaseViewModel
 {
-    private INavigationService _navigationService;
+    private readonly INavigationService _navigationService;
     
     public AccountingPageViewModel(INavigationService navigationService)
     {
