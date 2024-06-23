@@ -1,21 +1,17 @@
-using System;
 using System.Windows.Controls;
 using HardwareAcc.Commands;
-using HardwareAcc.Services.ViewLocator;
+using HardwareAcc.Services.Navigation;
 using HardwareAcc.ViewModels.Tabs;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace HardwareAcc.ViewModels;
 
 public class AccountingPageViewModel : BaseViewModel
 {
-    private readonly IServiceProvider _serviceProvider;
-    private readonly IViewLocator _viewLocator;
+    private INavigationService _navigationService;
     
-    public AccountingPageViewModel(IServiceProvider serviceProvider, IViewLocator viewLocator)
+    public AccountingPageViewModel(INavigationService navigationService)
     {
-        _serviceProvider = serviceProvider;
-        _viewLocator = viewLocator;
+        _navigationService = navigationService;
         
         HardwareTabCommand = new RelayCommand(() =>
         {
@@ -46,6 +42,7 @@ public class AccountingPageViewModel : BaseViewModel
         });
         
         SwitchTab<HardwareTabPageViewModel>();
+        IsHardwareTabActive = true;
     }
     
     public RelayCommand HardwareTabCommand { get; }
@@ -116,12 +113,7 @@ public class AccountingPageViewModel : BaseViewModel
     
     private void SwitchTab<TViewModel>() where TViewModel : BaseViewModel
     {
-        TViewModel viewModel = _serviceProvider.GetRequiredService<TViewModel>();
-        
-        Type viewType = _viewLocator.GetViewType(viewModel.GetType());
-        Page view = (Page)_serviceProvider.GetRequiredService(viewType);
-        view.DataContext = viewModel;
-        
+        Page view = _navigationService.GetPage<TViewModel>();
         TabPage = view;
     }
 
