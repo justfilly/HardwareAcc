@@ -21,9 +21,9 @@
             <StackPanel Orientation="Horizontal">
                 <Button Command="{Binding MenuCommand}"
                         Style="{StaticResource Button_Transparent}"
-                        Width="26" Height="26"
+                        Width="22" Height="22"
                         VerticalAlignment="Top" HorizontalAlignment="Left"
-                        Margin="30, 30, 0, 0">
+                        Margin="30, 32, 0, 0">
                     <svgc:SvgViewbox Source="/Resources/Icons/menu_button.svg" Stretch="None" />
                 </Button>
             
@@ -61,8 +61,8 @@
             </StackPanel>
         </Grid>
         
-        <Grid Grid.Row="1" Background="{StaticResource Color_BackgroundLightGray}">
-            <Frame x:Name="TabsFrame" NavigationUIVisibility="Hidden"/>
+        <Grid Grid.Row="1">
+            <Frame x:Name="TabsFrame" Content="{Binding TabPage}" NavigationUIVisibility="Hidden"/>
         </Grid>
     </Grid>
 </Page>
