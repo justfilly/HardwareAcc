@@ -36,12 +36,14 @@
             
             <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="30, 0, 0, 0">
                 <userControls:TabButton 
+                    x:Name="HardwareTabButton"
                     Command="{Binding HardwareTabCommand}"
                     Text="HARDWARE"
                     IsTabActive="{Binding IsHardwareTabActive}">
                 </userControls:TabButton>       
                 
                 <userControls:TabButton 
+                    x:Name="UsersTabButton"
                     Command="{Binding UsersTabCommand}"
                     Text="USERS"
                     IsTabActive="{Binding IsUsersTabActive}">
