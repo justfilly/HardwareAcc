@@ -11,6 +11,10 @@
       d:DataContext="{d:DesignInstance tabs:AudiencesTabPageViewModel}">
     
     <Grid Background="{StaticResource Color_BackgroundLightGray}">
-        <TextBlock FontSize="40" Text="Audiences"></TextBlock>
+        <StackPanel Margin="30">
+            <DataGrid AutoGenerateColumns="False" HeadersVisibility="Column">
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
+            </DataGrid>
+        </StackPanel>
     </Grid>
 </Page>
