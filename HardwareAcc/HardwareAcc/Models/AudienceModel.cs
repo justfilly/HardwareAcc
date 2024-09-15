@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HardwareAcc.Models;
 
-public class Audience
+public class AudienceModel
 {
     public int Id { get; set; }
     

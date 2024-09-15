@@ -1,22 +1,23 @@
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using HardwareAcc.Models;
+using HardwareAcc.Services.Repositories.Audience;
 
 namespace HardwareAcc.ViewModels.Tabs;
 
 public class AudiencesTabPageViewModel : BaseViewModel
 {
-    public AudiencesTabPageViewModel()
+    private readonly IAudienceRepository _audienceRepository;
+
+    public AudiencesTabPageViewModel(IAudienceRepository audienceRepository)
     {
-        _audiences = new ObservableCollection<Audience>()
-        {
-            new() { Id = 1, Name = "Computer Science Class", Code = "A423" },
-            new() { Id = 2, Name = "Chemistry lab", Code = "A107" },
-            new() { Id = 3, Name = "Web design class", Code = "A210" },
-        };
+        _audienceRepository = audienceRepository;
+        _audiences = new ObservableCollection<AudienceModel>();
     }
-    
-    private ObservableCollection<Audience> _audiences;
-    public ObservableCollection<Audience> Audiences
+
+    private ObservableCollection<AudienceModel> _audiences;
+
+    public ObservableCollection<AudienceModel> Audiences
     {
         get => _audiences;
     
@@ -25,5 +26,14 @@ public class AudiencesTabPageViewModel : BaseViewModel
             _audiences = value;
             OnPropertyChanged(nameof(Audiences));
         }
+    }
+
+    public async Task InitializeAsync() => 
+        await LoadAudiencesAsync();
+
+    private async Task LoadAudiencesAsync()
+    {
+        var audiences = await _audienceRepository.GetAllAudiencesAsync();
+        Audiences = new ObservableCollection<AudienceModel>(audiences);
     }
 }

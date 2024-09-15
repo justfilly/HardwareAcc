@@ -5,7 +5,7 @@ using HardwareAcc.Models;
 using HardwareAcc.Services.DBConnection;
 using MySqlConnector;
 
-namespace HardwareAcc.Services.Repositories;
+namespace HardwareAcc.Services.Repositories.User;
 
 public class UserRepository : IUserRepository
 {
@@ -16,7 +16,7 @@ public class UserRepository : IUserRepository
         _dbConnectionService = dbConnectionService;
     }
 
-    public async Task<User?> GetUserByLoginAsync(string login)
+    public async Task<UserModel?> GetUserByLoginAsync(string login)
     {
         await using MySqlConnection connection = _dbConnectionService.GetConnection();
 
@@ -32,7 +32,7 @@ public class UserRepository : IUserRepository
         return null;
     }
     
-    public async Task<User?> GetUserByEmailAsync(string? email)
+    public async Task<UserModel?> GetUserByEmailAsync(string? email)
     {
         await using MySqlConnection connection = _dbConnectionService.GetConnection();
 
@@ -48,7 +48,7 @@ public class UserRepository : IUserRepository
         return null;
     }
 
-    public async Task<User?> GetUserByPhoneNumberAsync(string? phoneNumber)
+    public async Task<UserModel?> GetUserByPhoneNumberAsync(string? phoneNumber)
     {
         await using MySqlConnection connection = _dbConnectionService.GetConnection();
 
@@ -64,7 +64,7 @@ public class UserRepository : IUserRepository
         return null;
     }
 
-    public async Task AddUserAsync(User user)
+    public async Task AddUserAsync(UserModel userModel)
     {
         await using MySqlConnection connection = _dbConnectionService.GetConnection();
 
@@ -73,29 +73,29 @@ public class UserRepository : IUserRepository
                 INSERT INTO hardwareacc.users (login, password, role_id, email, phone_number, first_name, second_name, patronymic)
                 VALUES (@login, @password, @role_id, @Email, @PhoneNumber, @FirstName, @SecondName, @Patronymic)";
 
-        command.Parameters.AddWithValue("@login", user.Login);
-        command.Parameters.AddWithValue("@password", user.Password);
-        command.Parameters.AddWithValue("@role_id", user.RoleId);
-        command.Parameters.AddWithValue("@FirstName", user.FirstName);
-        command.Parameters.AddWithValue("@SecondName", user.SecondName);
-        command.Parameters.AddWithValue("@Patronymic", user.Patronymic);
+        command.Parameters.AddWithValue("@login", userModel.Login);
+        command.Parameters.AddWithValue("@password", userModel.Password);
+        command.Parameters.AddWithValue("@role_id", userModel.RoleId);
+        command.Parameters.AddWithValue("@FirstName", userModel.FirstName);
+        command.Parameters.AddWithValue("@SecondName", userModel.SecondName);
+        command.Parameters.AddWithValue("@Patronymic", userModel.Patronymic);
 
-        if (string.IsNullOrEmpty(user.Email))
+        if (string.IsNullOrEmpty(userModel.Email))
             command.Parameters.AddWithValue("@Email", DBNull.Value);
         else
-            command.Parameters.AddWithValue("@Email", user.Email);
+            command.Parameters.AddWithValue("@Email", userModel.Email);
 
-        if (string.IsNullOrEmpty(user.PhoneNumber))
+        if (string.IsNullOrEmpty(userModel.PhoneNumber))
             command.Parameters.AddWithValue("@PhoneNumber", DBNull.Value);
         else
-            command.Parameters.AddWithValue("@PhoneNumber", user.PhoneNumber);
+            command.Parameters.AddWithValue("@PhoneNumber", userModel.PhoneNumber);
 
         await command.ExecuteNonQueryAsync();
     }
 
-    private static User? DeserializeUser(IDataRecord reader)
+    private static UserModel? DeserializeUser(IDataRecord reader)
     {
-        return new User
+        return new UserModel
         {
             Id = reader.GetInt32(reader.GetOrdinal("user_id")),
             Login = reader.GetString(reader.GetOrdinal("login")),

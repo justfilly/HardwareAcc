@@ -8,6 +8,8 @@ using HardwareAcc.Services.ViewLocator;
 using HardwareAcc.ViewModels;
 using HardwareAcc.Views;
 using HardwareAcc.Services.Repositories;
+using HardwareAcc.Services.Repositories.Audience;
+using HardwareAcc.Services.Repositories.User;
 using HardwareAcc.ViewModels.LoginRegister;
 using HardwareAcc.ViewModels.Tabs;
 using HardwareAcc.Views.LoginRegister;
@@ -31,7 +33,7 @@ namespace HardwareAcc
             RegisterServices(serviceCollection, configuration);
             _serviceProvider = serviceCollection.BuildServiceProvider();
 
-            RegisterViews();
+            RegisterViewsInViewLocator();
             
             MainWindowView loginRegisterWindow = _serviceProvider.GetRequiredService<MainWindowView>();
             loginRegisterWindow.DataContext = _serviceProvider.GetRequiredService<MainWindowViewModel>();
@@ -65,6 +67,8 @@ namespace HardwareAcc
             // Services.
             serviceCollection.AddSingleton<IDBConnectionService, DBConnectionService>();
             serviceCollection.AddSingleton<IUserRepository, UserRepository>();
+            serviceCollection.AddSingleton<IAudienceRepository, AudienceRepository>();
+            
             serviceCollection.AddSingleton<IAuthService, AuthService>();
             serviceCollection.AddSingleton<IViewLocator, ViewLocator>();
             serviceCollection.AddSingleton<INavigationService, NavigationService>();
@@ -102,7 +106,7 @@ namespace HardwareAcc
             serviceCollection.AddSingleton<StatusesTabPageViewModel>();
         }
 
-        private void RegisterViews()
+        private void RegisterViewsInViewLocator()
         {
             IViewLocator viewLocator = _serviceProvider!.GetRequiredService<IViewLocator>();
             
