@@ -1,0 +1,33 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style TargetType="DataGrid">
+        <Setter Property="Background" Value="{StaticResource Color_TableViewBackground}"/>
+        <Setter Property="RowBackground" Value="{StaticResource Color_TableViewBackground}"/>
+        <Setter Property="GridLinesVisibility" Value="None"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+    </Style>
+    
+    <Style TargetType="DataGridColumnHeader">
+        <Setter Property="Height" Value="35"/>
+        <Setter Property="Padding" Value="15, 0, 25, 0"/> 
+        <Setter Property="Foreground" Value="{StaticResource Color_TableViewHeaderText}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource Color_TableViewBorder}"/>
+        <Setter Property="BorderThickness" Value="0,0,0, 1"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/> 
+    </Style>
+    
+    <Style TargetType="DataGridRow">
+        <Setter Property="Height" Value="35"/>
+        <Setter Property="BorderBrush" Value="{StaticResource Color_TableViewBorder}"/>
+        <Setter Property="BorderThickness" Value="0,0,0, 1"/>
+        <Setter Property="Foreground" Value="{StaticResource Color_TableViewItemText}"/>
+    </Style>
+    
+    <Style TargetType="DataGridCell">
+        <Setter Property="Margin" Value="13, 0, 25, 0"/> 
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+    </Style>
+</ResourceDictionary>

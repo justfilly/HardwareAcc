@@ -1,8 +1,6 @@
 ﻿using System;
 using System.IO;
-using System.Text.RegularExpressions;
 using System.Windows;
-using HardwareAcc.Commands;
 using HardwareAcc.Services.Auth;
 using HardwareAcc.Services.DBConnection;
 using HardwareAcc.Services.Navigation;
@@ -58,22 +56,6 @@ namespace HardwareAcc
             return builder.Build();
         }
 
-        private void RegisterViews()
-        {
-            IViewLocator viewLocator = _serviceProvider!.GetRequiredService<IViewLocator>();
-            
-            viewLocator.Register<LoginPageViewModel, LoginPageView>();
-            viewLocator.Register<RegisterNamePageViewModel, RegisterNamePageView>();
-            viewLocator.Register<RegisterContactInfoPageViewModel, RegisterContactInfoPageView>();
-            viewLocator.Register<RegisterCredentialsPageViewModel, RegisterCredentialsPageView>();
-            viewLocator.Register<AccountingPageViewModel, AccountingPageView>();
-            
-            viewLocator.Register<HardwareTabPageViewModel, HardwareTabPageView>();
-            viewLocator.Register<UsersTabPageViewModel, UsersTabPageView>();
-            viewLocator.Register<AudiencesTabPageViewModel, AudiencesTabPageView>();
-            viewLocator.Register<StatusesTabPageViewModel, StatusesTabPageView>();
-        }
-        
         private void RegisterServices(IServiceCollection serviceCollection, IConfiguration configuration)
         {
             serviceCollection.AddSingleton(configuration);
@@ -118,6 +100,23 @@ namespace HardwareAcc
             
             serviceCollection.AddSingleton<StatusesTabPageView>();
             serviceCollection.AddSingleton<StatusesTabPageViewModel>();
+        }
+
+        private void RegisterViews()
+        {
+            IViewLocator viewLocator = _serviceProvider!.GetRequiredService<IViewLocator>();
+            
+            viewLocator.Register<LoginPageViewModel, LoginPageView>();
+            viewLocator.Register<RegisterNamePageViewModel, RegisterNamePageView>();
+            viewLocator.Register<RegisterContactInfoPageViewModel, RegisterContactInfoPageView>();
+            viewLocator.Register<RegisterCredentialsPageViewModel, RegisterCredentialsPageView>();
+            
+            viewLocator.Register<AccountingPageViewModel, AccountingPageView>();
+            
+            viewLocator.Register<HardwareTabPageViewModel, HardwareTabPageView>();
+            viewLocator.Register<UsersTabPageViewModel, UsersTabPageView>();
+            viewLocator.Register<AudiencesTabPageViewModel, AudiencesTabPageView>();
+            viewLocator.Register<StatusesTabPageViewModel, StatusesTabPageView>();
         }
     }
 }
