@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using HardwareAcc.Commands;
 using HardwareAcc.Models;
 using HardwareAcc.Services.Repositories.Audience;
 
@@ -13,6 +14,7 @@ public class AudiencesTabPageViewModel : BaseViewModel
     {
         _audienceRepository = audienceRepository;
         _audiences = new ObservableCollection<AudienceModel>();
+        AddAudienceCommand = new RelayCommand(AddAudience, CanAddAudience);
     }
 
     private ObservableCollection<AudienceModel> _audiences;
@@ -28,6 +30,8 @@ public class AudiencesTabPageViewModel : BaseViewModel
         }
     }
 
+    public RelayCommand AddAudienceCommand { get; }
+
     public async Task InitializeAsync() => 
         await LoadAudiencesAsync();
 
@@ -35,5 +39,15 @@ public class AudiencesTabPageViewModel : BaseViewModel
     {
         var audiences = await _audienceRepository.GetAllAudiencesAsync();
         Audiences = new ObservableCollection<AudienceModel>(audiences);
+    }
+    
+    private void AddAudience()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    private bool CanAddAudience()
+    {
+        return true;
     }
 }

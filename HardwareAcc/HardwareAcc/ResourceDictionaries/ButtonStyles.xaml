@@ -122,5 +122,20 @@
             </DataTrigger>
         </Style.Triggers>
     </Style>
+    
+    <Style x:Key="Button_Round" TargetType="Button">
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border BorderThickness="0"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="15">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
 </ResourceDictionary>

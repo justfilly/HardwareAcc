@@ -53,6 +53,8 @@
       <None Remove="Resources\Fonts\Password.ttf" />
       <None Remove="Resources\Icons\menu_button.svg" />
       <Resource Include="Resources\Icons\menu_button.svg" />
+      <None Remove="Resources\Icons\add_button.svg" />
+      <Resource Include="Resources\Icons\add_button.svg" />
     </ItemGroup>
 
     <ItemGroup>
