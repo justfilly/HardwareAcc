@@ -27,6 +27,7 @@
                 </DataGrid>
 
                 <Button Command="{Binding AudiencesFormNavigateCommand}"
+                        CommandParameter="{Binding NewAudienceModel}"
                         Style="{StaticResource Button_Round}"
                         Width="21" Height="21"
                         Background="{StaticResource Color_Neutral}"

@@ -16,9 +16,8 @@ public class AudiencesTabPageViewModel : BaseViewModel
     {
         _audienceRepository = audienceRepository;
         _audiences = new ObservableCollection<AudienceModel>();
-        AudiencesFormNavigateCommand = new NavigateCommand<AudiencesFormPageViewModel>(navigationService);
+        AudiencesFormNavigateCommand = new NavigateToFormCommand<AudiencesFormPageViewModel, AudienceModel>(navigationService);
     }
-
     
     private ObservableCollection<AudienceModel> _audiences;
 
@@ -33,7 +32,8 @@ public class AudiencesTabPageViewModel : BaseViewModel
         }
     }
 
-    public NavigateCommand<AudiencesFormPageViewModel> AudiencesFormNavigateCommand { get; }
+    public NavigateToFormCommand<AudiencesFormPageViewModel, AudienceModel> AudiencesFormNavigateCommand { get; }
+    public static AudienceModel NewAudienceModel => new();
 
     public async Task InitializeAsync() => 
         await LoadAudiencesAsync();

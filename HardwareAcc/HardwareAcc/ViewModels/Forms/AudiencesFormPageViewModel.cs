@@ -1,9 +1,10 @@
 using HardwareAcc.Commands;
+using HardwareAcc.Models;
 using HardwareAcc.Services.Navigation;
 
 namespace HardwareAcc.ViewModels.Forms;
 
-public class AudiencesFormPageViewModel : BaseViewModel
+public class AudiencesFormPageViewModel : BaseFormViewModel<AudienceModel>
 {
     private readonly INavigationService _navigationService;
 
@@ -15,7 +16,6 @@ public class AudiencesFormPageViewModel : BaseViewModel
         SubmitCommand = new RelayCommand(Submit, CanSubmit);
     }
     
-
     public NavigateCommand<AccountingPageViewModel> AccountingNavigateCommand { get; }
     public RelayCommand SubmitCommand { get; }
     
@@ -66,7 +66,15 @@ public class AudiencesFormPageViewModel : BaseViewModel
             OnPropertyChanged(nameof(IsCodeValid));
         }
     }
-    
+
+    public override void SetModel(AudienceModel? model)
+    {
+        base.SetModel(model);
+
+        Name = model?.Name!;
+        Code = model?.Code!;
+    }
+
     private void Submit()
     {
         _navigationService.Navigate<AccountingPageViewModel>();

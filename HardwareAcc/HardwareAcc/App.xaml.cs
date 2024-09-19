@@ -1,13 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using HardwareAcc.Services.Auth;
 using HardwareAcc.Services.DBConnection;
+using HardwareAcc.Services.FormsProvider;
 using HardwareAcc.Services.Navigation;
 using HardwareAcc.Services.ViewLocator;
 using HardwareAcc.ViewModels;
 using HardwareAcc.Views;
-using HardwareAcc.Services.Repositories;
 using HardwareAcc.Services.Repositories.Audience;
 using HardwareAcc.Services.Repositories.User;
 using HardwareAcc.ViewModels.Forms;
@@ -36,6 +37,8 @@ namespace HardwareAcc
             _serviceProvider = serviceCollection.BuildServiceProvider();
 
             RegisterViewsInViewLocator();
+
+            InitializeFormsProvider();
             
             MainWindowView loginRegisterWindow = _serviceProvider.GetRequiredService<MainWindowView>();
             loginRegisterWindow.DataContext = _serviceProvider.GetRequiredService<MainWindowViewModel>();
@@ -74,7 +77,9 @@ namespace HardwareAcc
             serviceCollection.AddSingleton<IAuthService, AuthService>();
             serviceCollection.AddSingleton<IViewLocator, ViewLocator>();
             serviceCollection.AddSingleton<INavigationService, NavigationService>();
+            serviceCollection.AddSingleton<IFormsProvider, FormsProvider>();
             
+            // Main Window.
             serviceCollection.AddSingleton<MainWindowView>();
             serviceCollection.AddSingleton<MainWindowViewModel>();
 
@@ -134,6 +139,18 @@ namespace HardwareAcc
             
             // Forms.
             viewLocator.Register<AudiencesFormPageViewModel, AudiencesFormPageView>();
+        }
+        
+        private void InitializeFormsProvider()
+        {
+            IFormsProvider formsProvider = _serviceProvider.GetRequiredService<IFormsProvider>();
+
+            List<BaseViewModel> formViewModels = new()
+            {
+                _serviceProvider.GetRequiredService<AudiencesFormPageViewModel>(),
+            };
+
+            formsProvider.Initialize(formViewModels);
         }
     }
 }

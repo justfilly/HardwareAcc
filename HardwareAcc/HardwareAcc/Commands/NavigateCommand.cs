@@ -1,17 +1,34 @@
 using HardwareAcc.Services.Navigation;
 using HardwareAcc.ViewModels;
+using HardwareAcc.ViewModels.Forms;
 
 namespace HardwareAcc.Commands;
 
 public class NavigateCommand<TViewModel> : BaseCommand where TViewModel : BaseViewModel
+ {
+     private readonly INavigationService _navigationService;
+ 
+     public NavigateCommand(INavigationService navigationService)
+     {
+         _navigationService = navigationService;
+     }
+ 
+     public override void Execute(object? parameter) => 
+         _navigationService.Navigate<TViewModel>();
+ }
+ 
+ 
+public class NavigateToFormCommand<TFormViewModel, TModel> : BaseCommand 
+    where TModel : class
+    where TFormViewModel : BaseFormViewModel<TModel>
 {
     private readonly INavigationService _navigationService;
 
-    public NavigateCommand(INavigationService navigationService)
+    public NavigateToFormCommand(INavigationService navigationService)
     {
         _navigationService = navigationService;
     }
 
-    public override void Execute(object? parameter) => 
-        _navigationService.Navigate<TViewModel>();
+    public override void Execute(object? parameter) =>
+        _navigationService.NavigateToForm<TFormViewModel, TModel>((parameter as TModel)!);
 }

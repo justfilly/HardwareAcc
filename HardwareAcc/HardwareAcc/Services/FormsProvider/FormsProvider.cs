@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using HardwareAcc.ViewModels.Forms;
+using HardwareAcc.ViewModels;
 
 namespace HardwareAcc.Services.FormsProvider;
 
@@ -8,9 +8,12 @@ public class FormsProvider : IFormsProvider
 {
     private readonly Dictionary<Type, object> _formsDictionary = new();
 
-    public FormsProvider(AudiencesFormPageViewModel audiencesFormViewModel)
+    public void Initialize(IEnumerable<BaseViewModel> formViewModels)
     {
-        _formsDictionary.Add(typeof(AudiencesFormPageViewModel), audiencesFormViewModel);
+        foreach (BaseViewModel viewModel in formViewModels)
+        {
+            _formsDictionary.Add(viewModel.GetType(), viewModel);
+        }
     }
 
     public TViewModel GetFormViewModel<TViewModel>() where TViewModel : class
