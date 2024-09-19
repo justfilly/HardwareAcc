@@ -26,7 +26,7 @@
                     </DataGrid.Columns>
                 </DataGrid>
 
-                <Button Command="{Binding AddAudienceCommand}"
+                <Button Command="{Binding AudiencesFormNavigateCommand}"
                         Style="{StaticResource Button_Round}"
                         Width="21" Height="21"
                         Background="{StaticResource Color_Neutral}"

@@ -2,7 +2,9 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using HardwareAcc.Commands;
 using HardwareAcc.Models;
+using HardwareAcc.Services.Navigation;
 using HardwareAcc.Services.Repositories.Audience;
+using HardwareAcc.ViewModels.Forms;
 
 namespace HardwareAcc.ViewModels.Tabs;
 
@@ -10,13 +12,14 @@ public class AudiencesTabPageViewModel : BaseViewModel
 {
     private readonly IAudienceRepository _audienceRepository;
 
-    public AudiencesTabPageViewModel(IAudienceRepository audienceRepository)
+    public AudiencesTabPageViewModel(IAudienceRepository audienceRepository, INavigationService navigationService)
     {
         _audienceRepository = audienceRepository;
         _audiences = new ObservableCollection<AudienceModel>();
-        AddAudienceCommand = new RelayCommand(AddAudience, CanAddAudience);
+        AudiencesFormNavigateCommand = new NavigateCommand<AudiencesFormPageViewModel>(navigationService);
     }
 
+    
     private ObservableCollection<AudienceModel> _audiences;
 
     public ObservableCollection<AudienceModel> Audiences
@@ -30,7 +33,7 @@ public class AudiencesTabPageViewModel : BaseViewModel
         }
     }
 
-    public RelayCommand AddAudienceCommand { get; }
+    public NavigateCommand<AudiencesFormPageViewModel> AudiencesFormNavigateCommand { get; }
 
     public async Task InitializeAsync() => 
         await LoadAudiencesAsync();
@@ -39,15 +42,5 @@ public class AudiencesTabPageViewModel : BaseViewModel
     {
         var audiences = await _audienceRepository.GetAllAudiencesAsync();
         Audiences = new ObservableCollection<AudienceModel>(audiences);
-    }
-    
-    private void AddAudience()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    private bool CanAddAudience()
-    {
-        return true;
     }
 }
