@@ -2,6 +2,7 @@ using System;
 using System.Windows.Controls;
 using HardwareAcc.Services.ViewLocator;
 using HardwareAcc.ViewModels;
+using HardwareAcc.ViewModels.Forms;
 using HardwareAcc.Views;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -24,6 +25,13 @@ public class NavigationService : INavigationService
     {
         Page view = GetPage<TViewModel>();
         _mainWindowView.MainFrame.Content = view;
+    }
+
+    public void Navigate<TFormViewModel, TModel>()
+        where TModel : class
+        where TFormViewModel : BaseFormViewModel<TModel>
+    {
+        
     }
 
     public Page GetPage<TViewModel>() where TViewModel : BaseViewModel
