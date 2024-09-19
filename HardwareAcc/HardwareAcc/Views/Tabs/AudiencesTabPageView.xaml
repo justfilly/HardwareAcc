@@ -23,6 +23,37 @@
                         <DataGridTextColumn Header="Id" Binding="{Binding Id}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Code" Binding="{Binding Code}"></DataGridTextColumn>
+                        
+                        <DataGridTemplateColumn Header="Actions">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <!-- Edit Button -->
+                                        <Button Command="{Binding DataContext.AudiencesFormNavigateCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                CommandParameter="{Binding}"
+                                                Style="{StaticResource Button_Rounded}"
+                                                Width="20" Height="20"
+                                                Background="Transparent"
+                                                HorizontalAlignment="Right"
+                                                VerticalAlignment="Top"
+                                                Margin="0,0,7,0">
+                                            <svgc:SvgViewbox Source="/Resources/Icons/record_edit.svg" Stretch="None" />
+                                        </Button>
+
+                                        <!-- Delete Button -->
+                                        <Button Command="{Binding DataContext.DeleteAudienceCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                CommandParameter="{Binding}"
+                                                Style="{StaticResource Button_Rounded}"
+                                                Width="20" Height="20"
+                                                Background="Transparent"
+                                                HorizontalAlignment="Right"
+                                                VerticalAlignment="Top">
+                                            <svgc:SvgViewbox Source="/Resources/Icons/record_delete.svg" Stretch="None" />
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
 

@@ -55,6 +55,10 @@
       <Resource Include="Resources\Icons\menu_button.svg" />
       <None Remove="Resources\Icons\add_button.svg" />
       <Resource Include="Resources\Icons\add_button.svg" />
+      <None Remove="Resources\Icons\record_delete.svg" />
+      <Resource Include="Resources\Icons\record_delete.svg" />
+      <None Remove="Resources\Icons\record_edit.svg" />
+      <Resource Include="Resources\Icons\record_edit.svg" />
     </ItemGroup>
 
     <ItemGroup>
