@@ -1,15 +1,19 @@
+using System;
 using HardwareAcc.Commands;
 using HardwareAcc.Models;
 using HardwareAcc.Services.Navigation;
+using HardwareAcc.Services.Repositories.Audience;
 
 namespace HardwareAcc.ViewModels.Forms;
 
 public class AudiencesFormPageViewModel : BaseFormViewModel<AudienceModel>
 {
+    private readonly IAudienceRepository _repository;
     private readonly INavigationService _navigationService;
 
-    public AudiencesFormPageViewModel(INavigationService navigationService)
+    public AudiencesFormPageViewModel(IAudienceRepository repository, INavigationService navigationService)
     {
+        _repository = repository;
         _navigationService = navigationService;
         
         AccountingNavigateCommand = new NavigateCommand<AccountingPageViewModel>(navigationService);
@@ -27,6 +31,7 @@ public class AudiencesFormPageViewModel : BaseFormViewModel<AudienceModel>
         set
         {
             _name = value;
+            _model!.Name = value;
             OnPropertyChanged(nameof(Name));
         }
     }
@@ -51,6 +56,7 @@ public class AudiencesFormPageViewModel : BaseFormViewModel<AudienceModel>
         set
         {
             _code = value;
+            _model!.Code = value;
             OnPropertyChanged(nameof(Code));
         }
     }
@@ -82,8 +88,23 @@ public class AudiencesFormPageViewModel : BaseFormViewModel<AudienceModel>
         Code = model?.Code!;
     }
 
-    private void Submit()
+    private async void Submit()
     {
+        switch (_mode) {
+            case FormMode.Add:
+            {
+                await _repository.AddAudienceAsync(_model!);
+            }
+                break;
+            case FormMode.Edit:
+            {
+                await _repository.UpdateAudienceAsync(_model!);
+            }
+                break;
+            default:
+                throw new ArgumentOutOfRangeException($"Unsupported mode: {_mode}");
+        }
+
         _navigationService.Navigate<AccountingPageViewModel>();
     }
 

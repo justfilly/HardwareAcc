@@ -11,4 +11,5 @@ public interface IAudienceRepository
     Task AddAudienceAsync(AudienceModel audience);
     event Action AudiencesChanged;
     Task DeleteAudienceAsync(int audienceId);
+    Task UpdateAudienceAsync(AudienceModel audience);
 }

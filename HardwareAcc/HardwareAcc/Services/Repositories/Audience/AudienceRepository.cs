@@ -64,6 +64,23 @@ public class AudienceRepository : IAudienceRepository
         AudiencesChanged?.Invoke();
     }
 
+    public async Task UpdateAudienceAsync(AudienceModel audience)
+    {
+        await using MySqlConnection connection = _dbConnectionService.GetConnection();
+
+        await using MySqlCommand command = connection.CreateCommand();
+        command.CommandText = @"
+            UPDATE hardwareacc.audiences
+            SET name = @name, code = @code
+            WHERE audience_id = @id";
+        command.Parameters.AddWithValue("@name", audience.Name);
+        command.Parameters.AddWithValue("@code", audience.Code);
+        command.Parameters.AddWithValue("@id", audience.Id);
+
+        await command.ExecuteNonQueryAsync();
+        AudiencesChanged?.Invoke(); // Notify listeners of the change
+    }
+    
     private static AudienceModel DeserializeAudience(IDataRecord reader)
     {
         return new AudienceModel
