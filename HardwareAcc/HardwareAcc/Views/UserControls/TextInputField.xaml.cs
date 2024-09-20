@@ -32,6 +32,19 @@ public partial class TextInputField
         get => (string)GetValue(InputTextDependencyProperty);
         set => SetValue(InputTextDependencyProperty, value);
     }
+    
+    public static readonly DependencyProperty ErrorTextDependencyProperty =
+        DependencyProperty.Register(
+            name:nameof(ErrorText),
+            propertyType:typeof(string),
+            ownerType:typeof(TextInputField),
+            new PropertyMetadata(string.Empty));
+    
+    public string ErrorText
+    {
+        get => (string)GetValue(ErrorTextDependencyProperty);
+        set => SetValue(ErrorTextDependencyProperty, value);
+    }
 
     public static readonly DependencyProperty LabelTextDependencyProperty =
         DependencyProperty.Register(
@@ -75,7 +88,7 @@ public partial class TextInputField
             typeof(ObservableCollection<ValidationRule>), 
             typeof(TextInputField), 
             new PropertyMetadata(null));
-    
+
     public ObservableCollection<ValidationRule> ValidationRules
     {
         get => (ObservableCollection<ValidationRule>)GetValue(ValidationRulesProperty);

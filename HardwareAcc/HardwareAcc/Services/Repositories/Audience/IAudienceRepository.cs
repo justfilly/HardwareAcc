@@ -12,4 +12,5 @@ public interface IAudienceRepository
     event Action AudiencesChanged;
     Task DeleteAudienceAsync(int audienceId);
     Task UpdateAudienceAsync(AudienceModel audience);
+    Task<AudienceModel?> GetAudienceByCodeAsync(string code);
 }

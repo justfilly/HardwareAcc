@@ -27,7 +27,7 @@
             </Border>
             
             <Label x:Name="ErrorLabel"
-                   Content=" "
+                   Content="{Binding ErrorText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                    FontSize="12" FontWeight="Light" 
                    Foreground="{StaticResource Color_Neutral}"
                    Margin="10, 2, 0, 0"

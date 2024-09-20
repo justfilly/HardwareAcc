@@ -73,6 +73,7 @@
                     <userControls:TextInputField 
                         LabelText="Code"
                         InputText="{Binding Code, Mode=TwoWay}"
+                        ErrorText="{Binding CodeErrorText, Mode=TwoWay}"
                         IsValid="{Binding IsCodeValid, Mode=TwoWay}"
                         Margin="0, 35, 0, 0">
                         <userControls:TextInputField.ValidationRules>

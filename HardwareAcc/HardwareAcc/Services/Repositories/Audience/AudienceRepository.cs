@@ -78,8 +78,26 @@ public class AudienceRepository : IAudienceRepository
         command.Parameters.AddWithValue("@id", audience.Id);
 
         await command.ExecuteNonQueryAsync();
-        AudiencesChanged?.Invoke(); // Notify listeners of the change
+        AudiencesChanged?.Invoke();
     }
+    
+    public async Task<AudienceModel?> GetAudienceByCodeAsync(string code)
+    {
+        await using MySqlConnection connection = _dbConnectionService.GetConnection();
+        await using MySqlCommand command = connection.CreateCommand();
+        command.CommandText = @"
+            SELECT * 
+            FROM hardwareacc.audiences 
+            WHERE code = @code";
+        command.Parameters.AddWithValue("@code", code);
+
+        await using MySqlDataReader reader = await command.ExecuteReaderAsync();
+        if (await reader.ReadAsync())
+            return DeserializeAudience(reader);
+
+        return null;
+    }
+
     
     private static AudienceModel DeserializeAudience(IDataRecord reader)
     {

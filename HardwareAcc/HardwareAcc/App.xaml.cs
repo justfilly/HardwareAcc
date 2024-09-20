@@ -24,7 +24,7 @@ namespace HardwareAcc
 {
     public partial class App
     {
-        private IServiceProvider? _serviceProvider;
+        public static IServiceProvider? ServiceProvider;
         
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -34,21 +34,21 @@ namespace HardwareAcc
             
             ServiceCollection serviceCollection = new();
             RegisterServices(serviceCollection, configuration);
-            _serviceProvider = serviceCollection.BuildServiceProvider();
+            ServiceProvider = serviceCollection.BuildServiceProvider();
 
             RegisterViewsInViewLocator();
 
             InitializeFormsProvider();
             
-            MainWindowView loginRegisterWindow = _serviceProvider.GetRequiredService<MainWindowView>();
-            loginRegisterWindow.DataContext = _serviceProvider.GetRequiredService<MainWindowViewModel>();
+            MainWindowView loginRegisterWindow = ServiceProvider.GetRequiredService<MainWindowView>();
+            loginRegisterWindow.DataContext = ServiceProvider.GetRequiredService<MainWindowViewModel>();
             loginRegisterWindow.Show();
-            _serviceProvider.GetRequiredService<INavigationService>().Navigate<AccountingPageViewModel>();
+            ServiceProvider.GetRequiredService<INavigationService>().Navigate<AccountingPageViewModel>();
         }
 
         protected override void OnExit(ExitEventArgs e)
         {
-            if (_serviceProvider is IDisposable disposable) 
+            if (ServiceProvider is IDisposable disposable) 
                 disposable.Dispose();
             
             base.OnExit(e);
@@ -67,7 +67,7 @@ namespace HardwareAcc
         {
             serviceCollection.AddSingleton(configuration);
 
-            serviceCollection.AddSingleton<IServiceProvider>(_ => _serviceProvider!);
+            serviceCollection.AddSingleton<IServiceProvider>(_ => ServiceProvider!);
             
             // Services.
             serviceCollection.AddSingleton<IDBConnectionService, DBConnectionService>();
@@ -120,7 +120,7 @@ namespace HardwareAcc
 
         private void RegisterViewsInViewLocator()
         {
-            IViewLocator viewLocator = _serviceProvider!.GetRequiredService<IViewLocator>();
+            IViewLocator viewLocator = ServiceProvider!.GetRequiredService<IViewLocator>();
             
             // Registration Pages.
             viewLocator.Register<LoginPageViewModel, LoginPageView>();
@@ -143,11 +143,11 @@ namespace HardwareAcc
         
         private void InitializeFormsProvider()
         {
-            IFormsProvider formsProvider = _serviceProvider.GetRequiredService<IFormsProvider>();
+            IFormsProvider formsProvider = ServiceProvider.GetRequiredService<IFormsProvider>();
 
             List<BaseViewModel> formViewModels = new()
             {
-                _serviceProvider.GetRequiredService<AudiencesFormPageViewModel>(),
+                ServiceProvider.GetRequiredService<AudiencesFormPageViewModel>(),
             };
 
             formsProvider.Initialize(formViewModels);

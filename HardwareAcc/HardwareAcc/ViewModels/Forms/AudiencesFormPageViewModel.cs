@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using HardwareAcc.Commands;
 using HardwareAcc.Models;
 using HardwareAcc.Services.Navigation;
@@ -73,6 +74,20 @@ public class AudiencesFormPageViewModel : BaseFormViewModel<AudienceModel>
         }
     }
 
+    private string _codeErrorText = "";
+    private string _initialCode;
+
+    public string CodeErrorText
+    {
+        get => _codeErrorText;
+    
+        set
+        {
+            _codeErrorText = value;
+            OnPropertyChanged(nameof(CodeErrorText));
+        }
+    }
+    
     public override void SetModel(AudienceModel? model)
     {
         base.SetModel(model);
@@ -81,8 +96,11 @@ public class AudiencesFormPageViewModel : BaseFormViewModel<AudienceModel>
         
         if (id == 0)
             _mode = FormMode.Add;
-        else
+        else 
+        {
+            _initialCode = model?.Code!;
             _mode = FormMode.Edit;
+        }
 
         Name = model?.Name!;
         Code = model?.Code!;
@@ -93,6 +111,9 @@ public class AudiencesFormPageViewModel : BaseFormViewModel<AudienceModel>
         switch (_mode) {
             case FormMode.Add:
             {
+                if (await IsCodeUnique() == false)
+                    return;
+                
                 await _repository.AddAudienceAsync(_model!);
             }
                 break;
@@ -111,5 +132,18 @@ public class AudiencesFormPageViewModel : BaseFormViewModel<AudienceModel>
     private bool CanSubmit()
     {
         return IsNameValid && IsCodeValid;
+    }
+
+    private async Task<bool> IsCodeUnique()
+    {
+        if (_mode == FormMode.Edit && _initialCode == Code)
+            return true;
+        
+        if (await _repository.GetAudienceByCodeAsync(Code) != null) {
+            CodeErrorText = "Code is not unique";
+            return false;
+        }
+
+        return true;
     }
 }
