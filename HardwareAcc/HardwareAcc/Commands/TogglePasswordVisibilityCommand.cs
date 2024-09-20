@@ -1,7 +1,7 @@
 using System;
 using System.Windows.Controls;
 using System.Windows.Media;
-using HardwareAcc.Views.UserControls;
+using HardwareAcc.MVVM.Views.UserControls;
 using SharpVectors.Converters;
 
 namespace HardwareAcc.Commands;

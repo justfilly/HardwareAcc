@@ -1,6 +1,6 @@
+using HardwareAcc.MVVM.ViewModels;
+using HardwareAcc.MVVM.ViewModels.Forms;
 using HardwareAcc.Services.Navigation;
-using HardwareAcc.ViewModels;
-using HardwareAcc.ViewModels.Forms;
 
 namespace HardwareAcc.Commands;
 

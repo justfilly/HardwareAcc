@@ -2,21 +2,21 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Windows;
+using HardwareAcc.MVVM.ViewModels;
+using HardwareAcc.MVVM.ViewModels.Forms;
+using HardwareAcc.MVVM.ViewModels.LoginRegister;
+using HardwareAcc.MVVM.ViewModels.Tabs;
+using HardwareAcc.MVVM.Views;
+using HardwareAcc.MVVM.Views.Forms;
+using HardwareAcc.MVVM.Views.LoginRegister;
+using HardwareAcc.MVVM.Views.Tabs;
 using HardwareAcc.Services.Auth;
 using HardwareAcc.Services.DBConnection;
 using HardwareAcc.Services.FormsProvider;
 using HardwareAcc.Services.Navigation;
 using HardwareAcc.Services.ViewLocator;
-using HardwareAcc.ViewModels;
-using HardwareAcc.Views;
 using HardwareAcc.Services.Repositories.Audience;
 using HardwareAcc.Services.Repositories.User;
-using HardwareAcc.ViewModels.Forms;
-using HardwareAcc.ViewModels.LoginRegister;
-using HardwareAcc.ViewModels.Tabs;
-using HardwareAcc.Views.Forms;
-using HardwareAcc.Views.LoginRegister;
-using HardwareAcc.Views.Tabs;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -24,7 +24,7 @@ namespace HardwareAcc
 {
     public partial class App
     {
-        public static IServiceProvider? ServiceProvider;
+        private IServiceProvider? _serviceProvider;
         
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -34,21 +34,21 @@ namespace HardwareAcc
             
             ServiceCollection serviceCollection = new();
             RegisterServices(serviceCollection, configuration);
-            ServiceProvider = serviceCollection.BuildServiceProvider();
+            _serviceProvider = serviceCollection.BuildServiceProvider();
 
             RegisterViewsInViewLocator();
 
             InitializeFormsProvider();
             
-            MainWindowView loginRegisterWindow = ServiceProvider.GetRequiredService<MainWindowView>();
-            loginRegisterWindow.DataContext = ServiceProvider.GetRequiredService<MainWindowViewModel>();
+            MainWindowView loginRegisterWindow = _serviceProvider.GetRequiredService<MainWindowView>();
+            loginRegisterWindow.DataContext = _serviceProvider.GetRequiredService<MainWindowViewModel>();
             loginRegisterWindow.Show();
-            ServiceProvider.GetRequiredService<INavigationService>().Navigate<AccountingPageViewModel>();
+            _serviceProvider.GetRequiredService<INavigationService>().Navigate<LoginPageViewModel>();
         }
 
         protected override void OnExit(ExitEventArgs e)
         {
-            if (ServiceProvider is IDisposable disposable) 
+            if (_serviceProvider is IDisposable disposable) 
                 disposable.Dispose();
             
             base.OnExit(e);
@@ -67,7 +67,7 @@ namespace HardwareAcc
         {
             serviceCollection.AddSingleton(configuration);
 
-            serviceCollection.AddSingleton<IServiceProvider>(_ => ServiceProvider!);
+            serviceCollection.AddSingleton<IServiceProvider>(_ => _serviceProvider!);
             
             // Services.
             serviceCollection.AddSingleton<IDBConnectionService, DBConnectionService>();
@@ -120,7 +120,7 @@ namespace HardwareAcc
 
         private void RegisterViewsInViewLocator()
         {
-            IViewLocator viewLocator = ServiceProvider!.GetRequiredService<IViewLocator>();
+            IViewLocator viewLocator = _serviceProvider!.GetRequiredService<IViewLocator>();
             
             // Registration Pages.
             viewLocator.Register<LoginPageViewModel, LoginPageView>();
@@ -143,11 +143,11 @@ namespace HardwareAcc
         
         private void InitializeFormsProvider()
         {
-            IFormsProvider formsProvider = ServiceProvider.GetRequiredService<IFormsProvider>();
+            IFormsProvider formsProvider = _serviceProvider.GetRequiredService<IFormsProvider>();
 
             List<BaseViewModel> formViewModels = new()
             {
-                ServiceProvider.GetRequiredService<AudiencesFormPageViewModel>(),
+                _serviceProvider.GetRequiredService<AudiencesFormPageViewModel>(),
             };
 
             formsProvider.Initialize(formViewModels);

@@ -1,9 +1,8 @@
 using System.Threading.Tasks;
-using HardwareAcc.Models;
+using HardwareAcc.MVVM.Models;
+using HardwareAcc.MVVM.ViewModels.LoginRegister;
 using HardwareAcc.Services.Auth;
 using HardwareAcc.Services.Navigation;
-using HardwareAcc.ViewModels.LoginRegister;
-using HardwareAcc.Views.LoginRegister;
 
 namespace HardwareAcc.Commands;
 

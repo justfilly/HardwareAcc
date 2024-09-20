@@ -1,7 +1,7 @@
 using System;
 using System.Data;
 using System.Threading.Tasks;
-using HardwareAcc.Models;
+using HardwareAcc.MVVM.Models;
 using HardwareAcc.Services.DBConnection;
 using MySqlConnector;
 

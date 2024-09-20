@@ -1,10 +1,10 @@
 using System;
 using System.Windows.Controls;
+using HardwareAcc.MVVM.ViewModels;
+using HardwareAcc.MVVM.ViewModels.Forms;
+using HardwareAcc.MVVM.Views;
 using HardwareAcc.Services.FormsProvider;
 using HardwareAcc.Services.ViewLocator;
-using HardwareAcc.ViewModels;
-using HardwareAcc.ViewModels.Forms;
-using HardwareAcc.Views;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HardwareAcc.Services.Navigation;

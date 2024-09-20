@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using HardwareAcc.Models;
+using HardwareAcc.MVVM.Models;
 
 namespace HardwareAcc.Services.Repositories.User;
 

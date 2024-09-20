@@ -1,6 +1,6 @@
 using System.Windows.Controls;
-using HardwareAcc.ViewModels;
-using HardwareAcc.ViewModels.Forms;
+using HardwareAcc.MVVM.ViewModels;
+using HardwareAcc.MVVM.ViewModels.Forms;
 
 namespace HardwareAcc.Services.Navigation;
 
