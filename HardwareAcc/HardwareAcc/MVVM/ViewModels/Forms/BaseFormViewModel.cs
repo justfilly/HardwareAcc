@@ -5,7 +5,7 @@ public abstract class BaseFormViewModel<TModel> : BaseViewModel where TModel : c
     protected TModel? _model;
     protected FormMode _mode;
     
-    public virtual void SetModel(TModel? model)
+    public virtual void Initialize(TModel? model)
     {
         _model = model;
     }

@@ -16,6 +16,7 @@ using HardwareAcc.Services.FormsProvider;
 using HardwareAcc.Services.Navigation;
 using HardwareAcc.Services.ViewLocator;
 using HardwareAcc.Services.Repositories.Audience;
+using HardwareAcc.Services.Repositories.Status;
 using HardwareAcc.Services.Repositories.User;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -43,7 +44,7 @@ namespace HardwareAcc
             MainWindowView loginRegisterWindow = _serviceProvider.GetRequiredService<MainWindowView>();
             loginRegisterWindow.DataContext = _serviceProvider.GetRequiredService<MainWindowViewModel>();
             loginRegisterWindow.Show();
-            _serviceProvider.GetRequiredService<INavigationService>().Navigate<LoginPageViewModel>();
+            _serviceProvider.GetRequiredService<INavigationService>().Navigate<AccountingPageViewModel>();
         }
 
         protected override void OnExit(ExitEventArgs e)
@@ -71,13 +72,16 @@ namespace HardwareAcc
             
             // Services.
             serviceCollection.AddSingleton<IDBConnectionService, DBConnectionService>();
-            serviceCollection.AddSingleton<IUserRepository, UserRepository>();
-            serviceCollection.AddSingleton<IAudienceRepository, AudienceRepository>();
             
             serviceCollection.AddSingleton<IAuthService, AuthService>();
             serviceCollection.AddSingleton<IViewLocator, ViewLocator>();
             serviceCollection.AddSingleton<INavigationService, NavigationService>();
             serviceCollection.AddSingleton<IFormsProvider, FormsProvider>();
+            
+            // Repositories.
+            serviceCollection.AddSingleton<IUserRepository, UserRepository>();
+            serviceCollection.AddSingleton<IAudienceRepository, AudienceRepository>();
+            serviceCollection.AddSingleton<IStatusRepository, StatusRepository>();
             
             // Main Window.
             serviceCollection.AddSingleton<MainWindowView>();
@@ -116,6 +120,9 @@ namespace HardwareAcc
             // Forms.
             serviceCollection.AddSingleton<AudiencesFormPageView>();
             serviceCollection.AddSingleton<AudiencesFormPageViewModel>();
+            
+            serviceCollection.AddSingleton<StatusesFormPageView>();
+            serviceCollection.AddSingleton<StatusesFormPageViewModel>();
         }
 
         private void RegisterViewsInViewLocator()
@@ -139,6 +146,7 @@ namespace HardwareAcc
             
             // Forms.
             viewLocator.Register<AudiencesFormPageViewModel, AudiencesFormPageView>();
+            viewLocator.Register<StatusesFormPageViewModel, StatusesFormPageView>();
         }
         
         private void InitializeFormsProvider()
@@ -148,6 +156,7 @@ namespace HardwareAcc
             List<BaseViewModel> formViewModels = new()
             {
                 _serviceProvider.GetRequiredService<AudiencesFormPageViewModel>(),
+                _serviceProvider.GetRequiredService<StatusesFormPageViewModel>(),
             };
 
             formsProvider.Initialize(formViewModels);

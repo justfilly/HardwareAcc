@@ -3,18 +3,18 @@ using System.Threading.Tasks;
 using HardwareAcc.Commands;
 using HardwareAcc.MVVM.Models;
 using HardwareAcc.Services.Navigation;
-using HardwareAcc.Services.Repositories.Audience;
+using HardwareAcc.Services.Repositories.Status;
 
 namespace HardwareAcc.MVVM.ViewModels.Forms;
 
-public class AudiencesFormPageViewModel : BaseFormViewModel<AudienceModel>
+public class StatusesFormPageViewModel : BaseFormViewModel<StatusModel>
 {
-    private readonly IAudienceRepository _repository;
+     private readonly IStatusRepository _repository;
     private readonly INavigationService _navigationService;
 
-    private string _initialCode;
+    private string _initialName = "";
     
-    public AudiencesFormPageViewModel(IAudienceRepository repository, INavigationService navigationService)
+    public StatusesFormPageViewModel(IStatusRepository repository, INavigationService navigationService)
     {
         _repository = repository;
         _navigationService = navigationService;
@@ -51,62 +51,40 @@ public class AudiencesFormPageViewModel : BaseFormViewModel<AudienceModel>
         }
     }
     
-    private string _code = "";
-    public string Code
-    {
-        get => _code;
     
-        set
-        {
-            _code = value;
-            _model!.Code = value;
-            OnPropertyChanged(nameof(Code));
-        }
-    }
-    
-    private bool _isCodeValid;
-    public bool IsCodeValid
-    {
-        get => _isCodeValid;
-    
-        set
-        {
-            _isCodeValid = value;
-            OnPropertyChanged(nameof(IsCodeValid));
-        }
-    }
+    private string _nameErrorText = "";
 
-    private string _codeErrorText = "";
-
-    public string CodeErrorText
+    public string NameErrorText
     {
-        get => _codeErrorText;
+        get => _nameErrorText;
     
         set
         {
-            _codeErrorText = value;
-            OnPropertyChanged(nameof(CodeErrorText));
+            _nameErrorText = value;
+            OnPropertyChanged(nameof(NameErrorText));
         }
     }
     
-    public override void Initialize(AudienceModel? model)
+    public override void Initialize(StatusModel? model)
     {
         base.Initialize(model);
 
         int? id = model?.Id;
-        
-        if (id == 0)
+
+        if (id == 0) {
             _mode = FormMode.Add;
+            Name = "";
+            IsNameValid = false;
+            _initialName = "";
+        }
         else {
-            _initialCode = model?.Code!;
+            _initialName = model?.Name!;
             _mode = FormMode.Edit;
             
             _isNameValid = true;
-            _isCodeValid = true;
         }
 
         Name = model?.Name!;
-        Code = model?.Code!;
     }
 
     private async void Submit()
@@ -114,15 +92,15 @@ public class AudiencesFormPageViewModel : BaseFormViewModel<AudienceModel>
         switch (_mode) {
             case FormMode.Add:
             {
-                if (await IsCodeUnique() == false)
+                if (await IsNameUnique() == false)
                     return;
                 
-                await _repository.AddAudienceAsync(_model!);
+                await _repository.AddStatusAsync(_model!);
             }
                 break;
             case FormMode.Edit:
             {
-                await _repository.UpdateAudienceAsync(_model!);
+                await _repository.UpdateStatusAsync(_model!);
             }
                 break;
             default:
@@ -134,16 +112,16 @@ public class AudiencesFormPageViewModel : BaseFormViewModel<AudienceModel>
 
     private bool CanSubmit()
     {
-        return IsNameValid && IsCodeValid;
+        return IsNameValid;
     }
 
-    private async Task<bool> IsCodeUnique()
+    private async Task<bool> IsNameUnique()
     {
-        if (_mode == FormMode.Edit && _initialCode == Code)
+        if (_mode == FormMode.Edit && _initialName == Name)
             return true;
         
-        if (await _repository.GetAudienceByCodeAsync(Code) != null) {
-            CodeErrorText = "Code is not unique";
+        if (await _repository.GetStatusByNameAsync(Name) != null) {
+            NameErrorText = "Name is not unique";
             return false;
         }
 
