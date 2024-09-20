@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using HardwareAcc.Models;
@@ -8,4 +9,6 @@ public interface IAudienceRepository
 {
     Task<IEnumerable<AudienceModel>> GetAllAudiencesAsync();
     Task AddAudienceAsync(AudienceModel audience);
+    event Action AudiencesChanged;
+    Task DeleteAudienceAsync(int audienceId);
 }

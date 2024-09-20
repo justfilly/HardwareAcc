@@ -71,6 +71,13 @@ public class AudiencesFormPageViewModel : BaseFormViewModel<AudienceModel>
     {
         base.SetModel(model);
 
+        int? id = model?.Id;
+        
+        if (id == 0)
+            _mode = FormMode.Add;
+        else
+            _mode = FormMode.Edit;
+
         Name = model?.Name!;
         Code = model?.Code!;
     }
