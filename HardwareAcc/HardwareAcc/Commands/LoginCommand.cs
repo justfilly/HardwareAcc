@@ -1,7 +1,7 @@
+using HardwareAcc.MVVM.ViewModels;
+using HardwareAcc.MVVM.ViewModels.LoginRegister;
 using HardwareAcc.Services.Auth;
 using HardwareAcc.Services.Navigation;
-using HardwareAcc.ViewModels;
-using HardwareAcc.ViewModels.LoginRegister;
 
 namespace HardwareAcc.Commands;
 

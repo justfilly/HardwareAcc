@@ -53,6 +53,12 @@
       <None Remove="Resources\Fonts\Password.ttf" />
       <None Remove="Resources\Icons\menu_button.svg" />
       <Resource Include="Resources\Icons\menu_button.svg" />
+      <None Remove="Resources\Icons\add_button.svg" />
+      <Resource Include="Resources\Icons\add_button.svg" />
+      <None Remove="Resources\Icons\record_delete.svg" />
+      <Resource Include="Resources\Icons\record_delete.svg" />
+      <None Remove="Resources\Icons\record_edit.svg" />
+      <Resource Include="Resources\Icons\record_edit.svg" />
     </ItemGroup>
 
     <ItemGroup>
@@ -84,6 +90,55 @@
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
+      <Page Update="MVVM\Views\LoginRegister\LoginPageView.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="MVVM\Views\LoginRegister\RegisterContactInfoPageView.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="MVVM\Views\LoginRegister\RegisterCredentialsPageView.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="MVVM\Views\LoginRegister\RegisterNamePageView.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="MVVM\Views\Tabs\AudiencesTabPageView.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="MVVM\Views\Tabs\HardwareTabPageView.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="MVVM\Views\Tabs\StatusesTabPageView.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="MVVM\Views\Tabs\UsersTabPageView.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="MVVM\Views\UserControls\LoginRegisterLeftPanel.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="MVVM\Views\UserControls\PasswordInputField.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="MVVM\Views\UserControls\TabButton.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="MVVM\Views\UserControls\TextInputField.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="MVVM\Views\AccountingPageView.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="MVVM\Views\MainWindowView.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="MVVM\Views\Forms\AudiencesFormPageView.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="MVVM\" />
     </ItemGroup>
 
 </Project>

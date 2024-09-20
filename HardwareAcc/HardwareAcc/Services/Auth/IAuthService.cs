@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using HardwareAcc.Models;
+using HardwareAcc.MVVM.Models;
 
 namespace HardwareAcc.Services.Auth;
 
@@ -9,7 +9,7 @@ public interface IAuthService
     Task LogInAsync(string login, string password);
     void LogOut();
     
-    Task RegisterAsync(User user);
+    Task RegisterAsync(UserModel userModel);
     Task<bool> ValidateRegisterCredentialsAsync(string login, string? email = "", string? phoneNumber = "");
 
 }

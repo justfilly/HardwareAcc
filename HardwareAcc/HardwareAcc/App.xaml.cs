@@ -1,19 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
-using System.Text.RegularExpressions;
 using System.Windows;
-using HardwareAcc.Commands;
+using HardwareAcc.MVVM.ViewModels;
+using HardwareAcc.MVVM.ViewModels.Forms;
+using HardwareAcc.MVVM.ViewModels.LoginRegister;
+using HardwareAcc.MVVM.ViewModels.Tabs;
+using HardwareAcc.MVVM.Views;
+using HardwareAcc.MVVM.Views.Forms;
+using HardwareAcc.MVVM.Views.LoginRegister;
+using HardwareAcc.MVVM.Views.Tabs;
 using HardwareAcc.Services.Auth;
 using HardwareAcc.Services.DBConnection;
+using HardwareAcc.Services.FormsProvider;
 using HardwareAcc.Services.Navigation;
 using HardwareAcc.Services.ViewLocator;
-using HardwareAcc.ViewModels;
-using HardwareAcc.Views;
-using HardwareAcc.Services.Repositories;
-using HardwareAcc.ViewModels.LoginRegister;
-using HardwareAcc.ViewModels.Tabs;
-using HardwareAcc.Views.LoginRegister;
-using HardwareAcc.Views.Tabs;
+using HardwareAcc.Services.Repositories.Audience;
+using HardwareAcc.Services.Repositories.User;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -33,12 +36,14 @@ namespace HardwareAcc
             RegisterServices(serviceCollection, configuration);
             _serviceProvider = serviceCollection.BuildServiceProvider();
 
-            RegisterViews();
+            RegisterViewsInViewLocator();
+
+            InitializeFormsProvider();
             
             MainWindowView loginRegisterWindow = _serviceProvider.GetRequiredService<MainWindowView>();
             loginRegisterWindow.DataContext = _serviceProvider.GetRequiredService<MainWindowViewModel>();
             loginRegisterWindow.Show();
-            _serviceProvider.GetRequiredService<INavigationService>().Navigate<AccountingPageViewModel>();
+            _serviceProvider.GetRequiredService<INavigationService>().Navigate<LoginPageViewModel>();
         }
 
         protected override void OnExit(ExitEventArgs e)
@@ -58,22 +63,6 @@ namespace HardwareAcc
             return builder.Build();
         }
 
-        private void RegisterViews()
-        {
-            IViewLocator viewLocator = _serviceProvider!.GetRequiredService<IViewLocator>();
-            
-            viewLocator.Register<LoginPageViewModel, LoginPageView>();
-            viewLocator.Register<RegisterNamePageViewModel, RegisterNamePageView>();
-            viewLocator.Register<RegisterContactInfoPageViewModel, RegisterContactInfoPageView>();
-            viewLocator.Register<RegisterCredentialsPageViewModel, RegisterCredentialsPageView>();
-            viewLocator.Register<AccountingPageViewModel, AccountingPageView>();
-            
-            viewLocator.Register<HardwareTabPageViewModel, HardwareTabPageView>();
-            viewLocator.Register<UsersTabPageViewModel, UsersTabPageView>();
-            viewLocator.Register<AudiencesTabPageViewModel, AudiencesTabPageView>();
-            viewLocator.Register<StatusesTabPageViewModel, StatusesTabPageView>();
-        }
-        
         private void RegisterServices(IServiceCollection serviceCollection, IConfiguration configuration)
         {
             serviceCollection.AddSingleton(configuration);
@@ -83,14 +72,18 @@ namespace HardwareAcc
             // Services.
             serviceCollection.AddSingleton<IDBConnectionService, DBConnectionService>();
             serviceCollection.AddSingleton<IUserRepository, UserRepository>();
+            serviceCollection.AddSingleton<IAudienceRepository, AudienceRepository>();
+            
             serviceCollection.AddSingleton<IAuthService, AuthService>();
             serviceCollection.AddSingleton<IViewLocator, ViewLocator>();
             serviceCollection.AddSingleton<INavigationService, NavigationService>();
+            serviceCollection.AddSingleton<IFormsProvider, FormsProvider>();
             
+            // Main Window.
             serviceCollection.AddSingleton<MainWindowView>();
             serviceCollection.AddSingleton<MainWindowViewModel>();
 
-            // Pages.
+            // Registration Pages.
             serviceCollection.AddSingleton<LoginPageView>();
             serviceCollection.AddSingleton<LoginPageViewModel>();
 
@@ -103,6 +96,7 @@ namespace HardwareAcc
             serviceCollection.AddSingleton<RegisterCredentialsPageView>();
             serviceCollection.AddSingleton<RegisterCredentialsPageViewModel>();
             
+            // Accounting Page.
             serviceCollection.AddSingleton<AccountingPageView>();
             serviceCollection.AddSingleton<AccountingPageViewModel>();
             
@@ -118,6 +112,45 @@ namespace HardwareAcc
             
             serviceCollection.AddSingleton<StatusesTabPageView>();
             serviceCollection.AddSingleton<StatusesTabPageViewModel>();
+            
+            // Forms.
+            serviceCollection.AddSingleton<AudiencesFormPageView>();
+            serviceCollection.AddSingleton<AudiencesFormPageViewModel>();
+        }
+
+        private void RegisterViewsInViewLocator()
+        {
+            IViewLocator viewLocator = _serviceProvider!.GetRequiredService<IViewLocator>();
+            
+            // Registration Pages.
+            viewLocator.Register<LoginPageViewModel, LoginPageView>();
+            viewLocator.Register<RegisterNamePageViewModel, RegisterNamePageView>();
+            viewLocator.Register<RegisterContactInfoPageViewModel, RegisterContactInfoPageView>();
+            viewLocator.Register<RegisterCredentialsPageViewModel, RegisterCredentialsPageView>();
+            
+            // Accounting Page.
+            viewLocator.Register<AccountingPageViewModel, AccountingPageView>();
+            
+            // Tabs.
+            viewLocator.Register<HardwareTabPageViewModel, HardwareTabPageView>();
+            viewLocator.Register<UsersTabPageViewModel, UsersTabPageView>();
+            viewLocator.Register<AudiencesTabPageViewModel, AudiencesTabPageView>();
+            viewLocator.Register<StatusesTabPageViewModel, StatusesTabPageView>();
+            
+            // Forms.
+            viewLocator.Register<AudiencesFormPageViewModel, AudiencesFormPageView>();
+        }
+        
+        private void InitializeFormsProvider()
+        {
+            IFormsProvider formsProvider = _serviceProvider.GetRequiredService<IFormsProvider>();
+
+            List<BaseViewModel> formViewModels = new()
+            {
+                _serviceProvider.GetRequiredService<AudiencesFormPageViewModel>(),
+            };
+
+            formsProvider.Initialize(formViewModels);
         }
     }
 }

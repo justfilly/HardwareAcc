@@ -1,6 +1,6 @@
 using System;
 using System.Windows.Controls;
-using HardwareAcc.ViewModels;
+using HardwareAcc.MVVM.ViewModels;
 
 namespace HardwareAcc.Services.ViewLocator;
 

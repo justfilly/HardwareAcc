@@ -1,9 +1,8 @@
 using System.Threading.Tasks;
-using HardwareAcc.Models;
+using HardwareAcc.MVVM.Models;
+using HardwareAcc.MVVM.ViewModels.LoginRegister;
 using HardwareAcc.Services.Auth;
 using HardwareAcc.Services.Navigation;
-using HardwareAcc.ViewModels.LoginRegister;
-using HardwareAcc.Views.LoginRegister;
 
 namespace HardwareAcc.Commands;
 
@@ -40,7 +39,7 @@ public class RegisterCommand : BaseCommand
 
             if (isRegisterCredentialsValid)
             {
-                User user = new User
+                UserModel userModel = new UserModel
                 {
                     RoleId = 2,
                 
@@ -55,7 +54,7 @@ public class RegisterCommand : BaseCommand
                     PhoneNumber = _registerContactInfoPageViewModel.PhoneNumber
                 };
        
-                await _authService.RegisterAsync(user);
+                await _authService.RegisterAsync(userModel);
                 _navigationService.Navigate<LoginPageViewModel>();
             }
         }

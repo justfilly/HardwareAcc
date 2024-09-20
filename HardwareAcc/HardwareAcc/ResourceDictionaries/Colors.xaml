@@ -30,5 +30,10 @@
     
     <SolidColorBrush x:Key="Color_BackgroundLightGray">#F1F1F1</SolidColorBrush>
     
-    
+    <!--TableView-->
+    <SolidColorBrush x:Key="Color_TableViewBackground">#FFFFFF</SolidColorBrush>
+    <SolidColorBrush x:Key="Color_TableViewHeaderText">#555555</SolidColorBrush>
+    <SolidColorBrush x:Key="Color_TableViewItemText">#878787</SolidColorBrush>
+    <SolidColorBrush x:Key="Color_TableViewBorder">#BCBCBC</SolidColorBrush>
+
 </ResourceDictionary>
