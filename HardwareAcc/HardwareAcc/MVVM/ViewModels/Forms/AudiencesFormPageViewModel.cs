@@ -12,7 +12,7 @@ public class AudiencesFormPageViewModel : BaseFormViewModel<AudienceModel>
     private readonly IAudienceRepository _repository;
     private readonly INavigationService _navigationService;
 
-    private string _initialCode;
+    private string _initialCode = "";
     
     public AudiencesFormPageViewModel(IAudienceRepository repository, INavigationService navigationService)
     {
@@ -94,9 +94,17 @@ public class AudiencesFormPageViewModel : BaseFormViewModel<AudienceModel>
         base.Initialize(model);
 
         int? id = model?.Id;
-        
-        if (id == 0)
+
+        if (id == 0) {
             _mode = FormMode.Add;
+            
+            Name = "";
+            IsNameValid = false;
+            
+            Code = "";
+            IsCodeValid = false;
+            _initialCode = "";
+        }
         else {
             _initialCode = model?.Code!;
             _mode = FormMode.Edit;

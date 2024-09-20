@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using HardwareAcc.Commands;
@@ -11,20 +12,16 @@ namespace HardwareAcc.MVVM.ViewModels.Tabs;
 
 public class AudiencesTabPageViewModel : BaseViewModel, IDisposable
 {
-    private readonly IAudienceRepository _audienceRepository;
+    private readonly IAudienceRepository _repository;
 
-    public AudiencesTabPageViewModel(IAudienceRepository audienceRepository, INavigationService navigationService)
+    public AudiencesTabPageViewModel(IAudienceRepository repository, INavigationService navigationService)
     {
-        _audienceRepository = audienceRepository;
+        _repository = repository;
         _audiences = new ObservableCollection<AudienceModel>();
-        AudiencesFormNavigateCommand = new NavigateToFormCommand<AudiencesFormPageViewModel, AudienceModel>(navigationService);
-        DeleteAudienceCommand = new RelayCommandWithParameter(DeleteAudience, CanDeleteAudience);
-        
-        _audienceRepository.AudiencesChanged += OnAudiencesChanged;
+        FormNavigateCommand = new NavigateToFormCommand<AudiencesFormPageViewModel, AudienceModel>(navigationService);
+        DeleteRecordCommand = new RelayCommandWithParameter(DeleteRecord, CanDeleteRecord);
     }
-
-
-
+    
     private ObservableCollection<AudienceModel> _audiences;
 
     public ObservableCollection<AudienceModel> Audiences
@@ -38,34 +35,37 @@ public class AudiencesTabPageViewModel : BaseViewModel, IDisposable
         }
     }
 
-    public NavigateToFormCommand<AudiencesFormPageViewModel, AudienceModel> AudiencesFormNavigateCommand { get; }
-    public RelayCommandWithParameter DeleteAudienceCommand { get; }
+    public NavigateToFormCommand<AudiencesFormPageViewModel, AudienceModel> FormNavigateCommand { get; }
+    public RelayCommandWithParameter DeleteRecordCommand { get; }
     public static AudienceModel NewAudienceModel => new();
 
-    public async Task InitializeAsync() => 
-        await LoadAudiencesAsync();
+    public async Task InitializeAsync()
+    {
+        await LoadRecordsAsync();
+        _repository.AudiencesChanged += OnAudiencesChanged;
+    }
 
     private async void OnAudiencesChanged() => 
-        await LoadAudiencesAsync();
+        await LoadRecordsAsync();
 
-    private async Task LoadAudiencesAsync()
+    private async Task LoadRecordsAsync()
     {
-        var audiences = await _audienceRepository.GetAllAudiencesAsync();
+        IEnumerable<AudienceModel> audiences = await _repository.GetAllAudiencesAsync();
         Audiences = new ObservableCollection<AudienceModel>(audiences);
     }
     
-    private void DeleteAudience(object model)
+    private void DeleteRecord(object model)
     {
         if (model is AudienceModel audience)
-            _audienceRepository.DeleteAudienceAsync(audience.Id);
+            _repository.DeleteAudienceAsync(audience.Id);
         else
             throw new ArgumentException($"Argument {nameof(model)} must be of type {nameof(AudienceModel)}");
     }
 
-    private bool CanDeleteAudience() => 
+    private bool CanDeleteRecord() => 
         true;
 
 
     public void Dispose() => 
-        _audienceRepository.AudiencesChanged -= OnAudiencesChanged;
+        _repository.AudiencesChanged -= OnAudiencesChanged;
 }
