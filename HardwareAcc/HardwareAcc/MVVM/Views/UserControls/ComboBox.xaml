@@ -15,7 +15,7 @@
             </Label>
 
             <ComboBox x:Name="ComboBoxControl"
-                      ItemsSource="{Binding ComboBoxItems, UpdateSourceTrigger=PropertyChanged}"
+                      ItemsSource="{Binding ComboBoxItems, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                       SelectedItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       Height="30"
                       VerticalContentAlignment="Center" 
@@ -79,8 +79,8 @@
                                             BorderThickness="1"
                                             CornerRadius="5" 
                                             Width="{Binding ActualWidth, ElementName=ComboBoxControl}">
-                                        <ScrollViewer MaxHeight="200"> 
-                                            <StackPanel IsItemsHost="True" MaxHeight="200"/>
+                                        <ScrollViewer MaxHeight="{Binding PopupMaxHeight, Mode=TwoWay}"> 
+                                            <StackPanel IsItemsHost="True" MaxHeight="{Binding PopupMaxHeight, Mode=TwoWay}"/>
                                         </ScrollViewer>
                                     </Border>
                                 </Popup>

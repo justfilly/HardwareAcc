@@ -48,7 +48,7 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 
-                <StackPanel Grid.Column="0" HorizontalAlignment="Left" Margin="35, 0, 0, 0">
+                <StackPanel Grid.Column="0" HorizontalAlignment="Left" Margin="35, 0, 0, 0" MaxWidth="300">
                     <userControls:TextInputField 
                         LabelText="Name"
                         InputText="{Binding Name, Mode=TwoWay}"
@@ -68,7 +68,7 @@
                     </Button>
                 </StackPanel>
                 
-                <StackPanel Grid.Column="1" HorizontalAlignment="Left" Margin="35, 0, 0, 0">
+                <StackPanel Grid.Column="1" HorizontalAlignment="Left" Margin="35, 0, 0, 0" MaxWidth="300">
                     <userControls:TextInputField 
                         LabelText="Code"
                         InputText="{Binding Code, Mode=TwoWay}"

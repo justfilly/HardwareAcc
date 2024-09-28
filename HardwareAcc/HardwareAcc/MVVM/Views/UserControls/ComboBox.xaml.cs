@@ -62,4 +62,17 @@ public partial class ComboBox : UserControl
         get => (string)GetValue(ErrorTextProperty);
         set => SetValue(ErrorTextProperty, value);
     }
+
+    public static readonly DependencyProperty PopupMaxHeightProperty = 
+        DependencyProperty.Register(
+            nameof(PopupMaxHeight), 
+            typeof(int), 
+            typeof(ComboBox), 
+            new PropertyMetadata(200));
+
+    public int PopupMaxHeight
+    {
+        get => (int)GetValue(PopupMaxHeightProperty);
+        set => SetValue(PopupMaxHeightProperty, value);
+    }
 }
