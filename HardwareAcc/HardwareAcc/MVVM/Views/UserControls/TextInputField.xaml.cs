@@ -77,9 +77,9 @@ public partial class TextInputField
         IsValid = !Validation.GetHasError(TextBox);
 
         if (Validation.GetErrors(TextBox).Count > 0)
-            ErrorLabel.Content = (string)Validation.GetErrors(TextBox)[0].ErrorContent;
+            ErrorLabel.Text = (string)Validation.GetErrors(TextBox)[0].ErrorContent;
         else
-            ErrorLabel.Content = string.Empty;
+            ErrorLabel.Text = string.Empty;
     }
 
     public static readonly DependencyProperty ValidationRulesProperty =

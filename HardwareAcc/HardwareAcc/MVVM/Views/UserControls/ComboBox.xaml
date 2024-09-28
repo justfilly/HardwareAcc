@@ -17,7 +17,7 @@
             <ComboBox x:Name="ComboBoxControl"
                       ItemsSource="{Binding ComboBoxItems, UpdateSourceTrigger=PropertyChanged}"
                       SelectedItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      Height="30" Width="300" 
+                      Height="30"
                       VerticalContentAlignment="Center" 
                       Padding="10, 0, 0, 0">
                 <ComboBox.Template>
@@ -79,8 +79,8 @@
                                             BorderThickness="1"
                                             CornerRadius="5" 
                                             Width="{Binding ActualWidth, ElementName=ComboBoxControl}">
-                                        <ScrollViewer MaxHeight="200"> <!-- Set a max height for scrolling -->
-                                            <StackPanel IsItemsHost="True" MaxHeight="200"/> <!-- Limit the maximum height of items -->
+                                        <ScrollViewer MaxHeight="200"> 
+                                            <StackPanel IsItemsHost="True" MaxHeight="200"/>
                                         </ScrollViewer>
                                     </Border>
                                 </Popup>
@@ -95,6 +95,9 @@
                    FontSize="12" FontWeight="Light" 
                    Foreground="{StaticResource Color_Neutral}"
                    Margin="10, 2, 0, 0"
+                   Padding="0, 0, 10, 0"
+                   Width="{Binding ActualWidth, ElementName=ComboBoxControl}"
+                   Height="30"
                    Visibility="Visible">
             </Label>
         </StackPanel>
