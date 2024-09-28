@@ -122,7 +122,7 @@ public class ChromeWindow : Window
             if (this == Empty) { return "RECT {Empty}"; }
             return "RECT { left : " + left + " / top : " + top + " / right : " + right + " / bottom : " + bottom + " }";
         }
-        public override bool Equals(object? obj)
+        public override bool Equals(object obj)
         {
             if (obj is not Rect) { return false; }
             return (this == (RECT)obj);

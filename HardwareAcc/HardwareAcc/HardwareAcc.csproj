@@ -3,7 +3,7 @@
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
         <TargetFramework>net7.0-windows</TargetFramework>
-        <Nullable>enable</Nullable>
+        <Nullable>disable</Nullable>
         <UseWPF>true</UseWPF>
     </PropertyGroup>
 
@@ -59,6 +59,8 @@
       <Resource Include="Resources\Icons\record_delete.svg" />
       <None Remove="Resources\Icons\record_edit.svg" />
       <Resource Include="Resources\Icons\record_edit.svg" />
+      <None Remove="Resources\Icons\combobox.svg" />
+      <Resource Include="Resources\Icons\combo_box.svg" />
     </ItemGroup>
 
     <ItemGroup>

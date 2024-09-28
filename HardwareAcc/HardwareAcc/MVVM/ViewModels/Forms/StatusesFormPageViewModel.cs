@@ -65,7 +65,7 @@ public class StatusesFormPageViewModel : BaseFormViewModel<StatusModel>
         }
     }
     
-    public override void Initialize(StatusModel? model)
+    public override void Initialize(StatusModel model)
     {
         base.Initialize(model);
 

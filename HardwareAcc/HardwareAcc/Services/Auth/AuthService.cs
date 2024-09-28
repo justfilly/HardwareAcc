@@ -9,7 +9,7 @@ public class AuthService : IAuthService
 {
     private readonly IUserRepository _userRepository;
 
-    private UserModel? _authenticatedUser; 
+    private UserModel _authenticatedUser; 
         
     public AuthService(IUserRepository userRepository)
     {
@@ -18,7 +18,7 @@ public class AuthService : IAuthService
 
     public async Task<bool> ValidateLoginCredentialsAsync(string login, string password)
     {
-        UserModel? user = await _userRepository.GetUserByLoginAsync(login);
+        UserModel user = await _userRepository.GetUserByLoginAsync(login);
 
         if (user == null)
             return false;
@@ -45,16 +45,16 @@ public class AuthService : IAuthService
             await _userRepository.AddUserAsync(userModel);
     }
 
-    public async Task<bool> ValidateRegisterCredentialsAsync(string login, string? email = "", string? phoneNumber = "")
+    public async Task<bool> ValidateRegisterCredentialsAsync(string login, string email = "", string phoneNumber = "")
     {
-        UserModel? userWithSameLogin = await _userRepository.GetUserByLoginAsync(login);
+        UserModel userWithSameLogin = await _userRepository.GetUserByLoginAsync(login);
     
         if (userWithSameLogin != null)
             return false;
 
         if (string.IsNullOrEmpty(email) == false)
         {
-            UserModel? userWithSameEmail = await _userRepository.GetUserByEmailAsync(email);
+            UserModel userWithSameEmail = await _userRepository.GetUserByEmailAsync(email);
         
             if (userWithSameEmail != null)
                 return false;
@@ -62,7 +62,7 @@ public class AuthService : IAuthService
 
         if (string.IsNullOrEmpty(phoneNumber) == false)
         {
-            UserModel? userWithSamePhoneNumber = await _userRepository.GetUserByPhoneNumberAsync(phoneNumber);
+            UserModel userWithSamePhoneNumber = await _userRepository.GetUserByPhoneNumberAsync(phoneNumber);
             
             if (userWithSamePhoneNumber != null)
                 return false;

@@ -13,12 +13,12 @@ public partial class StatusesTabPageView : Page
         InitializeComponent();
         _viewModel = viewModel;
         DataContext = _viewModel;
-        Loaded += AudiencesTabPageViewLoaded; 
+        Loaded += ViewLoaded; 
     }
 
-    private async void AudiencesTabPageViewLoaded(object sender, RoutedEventArgs e)
+    private async void ViewLoaded(object sender, RoutedEventArgs e)
     {
-        Loaded -= AudiencesTabPageViewLoaded;
+        Loaded -= ViewLoaded;
         await _viewModel.InitializeAsync();
     }
 }

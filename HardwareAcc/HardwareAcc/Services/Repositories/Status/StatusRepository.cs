@@ -17,7 +17,7 @@ public class StatusRepository : IStatusRepository
         _dbConnectionService = dbConnectionService;
     }
 
-    public event Action? StatusesChanged;
+    public event Action StatusesChanged;
 
     public async Task<IEnumerable<StatusModel>> GetAllStatusesAsync()
     {
@@ -37,6 +37,24 @@ public class StatusRepository : IStatusRepository
         return statuses;
     }
 
+    public async Task<StatusModel> GetStatusByNameAsync(string name)
+    {
+        await using MySqlConnection connection = _dbConnectionService.GetConnection();
+        
+        await using MySqlCommand command = connection.CreateCommand();
+        command.CommandText = @"
+            SELECT * 
+            FROM hardwareacc.hardware_statuses 
+            WHERE name = @name";
+        command.Parameters.AddWithValue("@name", name);
+
+        await using MySqlDataReader reader = await command.ExecuteReaderAsync();
+        if (await reader.ReadAsync())
+            return DeserializeStatus(reader);
+
+        return null;
+    }
+
     public async Task AddStatusAsync(StatusModel status)
     {
         await using MySqlConnection connection = _dbConnectionService.GetConnection();
@@ -50,7 +68,7 @@ public class StatusRepository : IStatusRepository
         await command.ExecuteNonQueryAsync();
         StatusesChanged?.Invoke();
     }
-    
+
     public async Task DeleteStatusAsync(int statusId)
     {
         await using MySqlConnection connection = _dbConnectionService.GetConnection();
@@ -80,26 +98,8 @@ public class StatusRepository : IStatusRepository
         await command.ExecuteNonQueryAsync();
         StatusesChanged?.Invoke();
     }
-    
-    public async Task<StatusModel?> GetStatusByNameAsync(string name)
-    {
-        await using MySqlConnection connection = _dbConnectionService.GetConnection();
-        
-        await using MySqlCommand command = connection.CreateCommand();
-        command.CommandText = @"
-            SELECT * 
-            FROM hardwareacc.hardware_statuses 
-            WHERE name = @name";
-        command.Parameters.AddWithValue("@name", name);
 
-        await using MySqlDataReader reader = await command.ExecuteReaderAsync();
-        if (await reader.ReadAsync())
-            return DeserializeStatus(reader);
 
-        return null;
-    }
-
-    
     private static StatusModel DeserializeStatus(IDataRecord reader)
     {
         return new StatusModel

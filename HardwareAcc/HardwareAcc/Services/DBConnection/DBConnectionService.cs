@@ -6,7 +6,7 @@ namespace HardwareAcc.Services.DBConnection;
 
 public sealed class DBConnectionService : IDBConnectionService
 {
-    private readonly string? _connectionString;
+    private readonly string _connectionString;
     
     public DBConnectionService(IConfiguration configuration)
     {

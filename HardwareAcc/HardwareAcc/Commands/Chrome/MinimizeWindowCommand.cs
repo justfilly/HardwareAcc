@@ -11,7 +11,7 @@ public class MinimizeWindowCommand : BaseCommand
         _window = window;
     }
 
-    public override void Execute(object? parameter)
+    public override void Execute(object parameter)
     {
         _window.WindowState = WindowState.Minimized;
     }

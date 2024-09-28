@@ -11,7 +11,7 @@ public class MaximizeWindowCommand : BaseCommand
         _window = window;
     }
 
-    public override void Execute(object? parameter)
+    public override void Execute(object parameter)
     {
         if (_window.WindowState == WindowState.Maximized)
             _window.WindowState = WindowState.Normal;

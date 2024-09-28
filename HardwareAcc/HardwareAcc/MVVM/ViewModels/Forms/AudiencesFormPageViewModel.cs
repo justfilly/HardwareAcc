@@ -25,7 +25,8 @@ public class AudiencesFormPageViewModel : BaseFormViewModel<AudienceModel>
     
     public NavigateCommand<AccountingPageViewModel> AccountingNavigateCommand { get; }
     public RelayCommand SubmitCommand { get; }
-    
+
+    #region FieldProperties
     private string _name = "";
     public string Name
     {
@@ -88,8 +89,9 @@ public class AudiencesFormPageViewModel : BaseFormViewModel<AudienceModel>
             OnPropertyChanged(nameof(CodeErrorText));
         }
     }
+    #endregion
     
-    public override void Initialize(AudienceModel? model)
+    public override void Initialize(AudienceModel model)
     {
         base.Initialize(model);
 
@@ -99,7 +101,7 @@ public class AudiencesFormPageViewModel : BaseFormViewModel<AudienceModel>
             _mode = FormMode.Add;
             
             Name = "";
-            IsNameValid = false;
+            IsNameValid = true;
             
             Code = "";
             IsCodeValid = false;

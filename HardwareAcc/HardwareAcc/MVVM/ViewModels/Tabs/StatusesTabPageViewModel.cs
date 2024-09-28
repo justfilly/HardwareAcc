@@ -10,7 +10,7 @@ using HardwareAcc.Services.Repositories.Status;
 
 namespace HardwareAcc.MVVM.ViewModels.Tabs;
 
-public class StatusesTabPageViewModel : BaseViewModel
+public class StatusesTabPageViewModel : BaseViewModel, IDisposable
 {
     private readonly IStatusRepository _repository;
 

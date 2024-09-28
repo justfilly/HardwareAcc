@@ -13,14 +13,14 @@
                    Foreground="{StaticResource Color_InputFieldLabel}"
                    Margin="10, 0, 0, 0">
             </Label>
-                
+            
             <Border CornerRadius="5" BorderThickness="1" BorderBrush="{StaticResource Color_InputFieldBorder}" >
                 <TextBox x:Name="TextBox" 
                          Text="{Binding InputText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                          FontSize="14"
                          Padding="10, 0, 0, 0"
                          VerticalContentAlignment="Center"
-                         Height="30" Width="400" 
+                         Height="30" Width="300" 
                          Background="Transparent" BorderThickness="0"
                          TextChanged="TextBox_OnTextChanged">
                 </TextBox>    

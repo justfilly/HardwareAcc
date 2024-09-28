@@ -7,10 +7,10 @@ namespace HardwareAcc.Services.Repositories.Status;
 
 public interface IStatusRepository
 {
-    event Action? StatusesChanged;
+    event Action StatusesChanged;
     Task<IEnumerable<StatusModel>> GetAllStatusesAsync();
     Task AddStatusAsync(StatusModel status);
     Task DeleteStatusAsync(int statusId);
     Task UpdateStatusAsync(StatusModel status);
-    Task<StatusModel?> GetStatusByNameAsync(string name);
+    Task<StatusModel> GetStatusByNameAsync(string name);
 }

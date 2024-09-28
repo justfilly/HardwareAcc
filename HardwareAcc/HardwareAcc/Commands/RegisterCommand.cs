@@ -27,7 +27,7 @@ public class RegisterCommand : BaseCommand
         _navigationService = navigationService;
     }
     
-    public override async void Execute(object? parameter)
+    public override async void Execute(object parameter)
     {
         if (IsUserDataValid())
         {

@@ -5,12 +5,12 @@ namespace HardwareAcc.Commands;
 
 public abstract class BaseCommand : ICommand
 {
-    public event EventHandler? CanExecuteChanged;
+    public event EventHandler CanExecuteChanged;
 
-    public virtual bool CanExecute(object? parameter) => 
+    public virtual bool CanExecute(object parameter) => 
         true;
 
-    public abstract void Execute(object? parameter);
+    public abstract void Execute(object parameter);
 
     protected virtual void OnCanExecuteChanged() => 
         CanExecuteChanged?.Invoke(this, EventArgs.Empty);

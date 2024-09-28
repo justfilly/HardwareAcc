@@ -25,7 +25,7 @@ namespace HardwareAcc
 {
     public partial class App
     {
-        private IServiceProvider? _serviceProvider;
+        private IServiceProvider _serviceProvider;
         
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -123,6 +123,9 @@ namespace HardwareAcc
             
             serviceCollection.AddSingleton<StatusesFormPageView>();
             serviceCollection.AddSingleton<StatusesFormPageViewModel>();
+            
+            serviceCollection.AddSingleton<UsersFormPageView>();
+            serviceCollection.AddSingleton<UsersFormPageViewModel>();
         }
 
         private void RegisterViewsInViewLocator()
@@ -147,6 +150,7 @@ namespace HardwareAcc
             // Forms.
             viewLocator.Register<AudiencesFormPageViewModel, AudiencesFormPageView>();
             viewLocator.Register<StatusesFormPageViewModel, StatusesFormPageView>();
+            viewLocator.Register<UsersFormPageViewModel, UsersFormPageView>();
         }
         
         private void InitializeFormsProvider()
@@ -157,6 +161,7 @@ namespace HardwareAcc
             {
                 _serviceProvider.GetRequiredService<AudiencesFormPageViewModel>(),
                 _serviceProvider.GetRequiredService<StatusesFormPageViewModel>(),
+                _serviceProvider.GetRequiredService<UsersFormPageViewModel>(),
             };
 
             formsProvider.Initialize(formViewModels);
