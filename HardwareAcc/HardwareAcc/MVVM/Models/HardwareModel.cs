@@ -11,7 +11,8 @@ public class HardwareModel
     public string Name { get; set; }
     
     [Required]
-    public int InventoryNumber { get; set; }
+    [StringLength(255)]
+    public string InventoryNumber { get; set; }
     
     public double Price { get; set; }
     
