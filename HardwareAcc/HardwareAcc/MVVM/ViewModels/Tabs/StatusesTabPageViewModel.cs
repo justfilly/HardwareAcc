@@ -43,22 +43,22 @@ public class StatusesTabPageViewModel : BaseViewModel, IDisposable
     public async Task InitializeAsync()
     {
         await LoadRecordsAsync();
-        _repository.StatusesChanged += OnStatusesChanged;
+        _repository.Changed += OnChanged;
     }
 
-    private async void OnStatusesChanged() => 
+    private async void OnChanged() => 
         await LoadRecordsAsync();
 
     private async Task LoadRecordsAsync()
     {
-        IEnumerable<StatusModel> statuses = await _repository.GetAllStatusesAsync();
+        IEnumerable<StatusModel> statuses = await _repository.GetAllAsync();
         Statuses = new ObservableCollection<StatusModel>(statuses);
     }
     
     private void DeleteRecord(object model)
     {
         if (model is StatusModel status)
-            _repository.DeleteStatusAsync(status.Id);
+            _repository.DeleteAsync(status.Id);
         else
             throw new ArgumentException($"Argument {nameof(model)} must be of type {nameof(StatusModel)}");
     }
@@ -68,5 +68,5 @@ public class StatusesTabPageViewModel : BaseViewModel, IDisposable
 
 
     public void Dispose() => 
-        _repository.StatusesChanged -= OnStatusesChanged;
+        _repository.Changed -= OnChanged;
 }

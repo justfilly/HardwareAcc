@@ -127,9 +127,9 @@ public class AudiencesFormPageViewModel : BaseFormViewModel<AudienceModel>
         _model.Code = Code;
         
         if (_mode == FormMode.Add)
-            await _repository.AddAudienceAsync(_model);
+            await _repository.AddAsync(_model);
         else
-            await _repository.UpdateAudienceAsync(_model);
+            await _repository.UpdateAsync(_model);
 
         _navigationService.Navigate<AccountingPageViewModel>();
     }
@@ -144,7 +144,7 @@ public class AudiencesFormPageViewModel : BaseFormViewModel<AudienceModel>
         if (_mode == FormMode.Edit && _initialCode == Code)
             return true;
         
-        if (await _repository.GetAudienceByCodeAsync(Code) != null) {
+        if (await _repository.GetByCodeAsync(Code) != null) {
             CodeErrorText = "Code is not unique";
             return false;
         }

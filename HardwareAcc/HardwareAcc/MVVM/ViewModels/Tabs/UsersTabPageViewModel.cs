@@ -43,22 +43,22 @@ public class UsersTabPageViewModel : BaseViewModel, IDisposable
     public async Task InitializeAsync()
     {
         await LoadRecordsAsync();
-        _repository.UsersChanged += OnUsersChanged;
+        _repository.Changed += OnChanged;
     }
 
-    private async void OnUsersChanged() => 
+    private async void OnChanged() => 
         await LoadRecordsAsync();
 
     private async Task LoadRecordsAsync()
     {
-        IEnumerable<UserModel> users = await _repository.GetAllUsersAsync();
+        IEnumerable<UserModel> users = await _repository.GetAllAsync();
         Users = new ObservableCollection<UserModel>(users);
     }
     
     private void DeleteRecord(object model)
     {
         if (model is UserModel user)
-            _repository.DeleteUserAsync(user.Id);
+            _repository.DeleteAsync(user.Id);
         else
             throw new ArgumentException($"Argument {nameof(model)} must be of type {nameof(UserModel)}");
     }
@@ -68,5 +68,5 @@ public class UsersTabPageViewModel : BaseViewModel, IDisposable
 
 
     public void Dispose() => 
-        _repository.UsersChanged -= OnUsersChanged;
+        _repository.Changed -= OnChanged;
 }

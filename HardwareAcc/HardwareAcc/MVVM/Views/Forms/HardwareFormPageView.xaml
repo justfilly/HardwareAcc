@@ -52,7 +52,6 @@
                     <userControls:TextInputField 
                         LabelText="Name"
                         InputText="{Binding Name, Mode=TwoWay}"
-                        ErrorText="{Binding NameErrorText, Mode=TwoWay}"
                         IsValid="{Binding IsNameValid, Mode=TwoWay}"
                         Margin="0, 35, 0, 0">
                         <userControls:TextInputField.ValidationRules>
@@ -84,6 +83,7 @@
                         LabelText="Inventory Number"
                         InputText="{Binding InventoryNumber, Mode=TwoWay}"
                         IsValid="{Binding IsInventoryNumberValid, Mode=TwoWay}"
+                        ErrorText="{Binding InventoryNumberErrorText, Mode=TwoWay}"
                         Margin="0, 35, 0, 0">
                         <userControls:TextInputField.ValidationRules>
                             <validationRules:NotEmptyValidationRule FieldName="InventoryNumber"/>
@@ -112,12 +112,10 @@
                     <userControls:TextInputField 
                         LabelText="Price - optional"
                         InputText="{Binding Price, Mode=TwoWay}"
-                        ErrorText="{Binding PriceErrorText, Mode=TwoWay}"
                         IsValid="{Binding IsPriceValid, Mode=TwoWay}"
                         Margin="0, 35, 0, 0">
                         <userControls:TextInputField.ValidationRules>
-                            <validationRules:NotEmptyValidationRule FieldName="Price"/>
-                            <validationRules:LengthValidationRule FieldName="Price" MinLength="2" MaxLength="50"/>
+                            <validationRules:LengthValidationRule FieldName="Price" MinLength="1" MaxLength="50" IgnoreEmpty="True"/>
                         </userControls:TextInputField.ValidationRules>
                     </userControls:TextInputField>
                     

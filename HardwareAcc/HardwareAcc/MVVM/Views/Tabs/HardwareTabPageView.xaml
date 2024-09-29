@@ -26,7 +26,7 @@
                         <DataGridTextColumn Header="Price" Binding="{Binding Price}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Status" Binding="{Binding StatusName}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Audience" Binding="{Binding AudienceCode}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Responsible User" Binding="{Binding ResponsibleUserSecondName}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Responsible User" Binding="{Binding ResponsibleUserLogin}"></DataGridTextColumn>
 
                         <DataGridTemplateColumn Header="Actions">
                             <DataGridTemplateColumn.CellTemplate>

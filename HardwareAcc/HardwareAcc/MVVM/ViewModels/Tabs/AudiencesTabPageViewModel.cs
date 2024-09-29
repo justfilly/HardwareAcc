@@ -42,22 +42,22 @@ public class AudiencesTabPageViewModel : BaseViewModel, IDisposable
     public async Task InitializeAsync()
     {
         await LoadRecordsAsync();
-        _repository.AudiencesChanged += OnAudiencesChanged;
+        _repository.Changed += OnChanged;
     }
 
-    private async void OnAudiencesChanged() => 
+    private async void OnChanged() => 
         await LoadRecordsAsync();
 
     private async Task LoadRecordsAsync()
     {
-        IEnumerable<AudienceModel> audiences = await _repository.GetAllAudiencesAsync();
+        IEnumerable<AudienceModel> audiences = await _repository.GetAllAsync();
         Audiences = new ObservableCollection<AudienceModel>(audiences);
     }
     
     private void DeleteRecord(object model)
     {
         if (model is AudienceModel audience)
-            _repository.DeleteAudienceAsync(audience.Id);
+            _repository.DeleteAsync(audience.Id);
         else
             throw new ArgumentException($"Argument {nameof(model)} must be of type {nameof(AudienceModel)}");
     }
@@ -67,5 +67,5 @@ public class AudiencesTabPageViewModel : BaseViewModel, IDisposable
 
 
     public void Dispose() => 
-        _repository.AudiencesChanged -= OnAudiencesChanged;
+        _repository.Changed -= OnChanged;
 }

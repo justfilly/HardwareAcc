@@ -17,9 +17,9 @@ public class UserRepository : IUserRepository
         _dbConnectionService = dbConnectionService;
     }
 
-    public event Action UsersChanged;
+    public event Action Changed;
 
-    public async Task<IEnumerable<UserModel>> GetAllUsersAsync()
+    public async Task<IEnumerable<UserModel>> GetAllAsync()
     {
         List<UserModel> users = new();
 
@@ -38,7 +38,7 @@ public class UserRepository : IUserRepository
         return users;
     }
 
-    public async Task<UserModel> GetUserByLoginAsync(string login)
+    public async Task<UserModel> GetByLoginAsync(string login)
     {
         await using MySqlConnection connection = _dbConnectionService.GetConnection();
 
@@ -58,7 +58,7 @@ public class UserRepository : IUserRepository
         return null;
     }
 
-    public async Task<UserModel> GetUserByEmailAsync(string email)
+    public async Task<UserModel> GetByEmailAsync(string email)
     {
         await using MySqlConnection connection = _dbConnectionService.GetConnection();
 
@@ -78,7 +78,7 @@ public class UserRepository : IUserRepository
         return null;
     }
 
-    public async Task<UserModel> GetUserByPhoneNumberAsync(string phoneNumber)
+    public async Task<UserModel> GetByPhoneNumberAsync(string phoneNumber)
     {
         await using MySqlConnection connection = _dbConnectionService.GetConnection();
 
@@ -98,7 +98,7 @@ public class UserRepository : IUserRepository
         return null;
     }
 
-    public async Task AddUserAsync(UserModel userModel)
+    public async Task AddAsync(UserModel model)
     {
         await using MySqlConnection connection = _dbConnectionService.GetConnection();
 
@@ -107,21 +107,21 @@ public class UserRepository : IUserRepository
                 INSERT INTO hardwareacc.users (login, password, role_id, email, phone_number, first_name, second_name, patronymic)
                 VALUES (@login, @password, @role_id, @Email, @PhoneNumber, @FirstName, @SecondName, @Patronymic)";
 
-        command.Parameters.AddWithValue("@login", userModel.Login);
-        command.Parameters.AddWithValue("@password", userModel.Password);
-        command.Parameters.AddWithValue("@role_id", userModel.RoleId);
-        command.Parameters.AddWithValue("@Email", string.IsNullOrEmpty(userModel.Email) ? DBNull.Value : userModel.Email);
-        command.Parameters.AddWithValue("@PhoneNumber", string.IsNullOrEmpty(userModel.Email) ? DBNull.Value : userModel.PhoneNumber);
-        command.Parameters.AddWithValue("@FirstName", userModel.FirstName);
-        command.Parameters.AddWithValue("@SecondName", userModel.SecondName);
-        command.Parameters.AddWithValue("@Patronymic", userModel.Patronymic);
+        command.Parameters.AddWithValue("@login", model.Login);
+        command.Parameters.AddWithValue("@password", model.Password);
+        command.Parameters.AddWithValue("@role_id", model.RoleId);
+        command.Parameters.AddWithValue("@Email", string.IsNullOrEmpty(model.Email) ? DBNull.Value : model.Email);
+        command.Parameters.AddWithValue("@PhoneNumber", string.IsNullOrEmpty(model.Email) ? DBNull.Value : model.PhoneNumber);
+        command.Parameters.AddWithValue("@FirstName", model.FirstName);
+        command.Parameters.AddWithValue("@SecondName", model.SecondName);
+        command.Parameters.AddWithValue("@Patronymic", model.Patronymic);
         
         await command.ExecuteNonQueryAsync();
         
-        UsersChanged?.Invoke();
+        Changed?.Invoke();
     }
 
-    public async Task DeleteUserAsync(int id)
+    public async Task DeleteAsync(int id)
     {
         await using MySqlConnection connection = _dbConnectionService.GetConnection();
 
@@ -132,10 +132,10 @@ public class UserRepository : IUserRepository
         command.Parameters.AddWithValue("@userId", id);
 
         await command.ExecuteNonQueryAsync();
-        UsersChanged?.Invoke();
+        Changed?.Invoke();
     }
 
-    public async Task UpdateUserAsync(UserModel userModel)
+    public async Task UpdateAsync(UserModel model)
     {
         await using MySqlConnection connection = _dbConnectionService.GetConnection();
 
@@ -146,19 +146,19 @@ public class UserRepository : IUserRepository
             SET login = @login, password = @password, role_id = @role_id, email = @Email, phone_number = @PhoneNumber, first_name = @FirstName, second_name = @SecondName, patronymic = @Patronymic
             WHERE user_id = @id";
         
-        command.Parameters.AddWithValue("@login", userModel.Login);
-        command.Parameters.AddWithValue("@password", userModel.Password);
-        command.Parameters.AddWithValue("@role_id", userModel.RoleId);
-        command.Parameters.AddWithValue("@Email", string.IsNullOrEmpty(userModel.Email) ? DBNull.Value : userModel.Email);
-        command.Parameters.AddWithValue("@PhoneNumber", string.IsNullOrEmpty(userModel.Email) ? DBNull.Value : userModel.PhoneNumber);
-        command.Parameters.AddWithValue("@FirstName", userModel.FirstName);
-        command.Parameters.AddWithValue("@SecondName", userModel.SecondName);
-        command.Parameters.AddWithValue("@Patronymic", userModel.Patronymic);
-        command.Parameters.AddWithValue("@id", userModel.Id);
+        command.Parameters.AddWithValue("@login", model.Login);
+        command.Parameters.AddWithValue("@password", model.Password);
+        command.Parameters.AddWithValue("@role_id", model.RoleId);
+        command.Parameters.AddWithValue("@Email", string.IsNullOrEmpty(model.Email) ? DBNull.Value : model.Email);
+        command.Parameters.AddWithValue("@PhoneNumber", string.IsNullOrEmpty(model.Email) ? DBNull.Value : model.PhoneNumber);
+        command.Parameters.AddWithValue("@FirstName", model.FirstName);
+        command.Parameters.AddWithValue("@SecondName", model.SecondName);
+        command.Parameters.AddWithValue("@Patronymic", model.Patronymic);
+        command.Parameters.AddWithValue("@id", model.Id);
 
 
         await command.ExecuteNonQueryAsync();
-        UsersChanged?.Invoke();
+        Changed?.Invoke();
     }
 
 

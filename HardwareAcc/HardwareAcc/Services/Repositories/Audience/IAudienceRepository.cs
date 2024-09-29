@@ -7,12 +7,12 @@ namespace HardwareAcc.Services.Repositories.Audience;
 
 public interface IAudienceRepository
 {
-    event Action AudiencesChanged;
+    event Action Changed;
     
-    Task<IEnumerable<AudienceModel>> GetAllAudiencesAsync();
-    Task<AudienceModel> GetAudienceByCodeAsync(string code);
+    Task<IEnumerable<AudienceModel>> GetAllAsync();
+    Task<AudienceModel> GetByCodeAsync(string code);
     
-    Task AddAudienceAsync(AudienceModel model);
-    Task DeleteAudienceAsync(int id);
-    Task UpdateAudienceAsync(AudienceModel model);
+    Task AddAsync(AudienceModel model);
+    Task DeleteAsync(int id);
+    Task UpdateAsync(AudienceModel model);
 }

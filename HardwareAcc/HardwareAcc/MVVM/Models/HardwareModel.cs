@@ -17,7 +17,7 @@ public class HardwareModel
     public double Price { get; set; }
     
     public int ResponsibleUserId { get; set; }
-    public string ResponsibleUserSecondName { get; set; }
+    public string ResponsibleUserLogin { get; set; }
     
     public int AudienceId { get; set; }
     public string AudienceCode { get; set; }

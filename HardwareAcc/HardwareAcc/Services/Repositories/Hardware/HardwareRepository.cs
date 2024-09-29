@@ -29,7 +29,7 @@ public class HardwareRepository : IHardwareRepository
         command.CommandText = @"
             SELECT h.*, 
                    a.code AS audience_code, 
-                   u.second_name AS responsible_user_name, 
+                   u.login AS responsible_user_login, 
                    s.name AS status_name
             FROM hardwareacc.hardware h
             LEFT JOIN hardwareacc.audiences a ON h.audience_id = a.audience_id
@@ -51,7 +51,7 @@ public class HardwareRepository : IHardwareRepository
         command.CommandText = @"
                 SELECT h.*, 
                        a.code AS audience_code, 
-                       u.second_name AS responsible_user_name, 
+                       u.login AS responsible_user_login, 
                        s.name AS status_name
                 FROM hardwareacc.hardware h
                 LEFT JOIN hardwareacc.audiences a ON h.audience_id = a.audience_id
@@ -141,7 +141,7 @@ public class HardwareRepository : IHardwareRepository
             Price = reader.IsDBNull(reader.GetOrdinal("price")) ? 0 : reader.GetDouble(reader.GetOrdinal("price")),
             
             ResponsibleUserId = reader.IsDBNull(reader.GetOrdinal("responsible_user_id")) ? 0 : reader.GetInt32(reader.GetOrdinal("responsible_user_id")),
-            ResponsibleUserSecondName = reader.IsDBNull(reader.GetOrdinal("responsible_user_name")) ? null : reader.GetString(reader.GetOrdinal("responsible_user_name")),
+            ResponsibleUserLogin = reader.IsDBNull(reader.GetOrdinal("responsible_user_login")) ? null : reader.GetString(reader.GetOrdinal("responsible_user_login")),
             
             AudienceId = reader.IsDBNull(reader.GetOrdinal("audience_id")) ? 0 : reader.GetInt32(reader.GetOrdinal("audience_id")),
             AudienceCode = reader.IsDBNull(reader.GetOrdinal("audience_code")) ? null : reader.GetString(reader.GetOrdinal("audience_code")),

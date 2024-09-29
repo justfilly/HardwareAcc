@@ -7,14 +7,14 @@ namespace HardwareAcc.Services.Repositories.User;
 
 public interface IUserRepository
 {
-    event Action UsersChanged;
+    event Action Changed;
     
-    Task<IEnumerable<UserModel>> GetAllUsersAsync();
-    Task<UserModel> GetUserByLoginAsync(string login);
-    Task<UserModel> GetUserByEmailAsync(string email);
-    Task<UserModel> GetUserByPhoneNumberAsync(string phoneNumber);
+    Task<IEnumerable<UserModel>> GetAllAsync();
+    Task<UserModel> GetByLoginAsync(string login);
+    Task<UserModel> GetByEmailAsync(string email);
+    Task<UserModel> GetByPhoneNumberAsync(string phoneNumber);
     
-    Task AddUserAsync(UserModel userModel);
-    Task DeleteUserAsync(int id);
-    Task UpdateUserAsync(UserModel userModel);
+    Task AddAsync(UserModel model);
+    Task DeleteAsync(int id);
+    Task UpdateAsync(UserModel model);
 }

@@ -16,7 +16,7 @@ public class RoleRepository : IRoleRepository
         _dbConnectionService = dbConnectionService;
     }
 
-    public async Task<IEnumerable<RoleModel>> GetAllRolesAsync()
+    public async Task<IEnumerable<RoleModel>> GetAllAsync()
     {
         List<RoleModel> roles = new();
 
@@ -34,7 +34,7 @@ public class RoleRepository : IRoleRepository
         return roles;
     }
 
-    public async Task<RoleModel> GetRoleByNameAsync(string name)
+    public async Task<RoleModel> GetByNameAsync(string name)
     {
         await using MySqlConnection connection = _dbConnectionService.GetConnection();
     

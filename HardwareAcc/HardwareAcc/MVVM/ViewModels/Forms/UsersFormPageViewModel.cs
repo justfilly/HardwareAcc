@@ -345,7 +345,7 @@ public class UsersFormPageViewModel : BaseFormViewModel<UserModel>
     private async Task ResetRoleItems()
     {
         RoleItems.Clear();
-        IEnumerable<RoleModel> roleModels = await _roleRepository.GetAllRolesAsync();
+        IEnumerable<RoleModel> roleModels = await _roleRepository.GetAllAsync();
         foreach (RoleModel roleModel in roleModels) 
             RoleItems.Add(roleModel.Name);
     }
@@ -364,7 +364,7 @@ public class UsersFormPageViewModel : BaseFormViewModel<UserModel>
         if (await IsPhoneNumberUnique() == false)
             return;
 
-        RoleModel roleModel = await _roleRepository.GetRoleByNameAsync(RoleSelectedItem);
+        RoleModel roleModel = await _roleRepository.GetByNameAsync(RoleSelectedItem);
         
         _model.Login = Login;
         _model.Password = Password;
@@ -377,9 +377,9 @@ public class UsersFormPageViewModel : BaseFormViewModel<UserModel>
         _model.Patronymic = Patronymic;
         
         if (_mode == FormMode.Add)
-            await _userRepository.AddUserAsync(_model);
+            await _userRepository.AddAsync(_model);
         else
-            await _userRepository.UpdateUserAsync(_model);
+            await _userRepository.UpdateAsync(_model);
 
         _navigationService.Navigate<AccountingPageViewModel>();
     }
@@ -411,7 +411,7 @@ public class UsersFormPageViewModel : BaseFormViewModel<UserModel>
         if (_mode == FormMode.Edit && _initialLogin == Login)
             return true;
         
-        if (await _userRepository.GetUserByLoginAsync(Login) != null) 
+        if (await _userRepository.GetByLoginAsync(Login) != null) 
         {
             LoginErrorText = "Login is not unique";
             return false;
@@ -425,7 +425,7 @@ public class UsersFormPageViewModel : BaseFormViewModel<UserModel>
         if (_mode == FormMode.Edit && _initialEmail == Email)
             return true;
         
-        if (await _userRepository.GetUserByEmailAsync(Email) != null) 
+        if (await _userRepository.GetByEmailAsync(Email) != null) 
         {
             EmailErrorText = "Email is not unique";
             return false;
@@ -439,7 +439,7 @@ public class UsersFormPageViewModel : BaseFormViewModel<UserModel>
         if (_mode == FormMode.Edit && _initialPhoneNumber == PhoneNumber)
             return true;
         
-        if (await _userRepository.GetUserByPhoneNumberAsync(PhoneNumber) != null) 
+        if (await _userRepository.GetByPhoneNumberAsync(PhoneNumber) != null) 
         {
             PhoneNumberErrorText = "PhoneNumber is not unique";
             return false;

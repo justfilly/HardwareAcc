@@ -6,7 +6,7 @@ namespace HardwareAcc.Services.Repositories.Role;
 
 public interface IRoleRepository
 {
-    Task<IEnumerable<RoleModel>> GetAllRolesAsync();
+    Task<IEnumerable<RoleModel>> GetAllAsync();
 
-    Task<RoleModel> GetRoleByNameAsync(string name);
+    Task<RoleModel> GetByNameAsync(string name);
 }

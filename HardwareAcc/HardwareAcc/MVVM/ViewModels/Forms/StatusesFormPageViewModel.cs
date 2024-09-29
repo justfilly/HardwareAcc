@@ -96,9 +96,9 @@ public class StatusesFormPageViewModel : BaseFormViewModel<StatusModel>
         _model.Name = Name;
         
         if (_mode == FormMode.Add)
-            await _repository.AddStatusAsync(_model);
+            await _repository.AddAsync(_model);
         else
-            await _repository.UpdateStatusAsync(_model);
+            await _repository.UpdateAsync(_model);
         
         _navigationService.Navigate<AccountingPageViewModel>();
     }
@@ -113,7 +113,7 @@ public class StatusesFormPageViewModel : BaseFormViewModel<StatusModel>
         if (_mode == FormMode.Edit && _initialName == Name)
             return true;
         
-        if (await _repository.GetStatusByNameAsync(Name) != null) {
+        if (await _repository.GetByNameAsync(Name) != null) {
             NameErrorText = "Name is not unique";
             return false;
         }

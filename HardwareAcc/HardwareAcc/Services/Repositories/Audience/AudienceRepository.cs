@@ -17,9 +17,9 @@ public class AudienceRepository : IAudienceRepository
         _dbConnectionService = dbConnectionService;
     }
 
-    public event Action AudiencesChanged;
+    public event Action Changed;
 
-    public async Task<IEnumerable<AudienceModel>> GetAllAudiencesAsync()
+    public async Task<IEnumerable<AudienceModel>> GetAllAsync()
     {
         List<AudienceModel> audiences = new();
 
@@ -35,7 +35,7 @@ public class AudienceRepository : IAudienceRepository
         return audiences;
     }
 
-    public async Task<AudienceModel> GetAudienceByCodeAsync(string code)
+    public async Task<AudienceModel> GetByCodeAsync(string code)
     {
         await using MySqlConnection connection = _dbConnectionService.GetConnection();
         await using MySqlCommand command = connection.CreateCommand();
@@ -52,7 +52,7 @@ public class AudienceRepository : IAudienceRepository
         return null;
     }
 
-    public async Task AddAudienceAsync(AudienceModel model)
+    public async Task AddAsync(AudienceModel model)
     {
         await using MySqlConnection connection = _dbConnectionService.GetConnection();
 
@@ -65,10 +65,10 @@ public class AudienceRepository : IAudienceRepository
         command.Parameters.AddWithValue("@code", model.Code);
 
         await command.ExecuteNonQueryAsync();
-        AudiencesChanged?.Invoke();
+        Changed?.Invoke();
     }
 
-    public async Task DeleteAudienceAsync(int id)
+    public async Task DeleteAsync(int id)
     {
         await using MySqlConnection connection = _dbConnectionService.GetConnection();
 
@@ -79,10 +79,10 @@ public class AudienceRepository : IAudienceRepository
         command.Parameters.AddWithValue("@audienceId", id);
 
         await command.ExecuteNonQueryAsync();
-        AudiencesChanged?.Invoke();
+        Changed?.Invoke();
     }
 
-    public async Task UpdateAudienceAsync(AudienceModel model)
+    public async Task UpdateAsync(AudienceModel model)
     {
         await using MySqlConnection connection = _dbConnectionService.GetConnection();
 
@@ -96,7 +96,7 @@ public class AudienceRepository : IAudienceRepository
         command.Parameters.AddWithValue("@id", model.Id);
 
         await command.ExecuteNonQueryAsync();
-        AudiencesChanged?.Invoke();
+        Changed?.Invoke();
     }
 
 

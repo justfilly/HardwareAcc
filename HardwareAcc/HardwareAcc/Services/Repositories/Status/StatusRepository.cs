@@ -17,9 +17,9 @@ public class StatusRepository : IStatusRepository
         _dbConnectionService = dbConnectionService;
     }
 
-    public event Action StatusesChanged;
+    public event Action Changed;
 
-    public async Task<IEnumerable<StatusModel>> GetAllStatusesAsync()
+    public async Task<IEnumerable<StatusModel>> GetAllAsync()
     {
         List<StatusModel> statuses = new();
 
@@ -37,7 +37,7 @@ public class StatusRepository : IStatusRepository
         return statuses;
     }
 
-    public async Task<StatusModel> GetStatusByNameAsync(string name)
+    public async Task<StatusModel> GetByNameAsync(string name)
     {
         await using MySqlConnection connection = _dbConnectionService.GetConnection();
         
@@ -55,7 +55,7 @@ public class StatusRepository : IStatusRepository
         return null;
     }
 
-    public async Task AddStatusAsync(StatusModel status)
+    public async Task AddAsync(StatusModel model)
     {
         await using MySqlConnection connection = _dbConnectionService.GetConnection();
 
@@ -63,13 +63,13 @@ public class StatusRepository : IStatusRepository
         command.CommandText = @"
             INSERT INTO hardwareacc.hardware_statuses (name)
             VALUES (@name)";
-        command.Parameters.AddWithValue("@name", status.Name);
+        command.Parameters.AddWithValue("@name", model.Name);
 
         await command.ExecuteNonQueryAsync();
-        StatusesChanged?.Invoke();
+        Changed?.Invoke();
     }
 
-    public async Task DeleteStatusAsync(int statusId)
+    public async Task DeleteAsync(int statusId)
     {
         await using MySqlConnection connection = _dbConnectionService.GetConnection();
 
@@ -80,10 +80,10 @@ public class StatusRepository : IStatusRepository
         command.Parameters.AddWithValue("@statusId", statusId);
 
         await command.ExecuteNonQueryAsync();
-        StatusesChanged?.Invoke();
+        Changed?.Invoke();
     }
 
-    public async Task UpdateStatusAsync(StatusModel status)
+    public async Task UpdateAsync(StatusModel model)
     {
         await using MySqlConnection connection = _dbConnectionService.GetConnection();
 
@@ -92,11 +92,11 @@ public class StatusRepository : IStatusRepository
             UPDATE hardwareacc.hardware_statuses
             SET name = @name
             WHERE hardware_status_id = @id";
-        command.Parameters.AddWithValue("@name", status.Name);
-        command.Parameters.AddWithValue("@id", status.Id);
+        command.Parameters.AddWithValue("@name", model.Name);
+        command.Parameters.AddWithValue("@id", model.Id);
 
         await command.ExecuteNonQueryAsync();
-        StatusesChanged?.Invoke();
+        Changed?.Invoke();
     }
 
 
