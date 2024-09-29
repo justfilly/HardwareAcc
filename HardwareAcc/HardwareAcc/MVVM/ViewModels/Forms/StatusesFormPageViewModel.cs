@@ -34,7 +34,6 @@ public class StatusesFormPageViewModel : BaseFormViewModel<StatusModel>
         set
         {
             _name = value;
-            _model!.Name = value;
             OnPropertyChanged(nameof(Name));
         }
     }
@@ -70,10 +69,12 @@ public class StatusesFormPageViewModel : BaseFormViewModel<StatusModel>
         base.Initialize(model);
 
         int? id = model?.Id;
-
+        
+        Name = "";
+        
         if (id == 0) {
             _mode = FormMode.Add;
-            Name = "";
+            
             IsNameValid = false;
             _initialName = "";
         }
@@ -81,32 +82,24 @@ public class StatusesFormPageViewModel : BaseFormViewModel<StatusModel>
             _initialName = model?.Name!;
             _mode = FormMode.Edit;
             
+            Name = model?.Name!;
+            
             _isNameValid = true;
         }
-
-        Name = model?.Name!;
     }
 
     private async void Submit()
     {
-        switch (_mode) {
-            case FormMode.Add:
-            {
-                if (await IsNameUnique() == false)
-                    return;
-                
-                await _repository.AddStatusAsync(_model!);
-            }
-                break;
-            case FormMode.Edit:
-            {
-                await _repository.UpdateStatusAsync(_model!);
-            }
-                break;
-            default:
-                throw new ArgumentOutOfRangeException($"Unsupported mode: {_mode}");
-        }
-
+        if (await IsNameUnique() == false)
+            return;
+        
+        _model.Name = Name;
+        
+        if (_mode == FormMode.Add)
+            await _repository.AddStatusAsync(_model);
+        else
+            await _repository.UpdateStatusAsync(_model);
+        
         _navigationService.Navigate<AccountingPageViewModel>();
     }
 

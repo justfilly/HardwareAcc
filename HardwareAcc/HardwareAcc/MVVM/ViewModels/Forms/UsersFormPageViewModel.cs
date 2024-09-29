@@ -1,27 +1,32 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using HardwareAcc.Commands;
 using HardwareAcc.MVVM.Models;
 using HardwareAcc.Services.Navigation;
+using HardwareAcc.Services.Repositories.Role;
 using HardwareAcc.Services.Repositories.User;
+using HardwareAcc.ValidationRules;
 
 namespace HardwareAcc.MVVM.ViewModels.Forms;
 
 public class UsersFormPageViewModel : BaseFormViewModel<UserModel>
 {
-    private readonly IUserRepository _repository;
+    private readonly IUserRepository _userRepository;
     private readonly INavigationService _navigationService;
+    private readonly IRoleRepository _roleRepository;
 
     private string _initialLogin = "";
     private string _initialEmail = "";
     private string _initialPhoneNumber = "";
     
-    public UsersFormPageViewModel(IUserRepository repository, INavigationService navigationService)
+    public UsersFormPageViewModel(IUserRepository userRepository, INavigationService navigationService, IRoleRepository roleRepository)
     {
-        _repository = repository;
+        _userRepository = userRepository;
         _navigationService = navigationService;
-        
+        _roleRepository = roleRepository;
+
         AccountingNavigateCommand = new NavigateCommand<AccountingPageViewModel>(navigationService);
         SubmitCommand = new RelayCommand(Submit, CanSubmit);
     }
@@ -90,7 +95,7 @@ public class UsersFormPageViewModel : BaseFormViewModel<UserModel>
         }
     }
 
-    private ObservableCollection<string> _roleItems;
+    private ObservableCollection<string> _roleItems = new();
     public ObservableCollection<string> RoleItems
     {
         get => _roleItems;
@@ -111,6 +116,18 @@ public class UsersFormPageViewModel : BaseFormViewModel<UserModel>
         {
             _roleSelectedItem = value;
             OnPropertyChanged(nameof(RoleSelectedItem));
+        }
+    }
+    
+    private string _roleErrorText = "";
+    public string RoleErrorText
+    {
+        get => _roleErrorText;
+    
+        set
+        {
+            _roleErrorText = value;
+            OnPropertyChanged(nameof(RoleErrorText));
         }
     }
 
@@ -260,45 +277,55 @@ public class UsersFormPageViewModel : BaseFormViewModel<UserModel>
 
     #endregion
 
-    public override void Initialize(UserModel model)
+    public override async void Initialize(UserModel model)
     {
         base.Initialize(model);
 
         int? id = model?.Id;
 
-        if (id == 0) {
+        Login = "";
+        Password = "";
+        RoleSelectedItem = "";
+        Email = "";
+        PhoneNumber = "";
+        FirstName = "";
+        SecondName = "";
+        Patronymic = "";
+
+        if (id == 0) 
+        {
             _mode = FormMode.Add;
-            
-            Login = "";
+
             IsLoginValid = false;
             _initialLogin = "";
-            
-            Password = "";
+
             IsPasswordValid = false;
 
-            Email = "";
             IsEmailValid = false;
             _initialEmail = "";
-            
-            PhoneNumber = "";
+
             IsPhoneNumberValid = false;
             _initialPhoneNumber = "";
             
-            FirstName = "";
             IsFirstNameValid = false;
-            
-            SecondName = "";
             IsSecondNameValid = false;
-            
-            Patronymic = "";
             IsPatronymicValid = false;
         }
-        else {
-            _initialLogin = model?.Login!;
-            _initialEmail = model?.Email!;
-            _initialPhoneNumber = model?.PhoneNumber!;
-            
+        else
+        {
+            _initialLogin = model?.Login;
+            _initialEmail = model?.Email;
+            _initialPhoneNumber = model?.PhoneNumber;
+
             _mode = FormMode.Edit;
+
+            Login = model?.Login;
+            Password = model?.Password;
+            Email = model?.Email;
+            PhoneNumber = model?.PhoneNumber;
+            FirstName = model?.FirstName;
+            SecondName = model?.SecondName;
+            Patronymic = model?.Password;
 
             IsLoginValid = true;
             IsPasswordValid = true;
@@ -309,40 +336,50 @@ public class UsersFormPageViewModel : BaseFormViewModel<UserModel>
             IsPatronymicValid = true;
         }
         
-        Login = model?.Login;
-        Password = model?.Password;
-        Email = model?.Email;
-        PhoneNumber = model?.PhoneNumber;
-        FirstName = model?.FirstName;
-        SecondName = model?.SecondName;
-        Patronymic = model?.Password;
+        await ResetRoleItems();
+
+        RoleSelectedItem = _model?.RoleName;
+        RoleErrorText = "";
+    }
+
+    private async Task ResetRoleItems()
+    {
+        RoleItems.Clear();
+        IEnumerable<RoleModel> roleModels = await _roleRepository.GetAllRolesAsync();
+        foreach (RoleModel roleModel in roleModels) 
+            RoleItems.Add(roleModel.Name);
     }
 
     private async void Submit()
     {
-        switch (_mode) {
-            case FormMode.Add:
-            {
-                if (await IsLoginUnique() == false)
-                    return;
+        if (IsRoleEmpty() == true)
+            return;
+
+        if (await IsLoginUnique() == false)
+            return;
                 
-                if (await IsEmailUnique() == false)
-                    return;
+        if (await IsEmailUnique() == false)
+            return;
                 
-                if (await IsPhoneNumberUnique() == false)
-                    return;
-                
-                await _repository.AddUserAsync(_model!);
-            }
-                break;
-            case FormMode.Edit:
-            {
-                await _repository.UpdateUserAsync(_model!);
-            }
-                break;
-            default:
-                throw new ArgumentOutOfRangeException($"Unsupported mode: {_mode}");
-        }
+        if (await IsPhoneNumberUnique() == false)
+            return;
+
+        RoleModel roleModel = await _roleRepository.GetRoleByNameAsync(RoleSelectedItem);
+        
+        _model.Login = Login;
+        _model.Password = Password;
+        _model.RoleName = roleModel.Name;
+        _model.RoleId = roleModel.Id;
+        _model.Email = Email;
+        _model.PhoneNumber = PhoneNumber;
+        _model.FirstName = FirstName;
+        _model.SecondName = SecondName;
+        _model.Patronymic = Patronymic;
+        
+        if (_mode == FormMode.Add)
+            await _userRepository.AddUserAsync(_model);
+        else
+            await _userRepository.UpdateUserAsync(_model);
 
         _navigationService.Navigate<AccountingPageViewModel>();
     }
@@ -357,13 +394,25 @@ public class UsersFormPageViewModel : BaseFormViewModel<UserModel>
                IsSecondNameValid &&
                IsPatronymicValid;
     }
+
+    private bool IsRoleEmpty()
+    {
+        if (string.IsNullOrEmpty(RoleSelectedItem) == true)
+        {
+            RoleErrorText = "Role is not selected";
+            return true;
+        }
+
+        return false;
+    }
     
     private async Task<bool> IsLoginUnique()
     {
         if (_mode == FormMode.Edit && _initialLogin == Login)
             return true;
         
-        if (await _repository.GetUserByLoginAsync(Login) != null) {
+        if (await _userRepository.GetUserByLoginAsync(Login) != null) 
+        {
             LoginErrorText = "Login is not unique";
             return false;
         }
@@ -376,7 +425,8 @@ public class UsersFormPageViewModel : BaseFormViewModel<UserModel>
         if (_mode == FormMode.Edit && _initialEmail == Email)
             return true;
         
-        if (await _repository.GetUserByEmailAsync(Email) != null) {
+        if (await _userRepository.GetUserByEmailAsync(Email) != null) 
+        {
             EmailErrorText = "Email is not unique";
             return false;
         }
@@ -389,7 +439,8 @@ public class UsersFormPageViewModel : BaseFormViewModel<UserModel>
         if (_mode == FormMode.Edit && _initialPhoneNumber == PhoneNumber)
             return true;
         
-        if (await _repository.GetUserByPhoneNumberAsync(PhoneNumber) != null) {
+        if (await _userRepository.GetUserByPhoneNumberAsync(PhoneNumber) != null) 
+        {
             PhoneNumberErrorText = "PhoneNumber is not unique";
             return false;
         }

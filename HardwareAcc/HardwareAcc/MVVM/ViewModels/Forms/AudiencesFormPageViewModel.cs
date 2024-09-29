@@ -35,7 +35,6 @@ public class AudiencesFormPageViewModel : BaseFormViewModel<AudienceModel>
         set
         {
             _name = value;
-            _model!.Name = value;
             OnPropertyChanged(nameof(Name));
         }
     }
@@ -60,7 +59,6 @@ public class AudiencesFormPageViewModel : BaseFormViewModel<AudienceModel>
         set
         {
             _code = value;
-            _model!.Code = value;
             OnPropertyChanged(nameof(Code));
         }
     }
@@ -97,13 +95,14 @@ public class AudiencesFormPageViewModel : BaseFormViewModel<AudienceModel>
 
         int? id = model?.Id;
 
+        Name = "";
+        Code = "";
+
         if (id == 0) {
             _mode = FormMode.Add;
-            
-            Name = "";
+
             IsNameValid = true;
-            
-            Code = "";
+
             IsCodeValid = false;
             _initialCode = "";
         }
@@ -111,33 +110,26 @@ public class AudiencesFormPageViewModel : BaseFormViewModel<AudienceModel>
             _initialCode = model?.Code!;
             _mode = FormMode.Edit;
             
+            Name = model?.Name!;
+            Code = model?.Code!;
+            
             _isNameValid = true;
             _isCodeValid = true;
         }
-
-        Name = model?.Name!;
-        Code = model?.Code!;
     }
 
     private async void Submit()
     {
-        switch (_mode) {
-            case FormMode.Add:
-            {
-                if (await IsCodeUnique() == false)
-                    return;
-                
-                await _repository.AddAudienceAsync(_model!);
-            }
-                break;
-            case FormMode.Edit:
-            {
-                await _repository.UpdateAudienceAsync(_model!);
-            }
-                break;
-            default:
-                throw new ArgumentOutOfRangeException($"Unsupported mode: {_mode}");
-        }
+        if (await IsCodeUnique() == false)
+            return;
+        
+        _model.Name = Name;
+        _model.Code = Code;
+        
+        if (_mode == FormMode.Add)
+            await _repository.AddAudienceAsync(_model);
+        else
+            await _repository.UpdateAudienceAsync(_model);
 
         _navigationService.Navigate<AccountingPageViewModel>();
     }

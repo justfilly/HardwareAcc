@@ -16,6 +16,7 @@ using HardwareAcc.Services.FormsProvider;
 using HardwareAcc.Services.Navigation;
 using HardwareAcc.Services.ViewLocator;
 using HardwareAcc.Services.Repositories.Audience;
+using HardwareAcc.Services.Repositories.Role;
 using HardwareAcc.Services.Repositories.Status;
 using HardwareAcc.Services.Repositories.User;
 using Microsoft.Extensions.Configuration;
@@ -82,6 +83,7 @@ namespace HardwareAcc
             serviceCollection.AddSingleton<IUserRepository, UserRepository>();
             serviceCollection.AddSingleton<IAudienceRepository, AudienceRepository>();
             serviceCollection.AddSingleton<IStatusRepository, StatusRepository>();
+            serviceCollection.AddSingleton<IRoleRepository, RoleRepository>();
             
             // Main Window.
             serviceCollection.AddSingleton<MainWindowView>();

@@ -34,6 +34,24 @@ public class RoleRepository : IRoleRepository
         return roles;
     }
 
+    public async Task<RoleModel> GetRoleByNameAsync(string name)
+    {
+        await using MySqlConnection connection = _dbConnectionService.GetConnection();
+    
+        await using MySqlCommand command = connection.CreateCommand();
+        command.CommandText = @"
+        SELECT * 
+        FROM hardwareacc.roles 
+        WHERE name = @name";
+        command.Parameters.AddWithValue("@name", name);
+
+        await using MySqlDataReader reader = await command.ExecuteReaderAsync();
+        if (await reader.ReadAsync())
+            return DeserializeRole(reader);
+
+        return null;
+    }
+
     private static RoleModel DeserializeRole(IDataRecord reader)
     {
         return new RoleModel

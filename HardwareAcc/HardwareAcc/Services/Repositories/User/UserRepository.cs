@@ -154,6 +154,7 @@ public class UserRepository : IUserRepository
         command.Parameters.AddWithValue("@FirstName", userModel.FirstName);
         command.Parameters.AddWithValue("@SecondName", userModel.SecondName);
         command.Parameters.AddWithValue("@Patronymic", userModel.Patronymic);
+        command.Parameters.AddWithValue("@id", userModel.Id);
 
 
         await command.ExecuteNonQueryAsync();

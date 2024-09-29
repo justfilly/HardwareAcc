@@ -144,6 +144,7 @@
                         LabelText="Select Role"
                         ComboBoxItems="{Binding RoleItems, Mode=TwoWay}" 
                         SelectedItem="{Binding RoleSelectedItem, Mode=TwoWay}"
+                        ErrorText="{Binding RoleErrorText, Mode=TwoWay}"
                         PopupMaxHeight="180"
                         Margin="0, 35, 0, 0"
                         HorizontalAlignment="Stretch">
