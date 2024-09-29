@@ -12,7 +12,7 @@
       d:DesignWidth="1920" d:DesignHeight="1010"
       Style="{StaticResource Style_BasePage}"
       d:DataContext="{d:DesignInstance forms:UsersFormPageViewModel}">
-        <Grid>
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="160"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
