@@ -11,6 +11,6 @@ public class CloseWindowCommand : BaseCommand
         _window = window;
     }
 
-    public override void Execute(object? parameter) => 
+    public override void Execute(object parameter) => 
         _window.Close();
 }

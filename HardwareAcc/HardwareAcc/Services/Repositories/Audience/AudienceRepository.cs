@@ -17,11 +17,11 @@ public class AudienceRepository : IAudienceRepository
         _dbConnectionService = dbConnectionService;
     }
 
-    public event Action? AudiencesChanged;
+    public event Action Changed;
 
-    public async Task<IEnumerable<AudienceModel>> GetAllAudiencesAsync()
+    public async Task<IEnumerable<AudienceModel>> GetAllAsync()
     {
-        var audiences = new List<AudienceModel>();
+        List<AudienceModel> audiences = new();
 
         await using MySqlConnection connection = _dbConnectionService.GetConnection();
 
@@ -35,53 +35,7 @@ public class AudienceRepository : IAudienceRepository
         return audiences;
     }
 
-    public async Task AddAudienceAsync(AudienceModel audience)
-    {
-        await using MySqlConnection connection = _dbConnectionService.GetConnection();
-
-        await using MySqlCommand command = connection.CreateCommand();
-        command.CommandText = @"
-            INSERT INTO hardwareacc.audiences (name, code)
-            VALUES (@name, @code)";
-        command.Parameters.AddWithValue("@name", audience.Name);
-        command.Parameters.AddWithValue("@code", audience.Code);
-
-        await command.ExecuteNonQueryAsync();
-        AudiencesChanged?.Invoke();
-    }
-    
-    public async Task DeleteAudienceAsync(int audienceId)
-    {
-        await using MySqlConnection connection = _dbConnectionService.GetConnection();
-
-        await using MySqlCommand command = connection.CreateCommand();
-        command.CommandText = @"
-            DELETE FROM hardwareacc.audiences 
-            WHERE audience_id = @audienceId";
-        command.Parameters.AddWithValue("@audienceId", audienceId);
-
-        await command.ExecuteNonQueryAsync();
-        AudiencesChanged?.Invoke();
-    }
-
-    public async Task UpdateAudienceAsync(AudienceModel audience)
-    {
-        await using MySqlConnection connection = _dbConnectionService.GetConnection();
-
-        await using MySqlCommand command = connection.CreateCommand();
-        command.CommandText = @"
-            UPDATE hardwareacc.audiences
-            SET name = @name, code = @code
-            WHERE audience_id = @id";
-        command.Parameters.AddWithValue("@name", audience.Name);
-        command.Parameters.AddWithValue("@code", audience.Code);
-        command.Parameters.AddWithValue("@id", audience.Id);
-
-        await command.ExecuteNonQueryAsync();
-        AudiencesChanged?.Invoke();
-    }
-    
-    public async Task<AudienceModel?> GetAudienceByCodeAsync(string code)
+    public async Task<AudienceModel> GetByCodeAsync(string code)
     {
         await using MySqlConnection connection = _dbConnectionService.GetConnection();
         await using MySqlCommand command = connection.CreateCommand();
@@ -98,13 +52,60 @@ public class AudienceRepository : IAudienceRepository
         return null;
     }
 
-    
+    public async Task AddAsync(AudienceModel model)
+    {
+        await using MySqlConnection connection = _dbConnectionService.GetConnection();
+
+        await using MySqlCommand command = connection.CreateCommand();
+        command.CommandText = @"
+            INSERT INTO hardwareacc.audiences (name, code)
+            VALUES (@name, @code)";
+        
+        command.Parameters.AddWithValue("@name", string.IsNullOrEmpty(model.Name) ? DBNull.Value : model.Name);
+        command.Parameters.AddWithValue("@code", model.Code);
+
+        await command.ExecuteNonQueryAsync();
+        Changed?.Invoke();
+    }
+
+    public async Task DeleteAsync(int id)
+    {
+        await using MySqlConnection connection = _dbConnectionService.GetConnection();
+
+        await using MySqlCommand command = connection.CreateCommand();
+        command.CommandText = @"
+            DELETE FROM hardwareacc.audiences 
+            WHERE audience_id = @audienceId";
+        command.Parameters.AddWithValue("@audienceId", id);
+
+        await command.ExecuteNonQueryAsync();
+        Changed?.Invoke();
+    }
+
+    public async Task UpdateAsync(AudienceModel model)
+    {
+        await using MySqlConnection connection = _dbConnectionService.GetConnection();
+
+        await using MySqlCommand command = connection.CreateCommand();
+        command.CommandText = @"
+            UPDATE hardwareacc.audiences
+            SET name = @name, code = @code
+            WHERE audience_id = @id";
+        command.Parameters.AddWithValue("@name", string.IsNullOrEmpty(model.Name) ? DBNull.Value : model.Name);
+        command.Parameters.AddWithValue("@code", model.Code);
+        command.Parameters.AddWithValue("@id", model.Id);
+
+        await command.ExecuteNonQueryAsync();
+        Changed?.Invoke();
+    }
+
+
     private static AudienceModel DeserializeAudience(IDataRecord reader)
     {
         return new AudienceModel
         {
             Id = reader.GetInt32(reader.GetOrdinal("audience_id")),
-            Name = reader.GetString(reader.GetOrdinal("name")),
+            Name = reader.IsDBNull(reader.GetOrdinal("name")) ? null : reader.GetString(reader.GetOrdinal("name")),
             Code = reader.GetString(reader.GetOrdinal("code"))
         };
     }

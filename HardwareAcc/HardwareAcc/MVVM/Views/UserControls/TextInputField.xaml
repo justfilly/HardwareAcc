@@ -6,33 +6,36 @@
              xmlns:userControls="clr-namespace:HardwareAcc.MVVM.Views.UserControls"
              mc:Ignorable="d">
     
-    <Grid DataContext="{Binding RelativeSource={RelativeSource AncestorType=userControls:TextInputField}}">
+    <Grid x:Name="TextInputControl" DataContext="{Binding RelativeSource={RelativeSource AncestorType=userControls:TextInputField}}">
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
             <Label Content="{Binding LabelText, UpdateSourceTrigger=PropertyChanged, FallbackValue=Input}"
                    FontSize="12" FontWeight="Light"
                    Foreground="{StaticResource Color_InputFieldLabel}"
-                   Margin="10, 0, 0, 0">
-            </Label>
-                
-            <Border CornerRadius="5" BorderThickness="1" BorderBrush="{StaticResource Color_InputFieldBorder}" >
+                   Margin="10, 0, 0, 0" />
+
+            <Border CornerRadius="5" BorderThickness="1" BorderBrush="{StaticResource Color_InputFieldBorder}">
                 <TextBox x:Name="TextBox" 
                          Text="{Binding InputText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
                          FontSize="14"
                          Padding="10, 0, 0, 0"
                          VerticalContentAlignment="Center"
-                         Height="30" Width="400" 
+                         Height="30"
                          Background="Transparent" BorderThickness="0"
-                         TextChanged="TextBox_OnTextChanged">
-                </TextBox>    
+                         TextChanged="TextBox_OnTextChanged" />
             </Border>
-            
-            <Label x:Name="ErrorLabel"
-                   Content="{Binding ErrorText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                   FontSize="12" FontWeight="Light" 
-                   Foreground="{StaticResource Color_Neutral}"
-                   Margin="10, 2, 0, 0"
-                   Visibility="Visible">
-            </Label>
+
+            <TextBlock x:Name="ErrorLabel"
+                       Text="{Binding ErrorText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                       FontSize="12"
+                       FontWeight="Light" 
+                       Foreground="{StaticResource Color_Neutral}"
+                       Margin="10, 2, 0, 0"
+                       Padding="0, 0, 10, 0"
+                       TextWrapping="Wrap"
+                       Width="{Binding ActualWidth, ElementName=TextInputControl}"
+                       Height="30"
+                       Visibility="Visible">
+            </TextBlock>
         </StackPanel>
     </Grid>
 </UserControl>

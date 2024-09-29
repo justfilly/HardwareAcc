@@ -12,6 +12,8 @@ public class AudiencesFormPageViewModel : BaseFormViewModel<AudienceModel>
     private readonly IAudienceRepository _repository;
     private readonly INavigationService _navigationService;
 
+    private string _initialCode = "";
+    
     public AudiencesFormPageViewModel(IAudienceRepository repository, INavigationService navigationService)
     {
         _repository = repository;
@@ -23,7 +25,8 @@ public class AudiencesFormPageViewModel : BaseFormViewModel<AudienceModel>
     
     public NavigateCommand<AccountingPageViewModel> AccountingNavigateCommand { get; }
     public RelayCommand SubmitCommand { get; }
-    
+
+    #region FieldProperties
     private string _name = "";
     public string Name
     {
@@ -32,7 +35,6 @@ public class AudiencesFormPageViewModel : BaseFormViewModel<AudienceModel>
         set
         {
             _name = value;
-            _model!.Name = value;
             OnPropertyChanged(nameof(Name));
         }
     }
@@ -57,7 +59,6 @@ public class AudiencesFormPageViewModel : BaseFormViewModel<AudienceModel>
         set
         {
             _code = value;
-            _model!.Code = value;
             OnPropertyChanged(nameof(Code));
         }
     }
@@ -75,7 +76,6 @@ public class AudiencesFormPageViewModel : BaseFormViewModel<AudienceModel>
     }
 
     private string _codeErrorText = "";
-    private string _initialCode;
 
     public string CodeErrorText
     {
@@ -87,44 +87,49 @@ public class AudiencesFormPageViewModel : BaseFormViewModel<AudienceModel>
             OnPropertyChanged(nameof(CodeErrorText));
         }
     }
+    #endregion
     
-    public override void SetModel(AudienceModel? model)
+    public override void Initialize(AudienceModel model)
     {
-        base.SetModel(model);
+        base.Initialize(model);
 
         int? id = model?.Id;
-        
-        if (id == 0)
+
+        Name = "";
+        Code = "";
+
+        if (id == 0) {
             _mode = FormMode.Add;
-        else 
-        {
+
+            IsNameValid = true;
+
+            IsCodeValid = false;
+            _initialCode = "";
+        }
+        else {
             _initialCode = model?.Code!;
             _mode = FormMode.Edit;
+            
+            Name = model?.Name!;
+            Code = model?.Code!;
+            
+            _isNameValid = true;
+            _isCodeValid = true;
         }
-
-        Name = model?.Name!;
-        Code = model?.Code!;
     }
 
     private async void Submit()
     {
-        switch (_mode) {
-            case FormMode.Add:
-            {
-                if (await IsCodeUnique() == false)
-                    return;
-                
-                await _repository.AddAudienceAsync(_model!);
-            }
-                break;
-            case FormMode.Edit:
-            {
-                await _repository.UpdateAudienceAsync(_model!);
-            }
-                break;
-            default:
-                throw new ArgumentOutOfRangeException($"Unsupported mode: {_mode}");
-        }
+        if (await IsCodeUnique() == false)
+            return;
+        
+        _model.Name = Name;
+        _model.Code = Code;
+        
+        if (_mode == FormMode.Add)
+            await _repository.AddAsync(_model);
+        else
+            await _repository.UpdateAsync(_model);
 
         _navigationService.Navigate<AccountingPageViewModel>();
     }
@@ -139,7 +144,7 @@ public class AudiencesFormPageViewModel : BaseFormViewModel<AudienceModel>
         if (_mode == FormMode.Edit && _initialCode == Code)
             return true;
         
-        if (await _repository.GetAudienceByCodeAsync(Code) != null) {
+        if (await _repository.GetByCodeAsync(Code) != null) {
             CodeErrorText = "Code is not unique";
             return false;
         }

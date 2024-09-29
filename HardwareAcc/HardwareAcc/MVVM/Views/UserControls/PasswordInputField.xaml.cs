@@ -98,9 +98,9 @@ public partial class PasswordInputField
         IsValid = !Validation.GetHasError(PasswordTextBox);
 
         if (Validation.GetErrors(PasswordTextBox).Count > 0)
-            ErrorLabel.Content = (string)Validation.GetErrors(PasswordTextBox)[0].ErrorContent;
+            ErrorLabel.Text = (string)Validation.GetErrors(PasswordTextBox)[0].ErrorContent;
         else
-            ErrorLabel.Content = string.Empty;
+            ErrorLabel.Text = string.Empty;
     }
     
     public static readonly DependencyProperty ValidationRulesProperty =

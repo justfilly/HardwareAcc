@@ -50,9 +50,9 @@ public class AccountingPageViewModel : BaseViewModel
     public RelayCommand AudiencesTabCommand { get; }
     public RelayCommand StatusesTabCommand { get; }
     
-    private Page? _tabPage;
+    private Page _tabPage;
     
-    public Page? TabPage
+    public Page TabPage
     {
         get => _tabPage;
     

@@ -38,7 +38,7 @@ public class NavigationService : INavigationService
         where TFormViewModel : BaseFormViewModel<TModel>
     {
         TFormViewModel viewModel = _formsProvider.GetFormViewModel<TFormViewModel>();
-        viewModel.SetModel(model);
+        viewModel.Initialize(model);
         
         Navigate<TFormViewModel>();
     }

@@ -25,7 +25,7 @@ public class LengthValidationRule : ValidationRule
 
         if (regex.IsMatch(input) == false)
         {
-            return new ValidationResult(false, $"{FieldName} must be between {MinLength} and {MaxLength} characters long");
+            return new ValidationResult(false, $"{FieldName} must be between {MinLength} and {MaxLength} characters");
         }
 
         return ValidationResult.ValidResult;

@@ -1,0 +1,168 @@
+<Page x:Class="HardwareAcc.MVVM.Views.Forms.UsersFormPageView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:forms="clr-namespace:HardwareAcc.MVVM.ViewModels.Forms"
+      xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
+      xmlns:userControls="clr-namespace:HardwareAcc.MVVM.Views.UserControls"
+      xmlns:validationRules="clr-namespace:HardwareAcc.ValidationRules"
+      mc:Ignorable="d"
+      Title="UsersFormPageView"
+      d:DesignWidth="1920" d:DesignHeight="1010"
+      Style="{StaticResource Style_BasePage}"
+      d:DataContext="{d:DesignInstance forms:UsersFormPageViewModel}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="160"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+         <Grid Grid.Row="0" Background="{StaticResource Color_Primary}">
+            <TextBlock Text="User" 
+                       FontSize="26" FontWeight="Medium" 
+                       Foreground="{StaticResource Color_White}"
+                       Margin="35, 35, 0, 0" >
+            </TextBlock>
+             
+             <Button Command="{Binding AccountingNavigateCommand}"
+                     Style="{StaticResource Button_Rounded}"
+                     Width="35" Height="35"
+                     Background="{StaticResource Color_BackButtonGray}" 
+                     BorderBrush="{StaticResource Color_BackButtonGray}"
+                     VerticalAlignment="Top" HorizontalAlignment="Right"
+                     Margin="0, 35, 35, 0">
+                 <svgc:SvgViewbox Source="/Resources/Icons/back_button.svg" Stretch="None" />
+             </Button>
+         </Grid>
+        
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            
+            <Grid Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                
+                <StackPanel Grid.Column="0" HorizontalAlignment="Left" Margin="35, 0, 0, 0" MaxWidth="300">
+                    <userControls:TextInputField 
+                        LabelText="Login"
+                        InputText="{Binding Login, Mode=TwoWay}"
+                        ErrorText="{Binding LoginErrorText, Mode=TwoWay}"
+                        IsValid="{Binding IsLoginValid, Mode=TwoWay}"
+                        Margin="0, 35, 0, 0">
+                        <userControls:TextInputField.ValidationRules>
+                            <validationRules:NotEmptyValidationRule FieldName="Login"/>
+                            <validationRules:LengthValidationRule FieldName="Login" MinLength="2" MaxLength="50"/>
+                        </userControls:TextInputField.ValidationRules>
+                    </userControls:TextInputField>
+                    
+                    <userControls:TextInputField 
+                        LabelText="Email - optional"
+                        InputText="{Binding Email, Mode=TwoWay}"
+                        IsValid="{Binding IsEmailValid, Mode=TwoWay}"
+                        ErrorText="{Binding EmailErrorText, Mode=TwoWay}"
+                        Margin="0, 35, 0, 0">
+                        <userControls:TextInputField.ValidationRules>
+                            <validationRules:LengthValidationRule FieldName="Email" MinLength="5" MaxLength="100" IgnoreEmpty="True"/>
+                            <validationRules:EmailValidationRule IgnoreEmpty="True"/>
+                        </userControls:TextInputField.ValidationRules>
+                    </userControls:TextInputField>
+                    
+                    <userControls:TextInputField 
+                        LabelText="First Name"
+                        InputText="{Binding FirstName, Mode=TwoWay}"
+                        IsValid="{Binding IsFirstNameValid, Mode=TwoWay}"
+                        Margin="0, 35, 0, 0">
+                        <userControls:TextInputField.ValidationRules>
+                            <validationRules:NotEmptyValidationRule FieldName="First Name"/>
+                            <validationRules:LengthValidationRule FieldName="First Name" MinLength="2" MaxLength="50"/>
+                            <validationRules:LettersOnlyValidationRule FieldName="First Name"/>
+                        </userControls:TextInputField.ValidationRules>
+                    </userControls:TextInputField>
+                    
+                    <Button Command="{Binding SubmitCommand}" 
+                            Style="{StaticResource Button_NeutralColorWithText }"
+                            Width="200" Height="40"
+                            Content="Submit"
+                            Margin="0, 35, 0, 0"
+                            HorizontalAlignment="Left">
+                    </Button>
+                </StackPanel>
+                
+                <StackPanel Grid.Column="1" HorizontalAlignment="Left" Margin="35, 0, 0, 0"  MaxWidth="300">
+                    <userControls:TextInputField 
+                        LabelText="Password"
+                        InputText="{Binding Password, Mode=TwoWay}"
+                        IsValid="{Binding IsPasswordValid, Mode=TwoWay}"
+                        Margin="0, 35, 0, 0">
+                        <userControls:TextInputField.ValidationRules>
+                            <validationRules:NotEmptyValidationRule FieldName="Password"/>
+                            <validationRules:LengthValidationRule FieldName="Password" MinLength="2" MaxLength="50"/>
+                            <validationRules:PasswordValidationRule FieldName="Password"/>
+                        </userControls:TextInputField.ValidationRules>
+                    </userControls:TextInputField>
+                    
+                    <userControls:TextInputField 
+                        LabelText="Phone number - optional" 
+                        InputText="{Binding PhoneNumber, Mode=TwoWay}"
+                        IsValid="{Binding IsPhoneNumberValid, Mode=TwoWay}"
+                        ErrorText="{Binding PhoneNumberErrorText, Mode=TwoWay}"
+                        Margin="0, 35, 0, 0">
+                        <userControls:TextInputField.ValidationRules>
+                            <validationRules:LengthValidationRule FieldName="Phone Number" MinLength="9" MaxLength="15" IgnoreEmpty="True"/>
+                            <validationRules:PhoneNumberValidationRule IgnoreEmpty="True"/>
+                        </userControls:TextInputField.ValidationRules>
+                    </userControls:TextInputField>
+                    
+                    <userControls:TextInputField 
+                        LabelText="Second Name" 
+                        InputText="{Binding SecondName, Mode=TwoWay}"
+                        IsValid="{Binding IsSecondNameValid, Mode=TwoWay}"
+                        Margin="0, 35, 0, 0">
+                        <userControls:TextInputField.ValidationRules>
+                            <validationRules:NotEmptyValidationRule FieldName="Second Name"/>
+                            <validationRules:LengthValidationRule FieldName="Second Name" MinLength="2" MaxLength="50"/>
+                            <validationRules:LettersOnlyValidationRule FieldName="Second Name"/>
+                        </userControls:TextInputField.ValidationRules>
+                    </userControls:TextInputField>
+                </StackPanel>
+            </Grid>
+            
+            <Grid Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                
+                <StackPanel Grid.Column="0" HorizontalAlignment="Left" Margin="35, 0, 0, 0" MaxWidth="300">
+                    <userControls:ComboBox
+                        LabelText="Select Role"
+                        ComboBoxItems="{Binding RoleItems, Mode=TwoWay}" 
+                        SelectedItem="{Binding RoleSelectedItem, Mode=TwoWay}"
+                        ErrorText="{Binding RoleErrorText, Mode=TwoWay}"
+                        PopupMaxHeight="180"
+                        Margin="0, 35, 0, 0"
+                        HorizontalAlignment="Stretch">
+                    </userControls:ComboBox>
+                    
+                    <userControls:TextInputField 
+                        LabelText="Patronymic"
+                        InputText="{Binding Patronymic, Mode=TwoWay}"
+                        IsValid="{Binding IsPatronymicValid, Mode=TwoWay}"
+                        Margin="0, 162, 0, 0">
+                        <userControls:TextInputField.ValidationRules>
+                            <validationRules:NotEmptyValidationRule FieldName="Patronymic"/>
+                            <validationRules:LengthValidationRule FieldName="Patronymic" MinLength="2" MaxLength="50"/>
+                            <validationRules:LettersOnlyValidationRule FieldName="Patronymic"></validationRules:LettersOnlyValidationRule>
+                        </userControls:TextInputField.ValidationRules>
+                    </userControls:TextInputField>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

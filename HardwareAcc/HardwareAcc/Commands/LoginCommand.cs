@@ -18,7 +18,7 @@ public class LoginCommand : BaseCommand
         _navigationService = navigationService;
     }
 
-    public override async void Execute(object? parameter)
+    public override async void Execute(object parameter)
     {
         if (_loginPageViewModel.IsLoginValid == true && _loginPageViewModel.IsPasswordValid == true)
         {

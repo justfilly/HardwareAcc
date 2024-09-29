@@ -36,7 +36,7 @@ public class TogglePasswordVisibilityCommand : BaseCommand
         _showPasswordIconUri = showPasswordIconUri;
     }
 
-    public override void Execute(object? parameter)
+    public override void Execute(object parameter)
     {
         _passwordInputField.PasswordVisibility = !_passwordInputField.PasswordVisibility;
 

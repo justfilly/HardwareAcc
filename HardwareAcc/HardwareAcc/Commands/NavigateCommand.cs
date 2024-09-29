@@ -13,7 +13,7 @@ public class NavigateCommand<TViewModel> : BaseCommand where TViewModel : BaseVi
          _navigationService = navigationService;
      }
  
-     public override void Execute(object? parameter) => 
+     public override void Execute(object parameter) => 
          _navigationService.Navigate<TViewModel>();
  }
  
@@ -29,6 +29,6 @@ public class NavigateToFormCommand<TFormViewModel, TModel> : BaseCommand
         _navigationService = navigationService;
     }
 
-    public override void Execute(object? parameter) =>
+    public override void Execute(object parameter) =>
         _navigationService.NavigateToForm<TFormViewModel, TModel>((parameter as TModel)!);
 }

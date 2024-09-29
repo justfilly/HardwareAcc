@@ -28,8 +28,7 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <!-- Edit Button -->
-                                        <Button Command="{Binding DataContext.AudiencesFormNavigateCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                        <Button Command="{Binding DataContext.FormNavigateCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                                 CommandParameter="{Binding}"
                                                 Style="{StaticResource Button_Rounded}"
                                                 Width="20" Height="20"
@@ -40,8 +39,7 @@
                                             <svgc:SvgViewbox Source="/Resources/Icons/record_edit.svg" Stretch="None" />
                                         </Button>
 
-                                        <!-- Delete Button -->
-                                        <Button Command="{Binding DataContext.DeleteAudienceCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                        <Button Command="{Binding DataContext.DeleteRecordCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                                 CommandParameter="{Binding}"
                                                 Style="{StaticResource Button_Rounded}"
                                                 Width="20" Height="20"
@@ -57,7 +55,7 @@
                     </DataGrid.Columns>
                 </DataGrid>
 
-                <Button Command="{Binding AudiencesFormNavigateCommand}"
+                <Button Command="{Binding FormNavigateCommand}"
                         CommandParameter="{Binding NewAudienceModel}"
                         Style="{StaticResource Button_Round}"
                         Width="21" Height="21"

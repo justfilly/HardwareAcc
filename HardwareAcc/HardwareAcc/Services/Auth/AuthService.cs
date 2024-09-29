@@ -9,7 +9,7 @@ public class AuthService : IAuthService
 {
     private readonly IUserRepository _userRepository;
 
-    private UserModel? _authenticatedUser; 
+    private UserModel _authenticatedUser; 
         
     public AuthService(IUserRepository userRepository)
     {
@@ -18,7 +18,7 @@ public class AuthService : IAuthService
 
     public async Task<bool> ValidateLoginCredentialsAsync(string login, string password)
     {
-        UserModel? user = await _userRepository.GetUserByLoginAsync(login);
+        UserModel user = await _userRepository.GetByLoginAsync(login);
 
         if (user == null)
             return false;
@@ -31,7 +31,7 @@ public class AuthService : IAuthService
         bool isCredentialsValid = await ValidateLoginCredentialsAsync(login, password);
 
         if (isCredentialsValid) 
-            _authenticatedUser = await _userRepository.GetUserByLoginAsync(login);
+            _authenticatedUser = await _userRepository.GetByLoginAsync(login);
     }
 
     public void LogOut() => 
@@ -42,19 +42,19 @@ public class AuthService : IAuthService
         bool isCredentialsValid = await ValidateRegisterCredentialsAsync(userModel.Login, userModel.Email, userModel.PhoneNumber);
 
         if (isCredentialsValid) 
-            await _userRepository.AddUserAsync(userModel);
+            await _userRepository.AddAsync(userModel);
     }
 
-    public async Task<bool> ValidateRegisterCredentialsAsync(string login, string? email = "", string? phoneNumber = "")
+    public async Task<bool> ValidateRegisterCredentialsAsync(string login, string email = "", string phoneNumber = "")
     {
-        UserModel? userWithSameLogin = await _userRepository.GetUserByLoginAsync(login);
+        UserModel userWithSameLogin = await _userRepository.GetByLoginAsync(login);
     
         if (userWithSameLogin != null)
             return false;
 
         if (string.IsNullOrEmpty(email) == false)
         {
-            UserModel? userWithSameEmail = await _userRepository.GetUserByEmailAsync(email);
+            UserModel userWithSameEmail = await _userRepository.GetByEmailAsync(email);
         
             if (userWithSameEmail != null)
                 return false;
@@ -62,7 +62,7 @@ public class AuthService : IAuthService
 
         if (string.IsNullOrEmpty(phoneNumber) == false)
         {
-            UserModel? userWithSamePhoneNumber = await _userRepository.GetUserByPhoneNumberAsync(phoneNumber);
+            UserModel userWithSamePhoneNumber = await _userRepository.GetByPhoneNumberAsync(phoneNumber);
             
             if (userWithSamePhoneNumber != null)
                 return false;

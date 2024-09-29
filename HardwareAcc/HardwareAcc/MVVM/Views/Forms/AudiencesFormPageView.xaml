@@ -48,15 +48,14 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 
-                <StackPanel Grid.Column="0" HorizontalAlignment="Left" Margin="35, 0, 0, 0">
+                <StackPanel Grid.Column="0" HorizontalAlignment="Left" Margin="35, 0, 0, 0" MaxWidth="300">
                     <userControls:TextInputField 
                         LabelText="Name"
                         InputText="{Binding Name, Mode=TwoWay}"
                         IsValid="{Binding IsNameValid, Mode=TwoWay}"
                         Margin="0, 35, 0, 0">
                         <userControls:TextInputField.ValidationRules>
-                            <validationRules:NotEmptyValidationRule FieldName="Name"/>
-                            <validationRules:LengthValidationRule FieldName="Name" MinLength="2" MaxLength="50"/>
+                            <validationRules:LengthValidationRule FieldName="Name" MinLength="2" MaxLength="50" IgnoreEmpty="True"/>
                         </userControls:TextInputField.ValidationRules>
                     </userControls:TextInputField>
                     
@@ -69,7 +68,7 @@
                     </Button>
                 </StackPanel>
                 
-                <StackPanel Grid.Column="1" HorizontalAlignment="Left" Margin="35, 0, 0, 0">
+                <StackPanel Grid.Column="1" HorizontalAlignment="Left" Margin="35, 0, 0, 0" MaxWidth="300">
                     <userControls:TextInputField 
                         LabelText="Code"
                         InputText="{Binding Code, Mode=TwoWay}"
