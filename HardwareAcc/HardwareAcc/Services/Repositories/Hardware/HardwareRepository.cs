@@ -141,13 +141,13 @@ public class HardwareRepository : IHardwareRepository
             Price = reader.IsDBNull(reader.GetOrdinal("price")) ? 0 : reader.GetDouble(reader.GetOrdinal("price")),
             
             ResponsibleUserId = reader.IsDBNull(reader.GetOrdinal("responsible_user_id")) ? 0 : reader.GetInt32(reader.GetOrdinal("responsible_user_id")),
-            ResponsibleUserSecondName = reader.GetString(reader.GetOrdinal("responsible_user_name")),
+            ResponsibleUserSecondName = reader.IsDBNull(reader.GetOrdinal("responsible_user_name")) ? null : reader.GetString(reader.GetOrdinal("responsible_user_name")),
             
             AudienceId = reader.IsDBNull(reader.GetOrdinal("audience_id")) ? 0 : reader.GetInt32(reader.GetOrdinal("audience_id")),
-            AudienceCode = reader.GetString(reader.GetOrdinal("audience_code")),
+            AudienceCode = reader.IsDBNull(reader.GetOrdinal("audience_code")) ? null : reader.GetString(reader.GetOrdinal("audience_code")),
             
             StatusId = reader.IsDBNull(reader.GetOrdinal("status_id")) ? 0 : reader.GetInt32(reader.GetOrdinal("status_id")),
-            StatusName = reader.GetString(reader.GetOrdinal("status_name")),
+            StatusName = reader.IsDBNull(reader.GetOrdinal("status_name")) ? null : reader.GetString(reader.GetOrdinal("status_name")),
         };
     }
 }
