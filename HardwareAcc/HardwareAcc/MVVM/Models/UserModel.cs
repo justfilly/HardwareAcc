@@ -16,6 +16,7 @@ namespace HardwareAcc.MVVM.Models
 
         [Required]
         public int RoleId { get; set; }
+        public string RoleName { get; set; }
 
         [EmailAddress]
         [StringLength(100)]
@@ -24,7 +25,7 @@ namespace HardwareAcc.MVVM.Models
         [Phone]
         [StringLength(20)]
         public string PhoneNumber { get; set; }
-        
+
         [Required]
         [StringLength(50)]
         public string FirstName { get; set; }
@@ -36,8 +37,5 @@ namespace HardwareAcc.MVVM.Models
         [Required]
         [StringLength(50)]
         public string Patronymic { get; set; }
-        
-        
-        public string RoleName { get; set; }
     }
 }
