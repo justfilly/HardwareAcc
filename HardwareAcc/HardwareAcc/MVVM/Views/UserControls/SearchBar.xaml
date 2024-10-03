@@ -1,0 +1,34 @@
+<UserControl x:Class="HardwareAcc.MVVM.Views.UserControls.SearchBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:userControls="clr-namespace:HardwareAcc.MVVM.Views.UserControls"
+             xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
+             mc:Ignorable="d">
+    <Grid DataContext="{Binding RelativeSource={RelativeSource AncestorType=userControls:TextInputField}}">
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch">
+            <Border CornerRadius="6" BorderThickness="1" BorderBrush="{StaticResource Color_TableViewBorder}" Background="{StaticResource Color_White}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>    
+                    </Grid.ColumnDefinitions>
+
+                    <svgc:SvgViewbox Grid.Column="0" Source="/Resources/Icons/search_bar.svg" 
+                                     Stretch="None"
+                                     Margin="10, 0, 0, 0"/>
+
+                    <TextBox Grid.Column="1"
+                             Text="{Binding InputText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, FallbackValue=Search}"
+                             Foreground="{StaticResource Color_TextLightGray}"
+                             FontSize="14"
+                             Padding="7, 0, 0, 0"
+                             VerticalContentAlignment="Center"
+                             Height="35"
+                             Background="Transparent" BorderThickness="0"/> 
+                </Grid>
+            </Border>
+        </StackPanel>
+    </Grid>
+</UserControl>
