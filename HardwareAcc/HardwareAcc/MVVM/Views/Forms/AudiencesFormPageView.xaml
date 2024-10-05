@@ -55,7 +55,7 @@
                         IsValid="{Binding IsNameValid, Mode=TwoWay}"
                         Margin="0, 35, 0, 0">
                         <userControls:TextInputField.ValidationRules>
-                            <validationRules:LengthValidationRule FieldName="Name" MinLength="2" MaxLength="50" IgnoreEmpty="True"/>
+                            <validationRules:LengthValidationRule FieldName="Name" MinLength="2" MaxLength="60" IgnoreEmpty="True"/>
                         </userControls:TextInputField.ValidationRules>
                     </userControls:TextInputField>
                     
@@ -77,7 +77,7 @@
                         Margin="0, 35, 0, 0">
                         <userControls:TextInputField.ValidationRules>
                             <validationRules:NotEmptyValidationRule FieldName="Code"/>
-                            <validationRules:LengthValidationRule FieldName="Code" MinLength="2" MaxLength="50"/>
+                            <validationRules:LengthValidationRule FieldName="Code" MinLength="2" MaxLength="100"/>
                         </userControls:TextInputField.ValidationRules>
                     </userControls:TextInputField>
                 </StackPanel>

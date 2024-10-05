@@ -16,6 +16,7 @@
         <StackPanel Margin="30">
             <Grid>
                 <userControls:SearchBar
+                    InputText="{Binding SearchText, Mode=TwoWay}"
                     HorizontalAlignment="Left"
                     Width="350"/>
 
