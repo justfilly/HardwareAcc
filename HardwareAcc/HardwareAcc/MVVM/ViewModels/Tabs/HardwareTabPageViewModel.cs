@@ -65,12 +65,9 @@ public class HardwareTabPageViewModel : BaseViewModel, IDisposable
     {
         IEnumerable<HardwareModel> hardware = await _repository.GetAllAsync();
         
-        
         if (string.IsNullOrEmpty(SearchText) == false)
-        {
-            hardware = hardware.Where(h => h.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase));
-        }
-    
+            hardware = hardware.Where(model => model.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase));
+
         Hardware = new ObservableCollection<HardwareModel>(hardware);
     }
     

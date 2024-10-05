@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using HardwareAcc.Commands;
 using HardwareAcc.MVVM.Models;
@@ -35,6 +36,19 @@ public class UsersTabPageViewModel : BaseViewModel, IDisposable
             OnPropertyChanged(nameof(Users));
         }
     }
+    
+    private string _searchText = "";
+    public string SearchText
+    {
+        get => _searchText;
+    
+        set
+        {
+            _searchText = value;
+            OnPropertyChanged(nameof(SearchText));
+            _ = LoadRecordsAsync();
+        }
+    }
 
     public NavigateToFormCommand<UsersFormPageViewModel, UserModel> FormNavigateCommand { get; }
     public RelayCommandWithParameter DeleteRecordCommand { get; }
@@ -52,6 +66,10 @@ public class UsersTabPageViewModel : BaseViewModel, IDisposable
     private async Task LoadRecordsAsync()
     {
         IEnumerable<UserModel> users = await _repository.GetAllAsync();
+        
+        if (string.IsNullOrEmpty(SearchText) == false)
+            users = users.Where(model => model.Login.Contains(SearchText, StringComparison.OrdinalIgnoreCase));
+        
         Users = new ObservableCollection<UserModel>(users);
     }
     
