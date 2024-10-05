@@ -102,7 +102,7 @@
                         Margin="0, 35, 0, 0">
                         <userControls:TextInputField.ValidationRules>
                             <validationRules:NotEmptyValidationRule FieldName="Password"/>
-                            <validationRules:LengthValidationRule FieldName="Password" MinLength="2" MaxLength="50"/>
+                            <validationRules:LengthValidationRule FieldName="Password" MinLength="2" MaxLength="60"/>
                             <validationRules:PasswordValidationRule FieldName="Password"/>
                         </userControls:TextInputField.ValidationRules>
                     </userControls:TextInputField>
@@ -114,7 +114,7 @@
                         ErrorText="{Binding PhoneNumberErrorText, Mode=TwoWay}"
                         Margin="0, 35, 0, 0">
                         <userControls:TextInputField.ValidationRules>
-                            <validationRules:LengthValidationRule FieldName="Phone Number" MinLength="9" MaxLength="15" IgnoreEmpty="True"/>
+                            <validationRules:LengthValidationRule FieldName="Phone Number" MinLength="9" MaxLength="20" IgnoreEmpty="True"/>
                             <validationRules:PhoneNumberValidationRule IgnoreEmpty="True"/>
                         </userControls:TextInputField.ValidationRules>
                     </userControls:TextInputField>

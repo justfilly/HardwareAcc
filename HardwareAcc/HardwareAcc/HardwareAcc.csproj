@@ -61,6 +61,8 @@
       <Resource Include="Resources\Icons\record_edit.svg" />
       <None Remove="Resources\Icons\combobox.svg" />
       <Resource Include="Resources\Icons\combo_box.svg" />
+      <None Remove="Resources\Icons\search_bar.svg" />
+      <Resource Include="Resources\Icons\search_bar.svg" />
     </ItemGroup>
 
     <ItemGroup>
@@ -136,6 +138,11 @@
       </Page>
       <Page Update="MVVM\Views\Forms\AudiencesFormPageView.xaml">
         <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="MVVM\Views\UserControls\SearchBar.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
       </Page>
     </ItemGroup>
 

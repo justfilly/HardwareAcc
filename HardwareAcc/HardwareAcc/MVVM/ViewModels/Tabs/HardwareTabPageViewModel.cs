@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using HardwareAcc.Commands;
 using HardwareAcc.MVVM.Models;
@@ -23,7 +24,6 @@ public class HardwareTabPageViewModel : BaseViewModel, IDisposable
     }
 
     private ObservableCollection<HardwareModel> _hardware;
-
     public ObservableCollection<HardwareModel> Hardware
     {
         get => _hardware;
@@ -32,6 +32,19 @@ public class HardwareTabPageViewModel : BaseViewModel, IDisposable
         {
             _hardware = value;
             OnPropertyChanged(nameof(Hardware));
+        }
+    }
+    
+    private string _searchText = "";
+    public string SearchText
+    {
+        get => _searchText;
+    
+        set
+        {
+            _searchText = value;
+            OnPropertyChanged(nameof(SearchText));
+            _ = LoadRecordsAsync();
         }
     }
     
@@ -51,6 +64,10 @@ public class HardwareTabPageViewModel : BaseViewModel, IDisposable
     private async Task LoadRecordsAsync()
     {
         IEnumerable<HardwareModel> hardware = await _repository.GetAllAsync();
+        
+        if (string.IsNullOrEmpty(SearchText) == false)
+            hardware = hardware.Where(model => model.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase));
+
         Hardware = new ObservableCollection<HardwareModel>(hardware);
     }
     
@@ -64,8 +81,7 @@ public class HardwareTabPageViewModel : BaseViewModel, IDisposable
 
     private static bool CanDeleteRecord() => 
         true;
-
-
+    
     public void Dispose() => 
         _repository.Changed -= OnHardwareChanged;
 }

@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:tabs="clr-namespace:HardwareAcc.MVVM.ViewModels.Tabs"
       xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
+      xmlns:userControls="clr-namespace:HardwareAcc.MVVM.Views.UserControls"
       mc:Ignorable="d"
       Title="HardwareAcc"
       d:DesignWidth="1920" d:DesignHeight="850"
@@ -14,11 +15,17 @@
     <Grid Background="{StaticResource Color_BackgroundLightGray}">
         <StackPanel Margin="30">
             <Grid>
+                <userControls:SearchBar
+                    InputText="{Binding SearchText, Mode=TwoWay}"
+                    HorizontalAlignment="Left"
+                    Width="350"/>
+                
                 <DataGrid ItemsSource="{Binding Users}"
                           AutoGenerateColumns="False"
                           HeadersVisibility="Column"
                           CanUserAddRows="False"
-                          IsReadOnly="True">
+                          IsReadOnly="True"
+                          Margin="0,65,0,0">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" Binding="{Binding Id}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Username" Binding="{Binding Login}"></DataGridTextColumn>
@@ -68,7 +75,7 @@
                         Background="{StaticResource Color_Neutral}"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Top"
-                        Margin="0,7,7,0">
+                        Margin="0,72,7,0">
                     <svgc:SvgViewbox Source="/Resources/Icons/add_button.svg" Stretch="None" />
                 </Button>
             </Grid>
