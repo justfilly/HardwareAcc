@@ -63,6 +63,12 @@
       <Resource Include="Resources\Icons\combo_box.svg" />
       <None Remove="Resources\Icons\search_bar.svg" />
       <Resource Include="Resources\Icons\search_bar.svg" />
+      <None Remove="Resources\Icons\hardware_audience.svg" />
+      <Resource Include="Resources\Icons\hardware_audience.svg" />
+      <None Remove="Resources\Icons\hardware_report.svg" />
+      <Resource Include="Resources\Icons\hardware_report.svg" />
+      <None Remove="Resources\Icons\hardware_responsibility.svg" />
+      <Resource Include="Resources\Icons\hardware_responsibility.svg" />
     </ItemGroup>
 
     <ItemGroup>
@@ -130,9 +136,6 @@
       <Page Update="MVVM\Views\UserControls\TextInputField.xaml">
         <Generator>MSBuild:Compile</Generator>
       </Page>
-      <Page Update="MVVM\Views\AccountingPageView.xaml">
-        <Generator>MSBuild:Compile</Generator>
-      </Page>
       <Page Update="MVVM\Views\MainWindowView.xaml">
         <Generator>MSBuild:Compile</Generator>
       </Page>
@@ -144,10 +147,33 @@
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
+      <Page Update="MVVM\Views\Accounting\Tabs\AudiencesTabPageView.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="MVVM\Views\Accounting\Tabs\HardwareTabPageView.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="MVVM\Views\Accounting\Tabs\StatusesTabPageView.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="MVVM\Views\Accounting\Tabs\UsersTabPageView.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="MVVM\Views\Accounting\AccountingPageView.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
+      <Page Update="MVVM\Views\HardwareResponsibility\HardwareResponsibilityPageView.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
     </ItemGroup>
 
     <ItemGroup>
       <Folder Include="MVVM\" />
+      <Folder Include="MVVM\Views\HardwareResponsibility\Tabs\" />
     </ItemGroup>
 
 </Project>
