@@ -4,18 +4,140 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:tabs="clr-namespace:HardwareAcc.MVVM.ViewModels.Accounting.Tabs"
+      xmlns:userControls="clr-namespace:HardwareAcc.MVVM.Views.UserControls"
+      xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
+      xmlns:tabs1="clr-namespace:HardwareAcc.MVVM.ViewModels.HardwareResponsibility.Tabs"
       mc:Ignorable="d"
       Title="HardwareAcc"
       d:DesignWidth="1920" d:DesignHeight="850"
       Style="{StaticResource Style_BasePage}"
-      d:DataContext="{d:DesignInstance tabs:AudiencesTabPageViewModel}">
+      d:DataContext="{d:DesignInstance tabs1:ResponsibilityHistoryTabPageViewModel}">
     
     <Grid Background="{StaticResource Color_BackgroundLightGray}">
         <StackPanel Margin="30">
             <Grid>
-                <TextBlock>His</TextBlock>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="Монитор 1 HP EliteDisplay E233 Monitor (1FH46AA#ABB)"
+                               FontSize="18" FontWeight="SemiBold"
+                               Foreground="{StaticResource Color_HardwareText}">
+                    </TextBlock>
+                
+                    <StackPanel Orientation="Horizontal" Margin="0, 10, 0, 0">
+                        <svgc:SvgViewbox Source="/Resources/Icons/hardware_number.svg" Stretch="None" Margin="0, 0, 4, 0" />
+                        
+                        <TextBlock Text="21013402000011"
+                                   FontSize="14" FontWeight="SemiBold"
+                                   Foreground="{StaticResource Color_TextLightGray}">
+                        </TextBlock>
+                        
+                        <svgc:SvgViewbox Source="/Resources/Icons/hardware_price.svg" Stretch="None" Margin="15, 0, 4, 0" />
+                        
+                        <TextBlock Text="14800"
+                                   FontSize="14" FontWeight="SemiBold"
+                                   Foreground="{StaticResource Color_TextLightGray}">
+                        </TextBlock>
+                        
+                        <TextBlock Text="р"
+                                   FontSize="14" FontWeight="SemiBold"
+                                   Foreground="{StaticResource Color_TextLightGray}">
+                        </TextBlock>
+                        
+                        <svgc:SvgViewbox Source="/Resources/Icons/hardware_status.svg" Stretch="None" Margin="15, 0, 4, 0" />
+                        
+                        <TextBlock Text="In Use"
+                                   FontSize="14" FontWeight="SemiBold"
+                                   Foreground="{StaticResource Color_TextLightGray}">
+                        </TextBlock>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal" Margin="0, 10, 0, 0">
+                        <TextBlock Text="Responsible User:"
+                                   FontSize="14" FontWeight="SemiBold"
+                                   Foreground="{StaticResource Color_Neutral}">
+                        </TextBlock>
+                        
+                        <TextBlock Text="Rainbow Dash"
+                                   FontSize="14" FontWeight="SemiBold"
+                                   Foreground="{StaticResource Color_HardwareText}"
+                                   Margin="3, 0, 0, 0">
+                        </TextBlock>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal" Margin="0, 10, 0, 0">
+                        <TextBlock Text="Audience:"
+                                   FontSize="14" FontWeight="SemiBold"
+                                   Foreground="{StaticResource Color_Neutral}">
+                        </TextBlock>
+                        
+                        <TextBlock Text="A311"
+                                   FontSize="14" FontWeight="SemiBold"
+                                   Foreground="{StaticResource Color_HardwareText}"
+                                   Margin="3, 0, 0, 0">
+                        </TextBlock>
+                    </StackPanel>
+                    
+                     <userControls:SearchBar
+                    InputText="{Binding SearchText, Mode=TwoWay}"
+                    HorizontalAlignment="Left"
+                    Width="350"
+                    Margin="0, 45, 0, 0"/>
+                
+                    <DataGrid ItemsSource="{Binding History}"
+                              AutoGenerateColumns="False"
+                              HeadersVisibility="Column"
+                              CanUserAddRows="False"
+                              IsReadOnly="True"
+                              Margin="0,30,0,0">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Id" Binding="{Binding Id}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="User" Binding="{Binding User}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Comment" Binding="{Binding Comment}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Start Date" Binding="{Binding StartDate}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="End Date" Binding="{Binding EndDate}"></DataGridTextColumn>
+                            
+                            <DataGridTemplateColumn Header="Actions">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button Command="{Binding DataContext.FormNavigateCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                    CommandParameter="{Binding}"
+                                                    Style="{StaticResource Button_Rounded}"
+                                                    Width="20" Height="20"
+                                                    Background="Transparent"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Top"
+                                                    Margin="0,0,7,0">
+                                                <svgc:SvgViewbox Source="/Resources/Icons/record_edit.svg" Stretch="None" />
+                                            </Button>
+
+                                            <Button Command="{Binding DataContext.DeleteRecordCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                    CommandParameter="{Binding}"
+                                                    Style="{StaticResource Button_Rounded}"
+                                                    Width="20" Height="20"
+                                                    Background="Transparent"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Top">
+                                                <svgc:SvgViewbox Source="/Resources/Icons/record_delete.svg" Stretch="None" />
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <Button Command="{Binding FormNavigateCommand}"
+                            CommandParameter="{Binding NewHistoryModel}"
+                            Style="{StaticResource Button_Round}"
+                            Width="21" Height="21"
+                            Background="{StaticResource Color_Neutral}"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            Margin="0,-29,7,0">
+                        <svgc:SvgViewbox Source="/Resources/Icons/add_button.svg" Stretch="None" />
+                    </Button>
+                </StackPanel>
             </Grid>
         </StackPanel>
     </Grid>
-
 </Page>
