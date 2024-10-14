@@ -1,0 +1,21 @@
+<Page x:Class="HardwareAcc.MVVM.Views.HardwareResponsibility.Tabs.ResponsibilityHistoryTabPageView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:tabs="clr-namespace:HardwareAcc.MVVM.ViewModels.Accounting.Tabs"
+      mc:Ignorable="d"
+      Title="HardwareAcc"
+      d:DesignWidth="1920" d:DesignHeight="850"
+      Style="{StaticResource Style_BasePage}"
+      d:DataContext="{d:DesignInstance tabs:AudiencesTabPageViewModel}">
+    
+    <Grid Background="{StaticResource Color_BackgroundLightGray}">
+        <StackPanel Margin="30">
+            <Grid>
+                <TextBlock>His</TextBlock>
+            </Grid>
+        </StackPanel>
+    </Grid>
+
+</Page>

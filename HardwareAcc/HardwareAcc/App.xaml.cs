@@ -7,12 +7,14 @@ using HardwareAcc.MVVM.ViewModels.Accounting;
 using HardwareAcc.MVVM.ViewModels.Accounting.Tabs;
 using HardwareAcc.MVVM.ViewModels.Forms;
 using HardwareAcc.MVVM.ViewModels.HardwareResponsibility;
+using HardwareAcc.MVVM.ViewModels.HardwareResponsibility.Tabs;
 using HardwareAcc.MVVM.ViewModels.LoginRegister;
 using HardwareAcc.MVVM.Views;
 using HardwareAcc.MVVM.Views.Accounting;
 using HardwareAcc.MVVM.Views.Accounting.Tabs;
 using HardwareAcc.MVVM.Views.Forms;
 using HardwareAcc.MVVM.Views.HardwareResponsibility;
+using HardwareAcc.MVVM.Views.HardwareResponsibility.Tabs;
 using HardwareAcc.MVVM.Views.LoginRegister;
 using HardwareAcc.Services.Auth;
 using HardwareAcc.Services.DBConnection;
@@ -138,8 +140,15 @@ namespace HardwareAcc
             serviceCollection.AddSingleton<HardwareFormPageView>();
             serviceCollection.AddSingleton<HardwareFormPageViewModel>();
             
+            // Responsibility.
             serviceCollection.AddSingleton<HardwareResponsibilityPageView>();
             serviceCollection.AddSingleton<HardwareResponsibilityPageViewModel>();
+
+            serviceCollection.AddSingleton<ResponsibilityManageTabPageView>();
+            serviceCollection.AddSingleton<ResponsibilityManageTabPageViewModel>();
+            
+            serviceCollection.AddSingleton<ResponsibilityHistoryTabPageView>();
+            serviceCollection.AddSingleton<ResponsibilityHistoryTabPageViewModel>();
         }
 
         private void RegisterViewsInViewLocator()
@@ -167,7 +176,10 @@ namespace HardwareAcc
             viewLocator.Register<UsersFormPageViewModel, UsersFormPageView>();
             viewLocator.Register<HardwareFormPageViewModel, HardwareFormPageView>();
             
+            // Responsibility.
             viewLocator.Register<HardwareResponsibilityPageViewModel, HardwareResponsibilityPageView>();
+            viewLocator.Register<ResponsibilityManageTabPageViewModel, ResponsibilityManageTabPageView>();
+            viewLocator.Register<ResponsibilityHistoryTabPageViewModel, ResponsibilityHistoryTabPageView>();
         }
         
         private void InitializeFormsProvider()
