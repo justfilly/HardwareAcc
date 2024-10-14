@@ -4,6 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:tabs="clr-namespace:HardwareAcc.MVVM.ViewModels.Accounting.Tabs"
+      xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
+      xmlns:userControls="clr-namespace:HardwareAcc.MVVM.Views.UserControls"
       mc:Ignorable="d"
       Title="HardwareAcc"
       d:DesignWidth="1920" d:DesignHeight="850"
@@ -13,7 +15,119 @@
     <Grid Background="{StaticResource Color_BackgroundLightGray}">
         <StackPanel Margin="30">
             <Grid>
-                <TextBlock>Mnage</TextBlock>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="Монитор 1 HP EliteDisplay E233 Monitor (1FH46AA#ABB)"
+                               FontSize="18" FontWeight="SemiBold"
+                               Foreground="{StaticResource Color_HardwareText}">
+                    </TextBlock>
+                
+                    <StackPanel Orientation="Horizontal" Margin="0, 10, 0, 0">
+                        <svgc:SvgViewbox Source="/Resources/Icons/hardware_number.svg" Stretch="None" Margin="0, 0, 4, 0" />
+                        
+                        <TextBlock Text="21013402000011"
+                                   FontSize="14" FontWeight="SemiBold"
+                                   Foreground="{StaticResource Color_TextLightGray}">
+                        </TextBlock>
+                        
+                        <svgc:SvgViewbox Source="/Resources/Icons/hardware_price.svg" Stretch="None" Margin="15, 0, 4, 0" />
+                        
+                        <TextBlock Text="14800"
+                                   FontSize="14" FontWeight="SemiBold"
+                                   Foreground="{StaticResource Color_TextLightGray}">
+                        </TextBlock>
+                        
+                        <TextBlock Text="р"
+                                   FontSize="14" FontWeight="SemiBold"
+                                   Foreground="{StaticResource Color_TextLightGray}">
+                        </TextBlock>
+                        
+                        <svgc:SvgViewbox Source="/Resources/Icons/hardware_status.svg" Stretch="None" Margin="15, 0, 4, 0" />
+                        
+                        <TextBlock Text="In Use"
+                                   FontSize="14" FontWeight="SemiBold"
+                                   Foreground="{StaticResource Color_TextLightGray}">
+                        </TextBlock>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal" Margin="0, 10, 0, 0">
+                        <TextBlock Text="Responsible User:"
+                                   FontSize="14" FontWeight="SemiBold"
+                                   Foreground="{StaticResource Color_Neutral}">
+                        </TextBlock>
+                        
+                        <TextBlock Text="Rainbow Dash"
+                                   FontSize="14" FontWeight="SemiBold"
+                                   Foreground="{StaticResource Color_HardwareText}"
+                                   Margin="3, 0, 0, 0">
+                        </TextBlock>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal" Margin="0, 10, 0, 0">
+                        <TextBlock Text="Audience:"
+                                   FontSize="14" FontWeight="SemiBold"
+                                   Foreground="{StaticResource Color_Neutral}">
+                        </TextBlock>
+                        
+                        <TextBlock Text="A311"
+                                   FontSize="14" FontWeight="SemiBold"
+                                   Foreground="{StaticResource Color_HardwareText}"
+                                   Margin="3, 0, 0, 0">
+                        </TextBlock>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Vertical" Margin="0, 85, 0, 0" MaxWidth="300" HorizontalAlignment="Left">
+                        <TextBlock Text="Manage Comments"
+                                   FontSize="18" FontWeight="SemiBold"
+                                   Foreground="{StaticResource Color_HardwareText}"
+                                   Margin="3, 0, 0, 0">
+                        </TextBlock>
+                        
+                        <userControls:ComboBox
+                            LabelText="Select User to Comment"
+                            ComboBoxItems="{Binding UserCommentItems, Mode=TwoWay}" 
+                            SelectedItem="{Binding UserCommentSelectedItem, Mode=TwoWay}"
+                            PopupMaxHeight="180"
+                            Margin="0, 10, 0, 0"
+                            HorizontalAlignment="Stretch"
+                            ErrorText="Please enter your username">
+                        </userControls:ComboBox>
+                        
+                        <Button Command="{Binding NavigateToCommentFormCommand}" 
+                                Style="{StaticResource Button_NeutralColorWithText }"
+                                Width="200" Height="35"
+                                Content="Comment"
+                                Margin="0, 10, 0, 0"
+                                HorizontalAlignment="Left">
+                        </Button>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Vertical" Margin="0, 85, 0, 0" MaxWidth="300" HorizontalAlignment="Left">
+                        <TextBlock Text="Transfer Responsibility"
+                                   FontSize="18" FontWeight="SemiBold"
+                                   Foreground="{StaticResource Color_HardwareText}"
+                                   Margin="3, 0, 0, 0">
+                        </TextBlock>
+                        
+                        <userControls:ComboBox
+                            LabelText="Select User to transfer"
+                            ComboBoxItems="{Binding UserResponsibilityItems, Mode=TwoWay}" 
+                            SelectedItem="{Binding UserResponsibilitySelectedItem, Mode=TwoWay}"
+                            PopupMaxHeight="180"
+                            Margin="0, 10, 0, 0"
+                            HorizontalAlignment="Stretch"
+                            ErrorText="Please enter your username">
+                        </userControls:ComboBox>
+                        
+                        <Button Command="{Binding TransferResponsibilityCommand}" 
+                                Style="{StaticResource Button_NeutralColorWithText }"
+                                Width="200" Height="35"
+                                Content="Transfer"
+                                Margin="0, 10, 0, 0"
+                                HorizontalAlignment="Left">
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+                
             </Grid>
         </StackPanel>
     </Grid>

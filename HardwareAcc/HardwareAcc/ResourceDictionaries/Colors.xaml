@@ -36,5 +36,8 @@
     <SolidColorBrush x:Key="Color_SearchBarText">#5A5A5A</SolidColorBrush>
     <SolidColorBrush x:Key="Color_TableViewItemText">#878787</SolidColorBrush>
     <SolidColorBrush x:Key="Color_TableViewBorder">#BCBCBC</SolidColorBrush>
+    
+    <SolidColorBrush x:Key="Color_HardwareText">#555555</SolidColorBrush>
+
 
 </ResourceDictionary>

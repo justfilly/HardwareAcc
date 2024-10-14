@@ -69,6 +69,12 @@
       <Resource Include="Resources\Icons\hardware_report.svg" />
       <None Remove="Resources\Icons\hardware_responsibility.svg" />
       <Resource Include="Resources\Icons\hardware_responsibility.svg" />
+      <None Remove="Resources\Icons\hardware_number.svg" />
+      <Resource Include="Resources\Icons\hardware_number.svg" />
+      <None Remove="Resources\Icons\hardware_price.svg" />
+      <Resource Include="Resources\Icons\hardware_price.svg" />
+      <None Remove="Resources\Icons\hardware_status.svg" />
+      <Resource Include="Resources\Icons\hardware_status.svg" />
     </ItemGroup>
 
     <ItemGroup>
