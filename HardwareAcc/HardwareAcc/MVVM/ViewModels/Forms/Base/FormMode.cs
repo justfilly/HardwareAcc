@@ -1,4 +1,4 @@
-namespace HardwareAcc.MVVM.ViewModels.Forms;
+namespace HardwareAcc.MVVM.ViewModels.Forms.Base;
 
 public enum FormMode
 {

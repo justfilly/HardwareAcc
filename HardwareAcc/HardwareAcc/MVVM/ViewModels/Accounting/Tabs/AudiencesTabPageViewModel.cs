@@ -9,7 +9,7 @@ using HardwareAcc.MVVM.ViewModels.Forms;
 using HardwareAcc.Services.Navigation;
 using HardwareAcc.Services.Repositories.Audience;
 
-namespace HardwareAcc.MVVM.ViewModels.Tabs;
+namespace HardwareAcc.MVVM.ViewModels.Accounting.Tabs;
 
 public class AudiencesTabPageViewModel : BaseViewModel, IDisposable
 {

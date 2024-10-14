@@ -2,6 +2,7 @@ using System;
 using System.Windows.Controls;
 using HardwareAcc.MVVM.ViewModels;
 using HardwareAcc.MVVM.ViewModels.Forms;
+using HardwareAcc.MVVM.ViewModels.Forms.Base;
 using HardwareAcc.MVVM.Views;
 using HardwareAcc.Services.FormsProvider;
 using HardwareAcc.Services.ViewLocator;

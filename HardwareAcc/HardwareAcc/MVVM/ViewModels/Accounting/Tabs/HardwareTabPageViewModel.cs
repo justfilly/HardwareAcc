@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using HardwareAcc.Commands;
 using HardwareAcc.MVVM.Models;
 using HardwareAcc.MVVM.ViewModels.Forms;
+using HardwareAcc.MVVM.ViewModels.HardwareResponsibility;
 using HardwareAcc.Services.Navigation;
 using HardwareAcc.Services.Repositories.Hardware;
 
-namespace HardwareAcc.MVVM.ViewModels.Tabs;
+namespace HardwareAcc.MVVM.ViewModels.Accounting.Tabs;
 
 public class HardwareTabPageViewModel : BaseViewModel, IDisposable
 {
@@ -21,6 +22,7 @@ public class HardwareTabPageViewModel : BaseViewModel, IDisposable
         _hardware = new ObservableCollection<HardwareModel>();
         FormNavigateCommand = new NavigateToFormCommand<HardwareFormPageViewModel, HardwareModel>(navigationService);
         DeleteRecordCommand = new RelayCommandWithParameter(DeleteRecord, CanDeleteRecord);
+        HardwareResponsibilityNavigateCommand = new NavigateToFormCommand<HardwareResponsibilityPageViewModel, HardwareModel>(navigationService);
     }
 
     private ObservableCollection<HardwareModel> _hardware;
@@ -50,6 +52,7 @@ public class HardwareTabPageViewModel : BaseViewModel, IDisposable
     
     public NavigateToFormCommand<HardwareFormPageViewModel, HardwareModel> FormNavigateCommand { get; }
     public RelayCommandWithParameter DeleteRecordCommand { get; }
+    public NavigateToFormCommand<HardwareResponsibilityPageViewModel, HardwareModel> HardwareResponsibilityNavigateCommand { get; }
     public static HardwareModel NewModel => new();
     
     public async Task InitializeAsync()

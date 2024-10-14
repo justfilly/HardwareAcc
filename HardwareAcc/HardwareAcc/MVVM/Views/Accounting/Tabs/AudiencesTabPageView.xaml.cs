@@ -1,8 +1,8 @@
 using System.Windows;
 using System.Windows.Controls;
-using HardwareAcc.MVVM.ViewModels.Tabs;
+using HardwareAcc.MVVM.ViewModels.Accounting.Tabs;
 
-namespace HardwareAcc.MVVM.Views.Tabs;
+namespace HardwareAcc.MVVM.Views.Accounting.Tabs;
 
 public partial class AudiencesTabPageView : Page
 {

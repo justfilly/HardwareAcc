@@ -1,4 +1,4 @@
-namespace HardwareAcc.MVVM.Views;
+namespace HardwareAcc.MVVM.Views.HardwareResponsibility;
 
 public partial class HardwareResponsibilityPageView
 {

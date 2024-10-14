@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using HardwareAcc.MVVM.ViewModels;
+using HardwareAcc.MVVM.ViewModels.Accounting;
+using HardwareAcc.MVVM.ViewModels.Accounting.Tabs;
 using HardwareAcc.MVVM.ViewModels.Forms;
+using HardwareAcc.MVVM.ViewModels.HardwareResponsibility;
 using HardwareAcc.MVVM.ViewModels.LoginRegister;
-using HardwareAcc.MVVM.ViewModels.Tabs;
 using HardwareAcc.MVVM.Views;
+using HardwareAcc.MVVM.Views.Accounting;
+using HardwareAcc.MVVM.Views.Accounting.Tabs;
 using HardwareAcc.MVVM.Views.Forms;
+using HardwareAcc.MVVM.Views.HardwareResponsibility;
 using HardwareAcc.MVVM.Views.LoginRegister;
-using HardwareAcc.MVVM.Views.Tabs;
 using HardwareAcc.Services.Auth;
 using HardwareAcc.Services.DBConnection;
 using HardwareAcc.Services.FormsProvider;
@@ -133,6 +137,9 @@ namespace HardwareAcc
             
             serviceCollection.AddSingleton<HardwareFormPageView>();
             serviceCollection.AddSingleton<HardwareFormPageViewModel>();
+            
+            serviceCollection.AddSingleton<HardwareResponsibilityPageView>();
+            serviceCollection.AddSingleton<HardwareResponsibilityPageViewModel>();
         }
 
         private void RegisterViewsInViewLocator()
@@ -159,6 +166,8 @@ namespace HardwareAcc
             viewLocator.Register<StatusesFormPageViewModel, StatusesFormPageView>();
             viewLocator.Register<UsersFormPageViewModel, UsersFormPageView>();
             viewLocator.Register<HardwareFormPageViewModel, HardwareFormPageView>();
+            
+            viewLocator.Register<HardwareResponsibilityPageViewModel, HardwareResponsibilityPageView>();
         }
         
         private void InitializeFormsProvider()
@@ -171,6 +180,8 @@ namespace HardwareAcc
                 _serviceProvider.GetRequiredService<StatusesFormPageViewModel>(),
                 _serviceProvider.GetRequiredService<UsersFormPageViewModel>(),
                 _serviceProvider.GetRequiredService<HardwareFormPageViewModel>(),
+                
+                _serviceProvider.GetRequiredService<HardwareResponsibilityPageViewModel>(),
             };
 
             formsProvider.Initialize(formViewModels);

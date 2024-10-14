@@ -1,9 +1,9 @@
 using System.Windows.Controls;
 using HardwareAcc.Commands;
-using HardwareAcc.MVVM.ViewModels.Tabs;
+using HardwareAcc.MVVM.ViewModels.Accounting.Tabs;
 using HardwareAcc.Services.Navigation;
 
-namespace HardwareAcc.MVVM.ViewModels;
+namespace HardwareAcc.MVVM.ViewModels.Accounting;
 
 public class AccountingPageViewModel : BaseViewModel
 {

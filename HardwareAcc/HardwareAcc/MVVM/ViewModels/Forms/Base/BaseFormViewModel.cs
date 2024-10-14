@@ -1,4 +1,4 @@
-namespace HardwareAcc.MVVM.ViewModels.Forms;
+namespace HardwareAcc.MVVM.ViewModels.Forms.Base;
 
 public abstract class BaseFormViewModel<TModel> : BaseViewModel where TModel : class
 {
