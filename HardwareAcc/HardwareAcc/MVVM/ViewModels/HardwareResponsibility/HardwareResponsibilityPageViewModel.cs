@@ -1,7 +1,7 @@
 using System.Windows.Controls;
 using HardwareAcc.Commands;
 using HardwareAcc.MVVM.Models;
-using HardwareAcc.MVVM.ViewModels.Accounting.Tabs;
+using HardwareAcc.MVVM.ViewModels.Accounting;
 using HardwareAcc.MVVM.ViewModels.Forms.Base;
 using HardwareAcc.MVVM.ViewModels.HardwareResponsibility.Tabs;
 using HardwareAcc.Services.Navigation;
@@ -16,6 +16,8 @@ public class HardwareResponsibilityPageViewModel : BaseFormViewModel<HardwareMod
     {
         _navigationService = navigationService;
         
+        AccountingNavigateCommand = new NavigateCommand<AccountingPageViewModel>(navigationService);
+
         ManageTabCommand = new RelayCommand(() =>
         {
             ClearActiveTab();
@@ -31,9 +33,10 @@ public class HardwareResponsibilityPageViewModel : BaseFormViewModel<HardwareMod
         });
 
         SwitchTab<ResponsibilityManageTabPageViewModel>();
-        IsHistoryTabActive = true;
+        IsManageTabActive = true;
     }
     
+    public NavigateCommand<AccountingPageViewModel> AccountingNavigateCommand { get; }
     public RelayCommand HistoryTabCommand { get; }
     public RelayCommand ManageTabCommand { get; }
     
