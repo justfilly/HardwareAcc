@@ -219,15 +219,18 @@ public class ResponsibilityManageTabPageViewModel : BaseFormViewModel<HardwareMo
     
     private async void TransferResponsibility()
     {
-        UserModel responsibleUser = await _userRepository.GetByLoginAsync(UserResponsibilitySelectedItem);
+        HardwareResponsibilityHistoryModel previousHistoryModel =await _hardwareResponsibilityHistoryRepository.GetWithLatestStartDateByHardwareIdAsync(_model.Id);
+        previousHistoryModel.ResponsibilityEndDate = DateTime.Now;
+        await _hardwareResponsibilityHistoryRepository.UpdateAsync(previousHistoryModel);
         
-        HardwareResponsibilityHistoryModel model = new()
+        UserModel newResponsibleUser = await _userRepository.GetByLoginAsync(UserResponsibilitySelectedItem);
+        HardwareResponsibilityHistoryModel newHistoryModel = new()
         {
             HardwareId = _model.Id,
-            ResponsibleUserId = responsibleUser.Id,
+            ResponsibleUserId = newResponsibleUser.Id,
             ResponsibilityStartDate = DateTime.Now,
         };
 
-        await _hardwareResponsibilityHistoryRepository.AddAsync(model);
+        await _hardwareResponsibilityHistoryRepository.AddAsync(newHistoryModel);
     }
 }

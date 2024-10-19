@@ -37,7 +37,26 @@ public class HardwareResponsibilityHistoryRepository : IHardwareResponsibilityHi
 
         return history;
     }
+
+    public async Task<HardwareResponsibilityHistoryModel> GetWithLatestStartDateByHardwareIdAsync(int hardwareId)
+    {
+        await using MySqlConnection connection = _dbConnectionService.GetConnection();
+        await using MySqlCommand command = connection.CreateCommand();
+        command.CommandText = @"
+        SELECT * 
+        FROM hardwareacc.hardware_responsibility_history
+        WHERE hardware_id = @hardwareId
+        ORDER BY responsibility_start_date DESC
+        LIMIT 1";
+        command.Parameters.AddWithValue("@hardwareId", hardwareId);
+
+        await using MySqlDataReader reader = await command.ExecuteReaderAsync();
     
+        if (await reader.ReadAsync())
+            return DeserializeHistory(reader);
+
+        return null;
+    }
     public async Task AddAsync(HardwareResponsibilityHistoryModel model)
     {
         await using MySqlConnection connection = _dbConnectionService.GetConnection();

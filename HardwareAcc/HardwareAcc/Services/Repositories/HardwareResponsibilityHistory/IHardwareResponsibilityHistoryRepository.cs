@@ -10,6 +10,7 @@ public interface IHardwareResponsibilityHistoryRepository
     event Action Changed;
 
     Task<IEnumerable<HardwareResponsibilityHistoryModel>> GetAllByHardwareIdAsync(int hardwareId);
+    Task<HardwareResponsibilityHistoryModel> GetWithLatestStartDateByHardwareIdAsync(int hardwareId);
     
     Task AddAsync(HardwareResponsibilityHistoryModel model);
     Task DeleteAsync(int id);
