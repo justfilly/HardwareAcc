@@ -1,15 +1,30 @@
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using HardwareAcc.Commands;
 using HardwareAcc.MVVM.Models;
 using HardwareAcc.MVVM.ViewModels.Forms.Base;
 using HardwareAcc.Services.Navigation;
+using HardwareAcc.Services.Repositories.Audience;
+using HardwareAcc.Services.Repositories.Status;
+using HardwareAcc.Services.Repositories.User;
 
 namespace HardwareAcc.MVVM.ViewModels.HardwareResponsibility.Tabs;
 
 public class ResponsibilityManageTabPageViewModel : BaseFormViewModel<HardwareModel>
 {
-    public ResponsibilityManageTabPageViewModel(INavigationService navigationService)
+    private readonly IStatusRepository _statusRepository;
+    private readonly IUserRepository _userRepository;
+    private readonly IAudienceRepository _audienceRepository;
+    
+    public ResponsibilityManageTabPageViewModel(INavigationService navigationService,
+        IStatusRepository statusRepository,
+        IUserRepository userRepository,
+        IAudienceRepository audienceRepository)
     {
+        _statusRepository = statusRepository;
+        _userRepository = userRepository;
+        _audienceRepository = audienceRepository;
         NavigateToCommentFormCommand = new NavigateToFormCommand<CommentFormPageViewModel, HardwareResponsibilityHistoryModel>(navigationService);
     }
 
@@ -90,7 +105,7 @@ public class ResponsibilityManageTabPageViewModel : BaseFormViewModel<HardwareMo
         }
     }
     
-    private ObservableCollection<string> _userCommentItems;
+    private ObservableCollection<string> _userCommentItems = new();
     public ObservableCollection<string> UserCommentItems
     {
         get => _userCommentItems;
@@ -126,7 +141,7 @@ public class ResponsibilityManageTabPageViewModel : BaseFormViewModel<HardwareMo
         }
     }
     
-    private ObservableCollection<string> _userResponsibilityItems;
+    private ObservableCollection<string> _userResponsibilityItems = new();
     public ObservableCollection<string> UserResponsibilityItems
     {
         get => _userResponsibilityItems;
@@ -164,17 +179,35 @@ public class ResponsibilityManageTabPageViewModel : BaseFormViewModel<HardwareMo
     
     #endregion
     
-    public override void Initialize(HardwareModel model)
+    public override async void Initialize(HardwareModel model)
     {
         base.Initialize(model);
         
         HardwareName = model.Name;
         HardwareInventoryNumber = model.InventoryNumber;
         HardwarePrice = model.Price.ToString();
-        /*HardwareStatus = model.Status;
-        HardwareResponsibleUser = model.ResponsibleUser;
-        HardwareAudience = model.Audience;
-        UserCommentItems = new ObservableCollection<string>(model.CommentItems);
+        
+        HardwareStatus =  model.StatusName;
+        HardwareResponsibleUser = model.ResponsibleUserLogin;
+        HardwareAudience = model.AudienceCode;
+        
+        await ResetUserCommentItems();
+        await ResetUserResponsibilityItems();
+        
+        /*UserCommentItems = new ObservableCollection<string>(model.CommentItems);
         UserResponsibilityItems = new ObservableCollection<string>(model.ResponsibilityItems);*/
+    }
+
+    private async Task ResetUserCommentItems()
+    {
+        
+    }
+
+    private async Task ResetUserResponsibilityItems()
+    {
+        UserResponsibilityItems.Clear();
+        IEnumerable<UserModel> userModels = await _userRepository.GetAllAsync();
+        foreach (UserModel userModel in userModels) 
+            UserResponsibilityItems.Add(userModel.Login);
     }
 }

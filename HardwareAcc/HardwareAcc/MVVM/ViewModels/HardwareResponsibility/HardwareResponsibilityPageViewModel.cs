@@ -6,7 +6,6 @@ using HardwareAcc.MVVM.ViewModels.Forms.Base;
 using HardwareAcc.MVVM.ViewModels.HardwareResponsibility.Tabs;
 using HardwareAcc.Services.FormsProvider;
 using HardwareAcc.Services.Navigation;
-using Microsoft.Extensions.FileProviders;
 
 namespace HardwareAcc.MVVM.ViewModels.HardwareResponsibility;
 
