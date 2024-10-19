@@ -194,6 +194,8 @@ namespace HardwareAcc
                 _serviceProvider.GetRequiredService<HardwareFormPageViewModel>(),
                 
                 _serviceProvider.GetRequiredService<HardwareResponsibilityPageViewModel>(),
+                _serviceProvider.GetRequiredService<ResponsibilityManageTabPageViewModel>(),
+                _serviceProvider.GetRequiredService<ResponsibilityHistoryTabPageViewModel>(),
             };
 
             formsProvider.Initialize(formViewModels);

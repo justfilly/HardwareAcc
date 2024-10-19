@@ -116,6 +116,7 @@
                         Margin="0, 35, 0, 0">
                         <userControls:TextInputField.ValidationRules>
                             <validationRules:LengthValidationRule FieldName="Price" MinLength="1" MaxLength="50" IgnoreEmpty="True"/>
+                            <validationRules:NumbersOnlyValidationRule></validationRules:NumbersOnlyValidationRule>
                         </userControls:TextInputField.ValidationRules>
                     </userControls:TextInputField>
                     

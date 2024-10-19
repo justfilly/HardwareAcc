@@ -9,7 +9,6 @@ using HardwareAcc.MVVM.ViewModels.Forms.Base;
 using HardwareAcc.Services.Navigation;
 using HardwareAcc.Services.Repositories.Role;
 using HardwareAcc.Services.Repositories.User;
-using HardwareAcc.ValidationRules;
 
 namespace HardwareAcc.MVVM.ViewModels.Forms;
 

@@ -4,36 +4,36 @@ using HardwareAcc.MVVM.Models;
 using HardwareAcc.MVVM.ViewModels.Accounting;
 using HardwareAcc.MVVM.ViewModels.Forms.Base;
 using HardwareAcc.MVVM.ViewModels.HardwareResponsibility.Tabs;
+using HardwareAcc.Services.FormsProvider;
 using HardwareAcc.Services.Navigation;
+using Microsoft.Extensions.FileProviders;
 
 namespace HardwareAcc.MVVM.ViewModels.HardwareResponsibility;
 
 public class HardwareResponsibilityPageViewModel : BaseFormViewModel<HardwareModel>
 {
     private readonly INavigationService _navigationService;
-    
-    public HardwareResponsibilityPageViewModel(INavigationService navigationService)
+    private readonly IFormsProvider _formsProvider;
+
+    public HardwareResponsibilityPageViewModel(INavigationService navigationService, IFormsProvider formsProvider)
     {
         _navigationService = navigationService;
-        
+        _formsProvider = formsProvider;
         AccountingNavigateCommand = new NavigateCommand<AccountingPageViewModel>(navigationService);
 
         ManageTabCommand = new RelayCommand(() =>
         {
             ClearActiveTab();
             IsManageTabActive = true;
-            SwitchTab<ResponsibilityManageTabPageViewModel>();
+            SwitchTab<ResponsibilityManageTabPageViewModel, HardwareModel>(_model);
         });
         
         HistoryTabCommand = new RelayCommand(() =>
         {
             ClearActiveTab();
             IsHistoryTabActive = true;
-            SwitchTab<ResponsibilityHistoryTabPageViewModel>();
+            SwitchTab<ResponsibilityHistoryTabPageViewModel, HardwareModel>(_model);
         });
-
-        SwitchTab<ResponsibilityManageTabPageViewModel>();
-        IsManageTabActive = true;
     }
     
     public NavigateCommand<AccountingPageViewModel> AccountingNavigateCommand { get; }
@@ -77,15 +77,27 @@ public class HardwareResponsibilityPageViewModel : BaseFormViewModel<HardwareMod
         }
     }
 
-    private void SwitchTab<TViewModel>() where TViewModel : BaseViewModel
+    public override void Initialize(HardwareModel model)
     {
-        Page view = _navigationService.GetPage<TViewModel>();
-        TabPage = view;
+        base.Initialize(model);
+        
+        IsManageTabActive = true;
+        SwitchTab<ResponsibilityManageTabPageViewModel, HardwareModel>(_model);
     }
 
     private void ClearActiveTab()
     {
         IsHistoryTabActive = false;
         IsManageTabActive = false;
+    }
+
+    private void SwitchTab<TFormViewModel, TModel>(TModel model) 
+        where TFormViewModel : BaseFormViewModel<TModel>
+        where TModel : class
+    {
+        Page view = _navigationService.GetPage<TFormViewModel>();
+        TFormViewModel viewModel = _formsProvider.GetFormViewModel<TFormViewModel>();
+        viewModel.Initialize(model);
+        TabPage = view;
     }
 }

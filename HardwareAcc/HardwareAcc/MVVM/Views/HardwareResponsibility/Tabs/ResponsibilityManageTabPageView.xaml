@@ -3,20 +3,20 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:tabs="clr-namespace:HardwareAcc.MVVM.ViewModels.Accounting.Tabs"
       xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
       xmlns:userControls="clr-namespace:HardwareAcc.MVVM.Views.UserControls"
+      xmlns:tabs1="clr-namespace:HardwareAcc.MVVM.ViewModels.HardwareResponsibility.Tabs"
       mc:Ignorable="d"
       Title="HardwareAcc"
       d:DesignWidth="1920" d:DesignHeight="850"
       Style="{StaticResource Style_BasePage}"
-      d:DataContext="{d:DesignInstance tabs:AudiencesTabPageViewModel}">
+      d:DataContext="{d:DesignInstance tabs1:ResponsibilityManageTabPageViewModel}">
     
     <Grid Background="{StaticResource Color_BackgroundLightGray}">
         <StackPanel Margin="30">
             <Grid>
                 <StackPanel Orientation="Vertical">
-                    <TextBlock Text="Монитор 1 HP EliteDisplay E233 Monitor (1FH46AA#ABB)"
+                    <TextBlock Text="{Binding HardwareName}"
                                FontSize="18" FontWeight="SemiBold"
                                Foreground="{StaticResource Color_HardwareText}">
                     </TextBlock>
@@ -24,14 +24,14 @@
                     <StackPanel Orientation="Horizontal" Margin="0, 10, 0, 0">
                         <svgc:SvgViewbox Source="/Resources/Icons/hardware_number.svg" Stretch="None" Margin="0, 0, 4, 0" />
                         
-                        <TextBlock Text="21013402000011"
+                        <TextBlock Text="{Binding HardwareInventoryNumber}"
                                    FontSize="14" FontWeight="SemiBold"
                                    Foreground="{StaticResource Color_TextLightGray}">
                         </TextBlock>
                         
                         <svgc:SvgViewbox Source="/Resources/Icons/hardware_price.svg" Stretch="None" Margin="15, 0, 4, 0" />
                         
-                        <TextBlock Text="14800"
+                        <TextBlock Text="{Binding HardwarePrice}"
                                    FontSize="14" FontWeight="SemiBold"
                                    Foreground="{StaticResource Color_TextLightGray}">
                         </TextBlock>
@@ -43,7 +43,7 @@
                         
                         <svgc:SvgViewbox Source="/Resources/Icons/hardware_status.svg" Stretch="None" Margin="15, 0, 4, 0" />
                         
-                        <TextBlock Text="In Use"
+                        <TextBlock Text="{Binding HardwareStatus}"
                                    FontSize="14" FontWeight="SemiBold"
                                    Foreground="{StaticResource Color_TextLightGray}">
                         </TextBlock>
@@ -55,7 +55,7 @@
                                    Foreground="{StaticResource Color_Neutral}">
                         </TextBlock>
                         
-                        <TextBlock Text="Rainbow Dash"
+                        <TextBlock Text="{Binding HardwareResponsibleUser}"
                                    FontSize="14" FontWeight="SemiBold"
                                    Foreground="{StaticResource Color_HardwareText}"
                                    Margin="3, 0, 0, 0">
@@ -68,7 +68,7 @@
                                    Foreground="{StaticResource Color_Neutral}">
                         </TextBlock>
                         
-                        <TextBlock Text="A311"
+                        <TextBlock Text="{Binding HardwareAudience}"
                                    FontSize="14" FontWeight="SemiBold"
                                    Foreground="{StaticResource Color_HardwareText}"
                                    Margin="3, 0, 0, 0">
@@ -86,10 +86,11 @@
                             LabelText="Select User to Comment"
                             ComboBoxItems="{Binding UserCommentItems, Mode=TwoWay}" 
                             SelectedItem="{Binding UserCommentSelectedItem, Mode=TwoWay}"
+                            ErrorText="{Binding UserCommentErrorText, Mode=TwoWay}"
+
                             PopupMaxHeight="180"
                             Margin="0, 10, 0, 0"
-                            HorizontalAlignment="Stretch"
-                            ErrorText="Please enter your username">
+                            HorizontalAlignment="Stretch">
                         </userControls:ComboBox>
                         
                         <Button Command="{Binding NavigateToCommentFormCommand}" 
@@ -112,10 +113,10 @@
                             LabelText="Select User to transfer"
                             ComboBoxItems="{Binding UserResponsibilityItems, Mode=TwoWay}" 
                             SelectedItem="{Binding UserResponsibilitySelectedItem, Mode=TwoWay}"
+                            ErrorText="{Binding UserResponsibilityErrorText, Mode=TwoWay}"
                             PopupMaxHeight="180"
                             Margin="0, 10, 0, 0"
-                            HorizontalAlignment="Stretch"
-                            ErrorText="Please enter your username">
+                            HorizontalAlignment="Stretch">
                         </userControls:ComboBox>
                         
                         <Button Command="{Binding TransferResponsibilityCommand}" 
@@ -127,9 +128,7 @@
                         </Button>
                     </StackPanel>
                 </StackPanel>
-                
             </Grid>
         </StackPanel>
     </Grid>
-
 </Page>
