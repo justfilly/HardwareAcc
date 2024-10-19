@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -6,6 +7,7 @@ using HardwareAcc.MVVM.Models;
 using HardwareAcc.MVVM.ViewModels.Forms.Base;
 using HardwareAcc.Services.Navigation;
 using HardwareAcc.Services.Repositories.Audience;
+using HardwareAcc.Services.Repositories.HardwareResponsibilityHistory;
 using HardwareAcc.Services.Repositories.Status;
 using HardwareAcc.Services.Repositories.User;
 
@@ -16,16 +18,20 @@ public class ResponsibilityManageTabPageViewModel : BaseFormViewModel<HardwareMo
     private readonly IStatusRepository _statusRepository;
     private readonly IUserRepository _userRepository;
     private readonly IAudienceRepository _audienceRepository;
+    private readonly IHardwareResponsibilityHistoryRepository _hardwareResponsibilityHistoryRepository;
     
     public ResponsibilityManageTabPageViewModel(INavigationService navigationService,
         IStatusRepository statusRepository,
         IUserRepository userRepository,
-        IAudienceRepository audienceRepository)
+        IAudienceRepository audienceRepository, IHardwareResponsibilityHistoryRepository hardwareResponsibilityHistoryRepository)
     {
         _statusRepository = statusRepository;
         _userRepository = userRepository;
         _audienceRepository = audienceRepository;
+        _hardwareResponsibilityHistoryRepository = hardwareResponsibilityHistoryRepository;
+
         NavigateToCommentFormCommand = new NavigateToFormCommand<CommentFormPageViewModel, HardwareResponsibilityHistoryModel>(navigationService);
+        TransferResponsibilityCommand = new RelayCommand(TransferResponsibility);
     }
 
     public NavigateToFormCommand<CommentFormPageViewModel, HardwareResponsibilityHistoryModel> NavigateToCommentFormCommand { get; }
@@ -209,5 +215,19 @@ public class ResponsibilityManageTabPageViewModel : BaseFormViewModel<HardwareMo
         IEnumerable<UserModel> userModels = await _userRepository.GetAllAsync();
         foreach (UserModel userModel in userModels) 
             UserResponsibilityItems.Add(userModel.Login);
+    }
+    
+    private async void TransferResponsibility()
+    {
+        UserModel responsibleUser = await _userRepository.GetByLoginAsync(UserResponsibilitySelectedItem);
+        
+        HardwareResponsibilityHistoryModel model = new()
+        {
+            HardwareId = _model.Id,
+            ResponsibleUserId = responsibleUser.Id,
+            ResponsibilityStartDate = DateTime.Now,
+        };
+
+        await _hardwareResponsibilityHistoryRepository.AddAsync(model);
     }
 }
