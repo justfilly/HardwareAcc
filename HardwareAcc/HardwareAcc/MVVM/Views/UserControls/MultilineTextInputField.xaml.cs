@@ -14,7 +14,7 @@ public partial class MultilineTextInputField : UserControl
         DependencyProperty.Register(
             name:nameof(InputText),
             propertyType:typeof(string),
-            ownerType:typeof(TextInputField),
+            ownerType:typeof(MultilineTextInputField),
             new PropertyMetadata(string.Empty));
     
     public string InputText
@@ -27,7 +27,7 @@ public partial class MultilineTextInputField : UserControl
         DependencyProperty.Register(
             name: nameof(LabelText),
             propertyType: typeof(string),
-            ownerType: typeof(TextInputField),
+            ownerType: typeof(MultilineTextInputField),
             new PropertyMetadata(string.Empty));
 
     public string LabelText

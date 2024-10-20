@@ -151,6 +151,9 @@ namespace HardwareAcc
             
             serviceCollection.AddSingleton<ResponsibilityHistoryTabPageView>();
             serviceCollection.AddSingleton<ResponsibilityHistoryTabPageViewModel>();
+            
+            serviceCollection.AddSingleton<CommentFormPageView>();
+            serviceCollection.AddSingleton<CommentFormPageViewModel>();
         }
 
         private void RegisterViewsInViewLocator()
@@ -182,6 +185,8 @@ namespace HardwareAcc
             viewLocator.Register<HardwareResponsibilityPageViewModel, HardwareResponsibilityPageView>();
             viewLocator.Register<ResponsibilityManageTabPageViewModel, ResponsibilityManageTabPageView>();
             viewLocator.Register<ResponsibilityHistoryTabPageViewModel, ResponsibilityHistoryTabPageView>();
+            
+            viewLocator.Register<CommentFormPageViewModel, CommentFormPageView>();
         }
         
         private void InitializeFormsProvider()
@@ -198,6 +203,7 @@ namespace HardwareAcc
                 _serviceProvider.GetRequiredService<HardwareResponsibilityPageViewModel>(),
                 _serviceProvider.GetRequiredService<ResponsibilityManageTabPageViewModel>(),
                 _serviceProvider.GetRequiredService<ResponsibilityHistoryTabPageViewModel>(),
+                _serviceProvider.GetRequiredService<CommentFormPageViewModel>(),
             };
 
             formsProvider.Initialize(formViewModels);
