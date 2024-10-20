@@ -81,6 +81,9 @@
                     HorizontalAlignment="Left"
                     Width="350"
                     Margin="0, 45, 0, 0"/>
+                     
+                     <userControls:MultilineTextInputField
+                         HorizontalAlignment="Left"/>
                 
                     <DataGrid ItemsSource="{Binding History}"
                               AutoGenerateColumns="False"
