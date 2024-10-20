@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using HardwareAcc.Commands;
 using HardwareAcc.MVVM.Models;
@@ -199,14 +200,28 @@ public class ResponsibilityManageTabPageViewModel : BaseFormViewModel<HardwareMo
         
         await ResetUserCommentItems();
         await ResetUserResponsibilityItems();
-        
-        /*UserCommentItems = new ObservableCollection<string>(model.CommentItems);
-        UserResponsibilityItems = new ObservableCollection<string>(model.ResponsibilityItems);*/
     }
 
     private async Task ResetUserCommentItems()
     {
-        
+        UserCommentItems.Clear();
+    
+        IEnumerable<HardwareResponsibilityHistoryModel> model = 
+            await _hardwareResponsibilityHistoryRepository.GetAllByHardwareIdAsync(_model.Id);
+    
+        var sortedModel = model.OrderByDescending(m => m.ResponsibilityStartDate);
+
+        foreach (HardwareResponsibilityHistoryModel historyModel in sortedModel)
+        {
+            UserModel userModel = await _userRepository.GetByIdAsync(historyModel.ResponsibleUserId);
+
+            string endDateText = historyModel.ResponsibilityEndDate == DateTime.MinValue 
+                ? "Now" 
+                : historyModel.ResponsibilityEndDate.ToString("dd/MM/yyyy HH:mm:ss");
+
+            string itemText = $"{userModel.Login}, {historyModel.ResponsibilityStartDate:dd/MM/yyyy HH:mm:ss} - {endDateText}";
+            UserCommentItems.Add(itemText);
+        }
     }
 
     private async Task ResetUserResponsibilityItems()
@@ -219,7 +234,7 @@ public class ResponsibilityManageTabPageViewModel : BaseFormViewModel<HardwareMo
     
     private async void TransferResponsibility()
     {
-        HardwareResponsibilityHistoryModel previousHistoryModel =await _hardwareResponsibilityHistoryRepository.GetWithLatestStartDateByHardwareIdAsync(_model.Id);
+        HardwareResponsibilityHistoryModel previousHistoryModel = await _hardwareResponsibilityHistoryRepository.GetWithLatestStartDateByHardwareIdAsync(_model.Id);
         previousHistoryModel.ResponsibilityEndDate = DateTime.Now;
         await _hardwareResponsibilityHistoryRepository.UpdateAsync(previousHistoryModel);
         
@@ -232,5 +247,7 @@ public class ResponsibilityManageTabPageViewModel : BaseFormViewModel<HardwareMo
         };
 
         await _hardwareResponsibilityHistoryRepository.AddAsync(newHistoryModel);
+
+        await ResetUserCommentItems();
     }
 }
