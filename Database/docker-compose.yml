@@ -1,0 +1,19 @@
+name: hardwareacc
+
+services:
+    database:
+      image: mysql:latest
+      container_name: database
+      restart: unless-stopped
+      environment:
+        MYSQL_ROOT_PASSWORD: 8yUz1V4pYF7R
+        MYSQL_DATABASE: hardwareacc
+        MYSQL_USER: admin
+        MYSQL_PASSWORD: w7bNkR3vJiUg
+      ports:
+        - "0.0.0.0:3306:3306"
+      volumes:
+      - database_data:/var/lib/mysql
+
+volumes:
+  database_data:

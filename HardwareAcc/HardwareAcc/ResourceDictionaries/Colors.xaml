@@ -1,0 +1,43 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <SolidColorBrush x:Key="Color_White">#FFFFFF</SolidColorBrush>
+    
+    
+    <!--Scheme-->
+    <SolidColorBrush x:Key="Color_Base">#EEEEEE</SolidColorBrush>
+    <SolidColorBrush x:Key="Color_Primary">#0060AC</SolidColorBrush>
+    <SolidColorBrush x:Key="Color_Neutral">#E41613</SolidColorBrush>
+    
+    <!--Chrome-->
+    <SolidColorBrush x:Key="Color_ChromeDarkBlue">#01467E</SolidColorBrush>
+    <SolidColorBrush x:Key="Color_ChromeButtonMouseEnter">#80359FF2</SolidColorBrush>
+    <SolidColorBrush x:Key="Color_ChromeCloseButtonMouseEnter">#E6E41613</SolidColorBrush>
+
+    <!--InputFields-->
+    <SolidColorBrush x:Key="Color_InputFieldLabel">#646464</SolidColorBrush>
+    <SolidColorBrush x:Key="Color_InputFieldBorder">#A0A0A0</SolidColorBrush>
+
+    <!--Text-->
+    <SolidColorBrush x:Key="Color_TitleBlack">#333333</SolidColorBrush>
+    <SolidColorBrush x:Key="Color_TextLightGray">#878787</SolidColorBrush>
+
+    <!--Buttons-->
+    <SolidColorBrush x:Key="Color_BackButtonGray">#676767</SolidColorBrush>
+    <SolidColorBrush x:Key="Color_TabButtonPressed">#0075D2</SolidColorBrush>
+    <SolidColorBrush x:Key="Color_TabButtonBorderPressed">#FF1C18</SolidColorBrush>
+    
+    
+    <SolidColorBrush x:Key="Color_BackgroundLightGray">#F1F1F1</SolidColorBrush>
+    
+    <!--TableView-->
+    <SolidColorBrush x:Key="Color_TableViewBackground">#FFFFFF</SolidColorBrush>
+    <SolidColorBrush x:Key="Color_TableViewHeaderText">#555555</SolidColorBrush>
+    <SolidColorBrush x:Key="Color_SearchBarText">#5A5A5A</SolidColorBrush>
+    <SolidColorBrush x:Key="Color_TableViewItemText">#878787</SolidColorBrush>
+    <SolidColorBrush x:Key="Color_TableViewBorder">#BCBCBC</SolidColorBrush>
+    
+    <SolidColorBrush x:Key="Color_HardwareText">#555555</SolidColorBrush>
+
+
+</ResourceDictionary>
