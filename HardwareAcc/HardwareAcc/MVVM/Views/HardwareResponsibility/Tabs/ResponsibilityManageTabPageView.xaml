@@ -94,6 +94,7 @@
                         </userControls:ComboBox>
                         
                         <Button Command="{Binding NavigateToCommentFormCommand}" 
+                                CommandParameter="{Binding SelectedForCommentHistoryModel}"
                                 Style="{StaticResource Button_NeutralColorWithText }"
                                 Width="200" Height="35"
                                 Content="Comment"

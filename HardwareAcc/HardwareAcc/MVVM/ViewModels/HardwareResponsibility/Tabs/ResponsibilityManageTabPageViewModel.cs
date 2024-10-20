@@ -17,6 +17,7 @@ namespace HardwareAcc.MVVM.ViewModels.HardwareResponsibility.Tabs;
 
 public class ResponsibilityManageTabPageViewModel : BaseFormViewModel<HardwareModel>
 {
+    private readonly INavigationService _navigationService;
     private readonly IStatusRepository _statusRepository;
     private readonly IUserRepository _userRepository;
     private readonly IAudienceRepository _audienceRepository;
@@ -30,22 +31,24 @@ public class ResponsibilityManageTabPageViewModel : BaseFormViewModel<HardwareMo
         IHardwareResponsibilityHistoryRepository hardwareResponsibilityHistoryRepository, 
         IHardwareRepository hardwareRepository)
     {
+        _navigationService = navigationService;
         _statusRepository = statusRepository;
         _userRepository = userRepository;
         _audienceRepository = audienceRepository;
         _hardwareResponsibilityHistoryRepository = hardwareResponsibilityHistoryRepository;
         _hardwareRepository = hardwareRepository;
 
-        NavigateToCommentFormCommand = new NavigateToFormCommand<CommentFormPageViewModel, HardwareResponsibilityHistoryModel>(navigationService);
+        NavigateToCommentFormCommand = new RelayCommand(EditComment);
         TransferResponsibilityCommand = new RelayCommand(TransferResponsibility);
     }
 
-    public NavigateToFormCommand<CommentFormPageViewModel, HardwareResponsibilityHistoryModel> NavigateToCommentFormCommand { get; }
+    public RelayCommand NavigateToCommentFormCommand { get; }
     public RelayCommand TransferResponsibilityCommand { get; }
 
     #region Props
-    
+
     private string _hardwareName = "";
+
     public string HardwareName
     {
         get => _hardwareName;
@@ -56,8 +59,9 @@ public class ResponsibilityManageTabPageViewModel : BaseFormViewModel<HardwareMo
             OnPropertyChanged(nameof(HardwareName));
         }
     }
-    
+
     private string _hardwareInventoryNumber = "";
+
     public string HardwareInventoryNumber
     {
         get => _hardwareInventoryNumber;
@@ -68,8 +72,9 @@ public class ResponsibilityManageTabPageViewModel : BaseFormViewModel<HardwareMo
             OnPropertyChanged(nameof(HardwareInventoryNumber));
         }
     }
-    
+
     private string _hardwarePrice = "";
+
     public string HardwarePrice
     {
         get => _hardwarePrice;
@@ -80,8 +85,9 @@ public class ResponsibilityManageTabPageViewModel : BaseFormViewModel<HardwareMo
             OnPropertyChanged(nameof(HardwarePrice));
         }
     }
-    
+
     private string _hardwareStatus = "";
+
     public string HardwareStatus
     {
         get => _hardwareStatus;
@@ -92,8 +98,9 @@ public class ResponsibilityManageTabPageViewModel : BaseFormViewModel<HardwareMo
             OnPropertyChanged(nameof(HardwareStatus));
         }
     }
-    
+
     private string _hardwareResponsibleUser = "";
+
     public string HardwareResponsibleUser
     {
         get => _hardwareResponsibleUser;
@@ -104,8 +111,9 @@ public class ResponsibilityManageTabPageViewModel : BaseFormViewModel<HardwareMo
             OnPropertyChanged(nameof(HardwareResponsibleUser));
         }
     }
-    
+
     private string _hardwareAudience = "";
+
     public string HardwareAudience
     {
         get => _hardwareAudience;
@@ -116,8 +124,9 @@ public class ResponsibilityManageTabPageViewModel : BaseFormViewModel<HardwareMo
             OnPropertyChanged(nameof(HardwareAudience));
         }
     }
-    
+
     private ObservableCollection<string> _userCommentItems = new();
+
     public ObservableCollection<string> UserCommentItems
     {
         get => _userCommentItems;
@@ -128,8 +137,9 @@ public class ResponsibilityManageTabPageViewModel : BaseFormViewModel<HardwareMo
             OnPropertyChanged(nameof(UserCommentItems));
         }
     }
-    
+
     private string _userCommentSelectedItem = "";
+
     public string UserCommentSelectedItem
     {
         get => _userCommentSelectedItem;
@@ -140,8 +150,9 @@ public class ResponsibilityManageTabPageViewModel : BaseFormViewModel<HardwareMo
             OnPropertyChanged(nameof(UserCommentSelectedItem));
         }
     }
-    
+
     private string _userCommentErrorText = "";
+
     public string UserCommentErrorText
     {
         get => _userCommentErrorText;
@@ -152,8 +163,9 @@ public class ResponsibilityManageTabPageViewModel : BaseFormViewModel<HardwareMo
             OnPropertyChanged(nameof(UserCommentErrorText));
         }
     }
-    
+
     private ObservableCollection<string> _userResponsibilityItems = new();
+
     public ObservableCollection<string> UserResponsibilityItems
     {
         get => _userResponsibilityItems;
@@ -164,8 +176,9 @@ public class ResponsibilityManageTabPageViewModel : BaseFormViewModel<HardwareMo
             OnPropertyChanged(nameof(UserResponsibilityItems));
         }
     }
-    
+
     private string _userResponsibilitySelectedItem = "";
+
     public string UserResponsibilitySelectedItem
     {
         get => _userResponsibilitySelectedItem;
@@ -176,8 +189,9 @@ public class ResponsibilityManageTabPageViewModel : BaseFormViewModel<HardwareMo
             OnPropertyChanged(nameof(UserResponsibilitySelectedItem));
         }
     }
-    
+
     private string _userResponsibilityErrorText = "";
+
     public string UserResponsibilityErrorText
     {
         get => _userResponsibilityErrorText;
@@ -188,9 +202,9 @@ public class ResponsibilityManageTabPageViewModel : BaseFormViewModel<HardwareMo
             OnPropertyChanged(nameof(UserResponsibilityErrorText));
         }
     }
-    
+
     #endregion
-    
+
     public override async void Initialize(HardwareModel model)
     {
         base.Initialize(model);
@@ -201,6 +215,7 @@ public class ResponsibilityManageTabPageViewModel : BaseFormViewModel<HardwareMo
         
         HardwareStatus =  model.StatusName;
         HardwareResponsibleUser = model.ResponsibleUserLogin;
+
         HardwareAudience = model.AudienceCode;
         
         await ResetUserCommentItems();
@@ -236,7 +251,33 @@ public class ResponsibilityManageTabPageViewModel : BaseFormViewModel<HardwareMo
         foreach (UserModel userModel in userModels) 
             UserResponsibilityItems.Add(userModel.Login);
     }
-    
+
+    private async void EditComment()
+    {
+        string selectedItem = UserCommentSelectedItem;
+
+        if (!string.IsNullOrEmpty(selectedItem) && selectedItem.Contains(","))
+        {
+            string userLogin = selectedItem.Substring(0, selectedItem.IndexOf(",")).Trim();
+            
+            string[] parts = selectedItem.Split(new[] { ',', '-' }, StringSplitOptions.RemoveEmptyEntries);
+        
+            if (parts.Length > 1)
+            {
+                string startDateString = parts[1].Trim();
+                DateTime startDate = DateTime.ParseExact(startDateString, "dd/MM/yyyy HH:mm:ss", null);
+            
+                UserModel userModel = await _userRepository.GetByLoginAsync(userLogin);
+                int userId = userModel.Id;
+
+                HardwareResponsibilityHistoryModel model =
+                    await _hardwareResponsibilityHistoryRepository.GetByUserIdAndStartDateAsync(userId, startDate);
+
+                _navigationService.NavigateToForm<CommentFormPageViewModel, HardwareResponsibilityHistoryModel>(model);
+            }
+        }
+    }
+
     private async void TransferResponsibility()
     {
         HardwareResponsibilityHistoryModel previousHistoryModel = await _hardwareResponsibilityHistoryRepository.GetWithLatestStartDateByHardwareIdAsync(_model.Id);

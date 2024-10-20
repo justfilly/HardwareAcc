@@ -57,6 +57,29 @@ public class HardwareResponsibilityHistoryRepository : IHardwareResponsibilityHi
 
         return null;
     }
+
+    public async Task<HardwareResponsibilityHistoryModel> GetByUserIdAndStartDateAsync(int userId, DateTime startDate)
+    {
+        await using MySqlConnection connection = _dbConnectionService.GetConnection();
+        await using MySqlCommand command = connection.CreateCommand();
+    
+        command.CommandText = @"
+        SELECT * 
+        FROM hardwareacc.hardware_responsibility_history
+        WHERE responsible_user_id = @userId 
+        AND responsibility_start_date = @startDate";
+    
+        command.Parameters.AddWithValue("@userId", userId);
+        command.Parameters.AddWithValue("@startDate", startDate);
+
+        await using MySqlDataReader reader = await command.ExecuteReaderAsync();
+    
+        if (await reader.ReadAsync())
+            return DeserializeHistory(reader);
+
+        return null;
+    }
+
     public async Task AddAsync(HardwareResponsibilityHistoryModel model)
     {
         await using MySqlConnection connection = _dbConnectionService.GetConnection();

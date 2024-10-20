@@ -11,7 +11,8 @@ public interface IHardwareResponsibilityHistoryRepository
 
     Task<IEnumerable<HardwareResponsibilityHistoryModel>> GetAllByHardwareIdAsync(int hardwareId);
     Task<HardwareResponsibilityHistoryModel> GetWithLatestStartDateByHardwareIdAsync(int hardwareId);
-    
+    Task<HardwareResponsibilityHistoryModel> GetByUserIdAndStartDateAsync(int userId, DateTime startDate);
+
     Task AddAsync(HardwareResponsibilityHistoryModel model);
     Task DeleteAsync(int id);
     Task UpdateAsync(HardwareResponsibilityHistoryModel model);
