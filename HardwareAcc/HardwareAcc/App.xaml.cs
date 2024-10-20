@@ -3,13 +3,19 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using HardwareAcc.MVVM.ViewModels;
+using HardwareAcc.MVVM.ViewModels.Accounting;
+using HardwareAcc.MVVM.ViewModels.Accounting.Tabs;
 using HardwareAcc.MVVM.ViewModels.Forms;
+using HardwareAcc.MVVM.ViewModels.HardwareResponsibility;
+using HardwareAcc.MVVM.ViewModels.HardwareResponsibility.Tabs;
 using HardwareAcc.MVVM.ViewModels.LoginRegister;
-using HardwareAcc.MVVM.ViewModels.Tabs;
 using HardwareAcc.MVVM.Views;
+using HardwareAcc.MVVM.Views.Accounting;
+using HardwareAcc.MVVM.Views.Accounting.Tabs;
 using HardwareAcc.MVVM.Views.Forms;
+using HardwareAcc.MVVM.Views.HardwareResponsibility;
+using HardwareAcc.MVVM.Views.HardwareResponsibility.Tabs;
 using HardwareAcc.MVVM.Views.LoginRegister;
-using HardwareAcc.MVVM.Views.Tabs;
 using HardwareAcc.Services.Auth;
 using HardwareAcc.Services.DBConnection;
 using HardwareAcc.Services.FormsProvider;
@@ -17,6 +23,7 @@ using HardwareAcc.Services.Navigation;
 using HardwareAcc.Services.ViewLocator;
 using HardwareAcc.Services.Repositories.Audience;
 using HardwareAcc.Services.Repositories.Hardware;
+using HardwareAcc.Services.Repositories.HardwareResponsibilityHistory;
 using HardwareAcc.Services.Repositories.Role;
 using HardwareAcc.Services.Repositories.Status;
 using HardwareAcc.Services.Repositories.User;
@@ -86,6 +93,7 @@ namespace HardwareAcc
             serviceCollection.AddSingleton<IStatusRepository, StatusRepository>();
             serviceCollection.AddSingleton<IHardwareRepository, HardwareRepository>();
             serviceCollection.AddSingleton<IRoleRepository, RoleRepository>();
+            serviceCollection.AddSingleton<IHardwareResponsibilityHistoryRepository, HardwareResponsibilityHistoryRepository>();
             
             // Main Window.
             serviceCollection.AddSingleton<MainWindowView>();
@@ -133,6 +141,19 @@ namespace HardwareAcc
             
             serviceCollection.AddSingleton<HardwareFormPageView>();
             serviceCollection.AddSingleton<HardwareFormPageViewModel>();
+            
+            // Responsibility.
+            serviceCollection.AddSingleton<HardwareResponsibilityPageView>();
+            serviceCollection.AddSingleton<HardwareResponsibilityPageViewModel>();
+
+            serviceCollection.AddSingleton<ResponsibilityManageTabPageView>();
+            serviceCollection.AddSingleton<ResponsibilityManageTabPageViewModel>();
+            
+            serviceCollection.AddSingleton<ResponsibilityHistoryTabPageView>();
+            serviceCollection.AddSingleton<ResponsibilityHistoryTabPageViewModel>();
+            
+            serviceCollection.AddSingleton<CommentFormPageView>();
+            serviceCollection.AddSingleton<CommentFormPageViewModel>();
         }
 
         private void RegisterViewsInViewLocator()
@@ -159,6 +180,13 @@ namespace HardwareAcc
             viewLocator.Register<StatusesFormPageViewModel, StatusesFormPageView>();
             viewLocator.Register<UsersFormPageViewModel, UsersFormPageView>();
             viewLocator.Register<HardwareFormPageViewModel, HardwareFormPageView>();
+            
+            // Responsibility.
+            viewLocator.Register<HardwareResponsibilityPageViewModel, HardwareResponsibilityPageView>();
+            viewLocator.Register<ResponsibilityManageTabPageViewModel, ResponsibilityManageTabPageView>();
+            viewLocator.Register<ResponsibilityHistoryTabPageViewModel, ResponsibilityHistoryTabPageView>();
+            
+            viewLocator.Register<CommentFormPageViewModel, CommentFormPageView>();
         }
         
         private void InitializeFormsProvider()
@@ -171,6 +199,11 @@ namespace HardwareAcc
                 _serviceProvider.GetRequiredService<StatusesFormPageViewModel>(),
                 _serviceProvider.GetRequiredService<UsersFormPageViewModel>(),
                 _serviceProvider.GetRequiredService<HardwareFormPageViewModel>(),
+                
+                _serviceProvider.GetRequiredService<HardwareResponsibilityPageViewModel>(),
+                _serviceProvider.GetRequiredService<ResponsibilityManageTabPageViewModel>(),
+                _serviceProvider.GetRequiredService<ResponsibilityHistoryTabPageViewModel>(),
+                _serviceProvider.GetRequiredService<CommentFormPageViewModel>(),
             };
 
             formsProvider.Initialize(formViewModels);

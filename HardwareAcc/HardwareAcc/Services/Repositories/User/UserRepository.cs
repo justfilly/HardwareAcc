@@ -98,6 +98,25 @@ public class UserRepository : IUserRepository
         return null;
     }
 
+    public async Task<UserModel> GetByIdAsync(int id)
+    {
+        await using MySqlConnection connection = _dbConnectionService.GetConnection();
+        await using MySqlCommand command = connection.CreateCommand();
+        command.CommandText = @"
+        SELECT u.*, r.name AS role_name 
+        FROM hardwareacc.users u 
+        LEFT JOIN hardwareacc.roles r ON u.role_id = r.role_id 
+        WHERE u.user_id = @id";
+        command.Parameters.AddWithValue("@id", id);
+
+        await using MySqlDataReader reader = await command.ExecuteReaderAsync();
+    
+        if (await reader.ReadAsync())
+            return DeserializeUser(reader);
+
+        return null;
+    }
+
     public async Task AddAsync(UserModel model)
     {
         await using MySqlConnection connection = _dbConnectionService.GetConnection();

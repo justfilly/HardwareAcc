@@ -13,7 +13,8 @@ public interface IUserRepository
     Task<UserModel> GetByLoginAsync(string login);
     Task<UserModel> GetByEmailAsync(string email);
     Task<UserModel> GetByPhoneNumberAsync(string phoneNumber);
-    
+    Task<UserModel> GetByIdAsync(int id);
+
     Task AddAsync(UserModel model);
     Task DeleteAsync(int id);
     Task UpdateAsync(UserModel model);

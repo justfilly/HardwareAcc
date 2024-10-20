@@ -20,7 +20,7 @@
         
          <Grid Grid.Row="0" Background="{StaticResource Color_Primary}">
             <TextBlock Text="Hardware" 
-                       FontSize="26" FontWeight="Medium" 
+                       FontSize="22" FontWeight="Medium" 
                        Foreground="{StaticResource Color_White}"
                        Margin="35, 35, 0, 0" >
             </TextBlock>
@@ -32,7 +32,7 @@
                      BorderBrush="{StaticResource Color_BackButtonGray}"
                      VerticalAlignment="Top" HorizontalAlignment="Right"
                      Margin="0, 35, 35, 0">
-                 <svgc:SvgViewbox Source="/Resources/Icons/back_button.svg" Stretch="None" />
+                 <svgc:SvgViewbox Source="/Resources/Icons/back_button.svg" Stretch="None" Margin="0, 0, 2, 0" />
              </Button>
          </Grid>
         
@@ -90,15 +90,6 @@
                             <validationRules:LengthValidationRule FieldName="InventoryNumber" MinLength="2" MaxLength="255"/>
                         </userControls:TextInputField.ValidationRules>
                     </userControls:TextInputField>
-                    
-                    <userControls:ComboBox
-                        LabelText="Select Audience - optional"
-                        ComboBoxItems="{Binding AudienceItems, Mode=TwoWay}" 
-                        SelectedItem="{Binding AudienceSelectedItem, Mode=TwoWay}"
-                        PopupMaxHeight="180"
-                        Margin="0, 35, 0, 0"
-                        HorizontalAlignment="Stretch">
-                    </userControls:ComboBox>
                 </StackPanel>
             </Grid>
             
@@ -116,17 +107,9 @@
                         Margin="0, 35, 0, 0">
                         <userControls:TextInputField.ValidationRules>
                             <validationRules:LengthValidationRule FieldName="Price" MinLength="1" MaxLength="50" IgnoreEmpty="True"/>
+                            <validationRules:NumbersOnlyValidationRule></validationRules:NumbersOnlyValidationRule>
                         </userControls:TextInputField.ValidationRules>
                     </userControls:TextInputField>
-                    
-                    <userControls:ComboBox
-                        LabelText="Select Responsible User - optional"
-                        ComboBoxItems="{Binding ResponsibleUserItems, Mode=TwoWay}" 
-                        SelectedItem="{Binding ResponsibleUserSelectedItem, Mode=TwoWay}"
-                        PopupMaxHeight="180"
-                        Margin="0, 35, 0, 0"
-                        HorizontalAlignment="Stretch">
-                    </userControls:ComboBox>
                 </StackPanel>
             </Grid>
         </Grid>

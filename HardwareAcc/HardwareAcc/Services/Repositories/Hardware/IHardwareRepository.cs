@@ -10,6 +10,7 @@ public interface IHardwareRepository
     event Action Changed;
     Task<IEnumerable<HardwareModel>> GetAllAsync();
     Task<HardwareModel> GetByInventoryNumberAsync(string inventoryNumber);
+    Task<HardwareModel> GetByIdAsync(int id);
     Task AddAsync(HardwareModel model);
     Task DeleteAsync(int id);
     Task UpdateAsync(HardwareModel model);

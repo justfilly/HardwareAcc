@@ -1,4 +1,4 @@
-namespace HardwareAcc.MVVM.Views;
+namespace HardwareAcc.MVVM.Views.Accounting;
 
 public partial class AccountingPageView
 {

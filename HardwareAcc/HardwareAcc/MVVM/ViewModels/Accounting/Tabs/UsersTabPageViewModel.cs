@@ -7,33 +7,33 @@ using HardwareAcc.Commands;
 using HardwareAcc.MVVM.Models;
 using HardwareAcc.MVVM.ViewModels.Forms;
 using HardwareAcc.Services.Navigation;
-using HardwareAcc.Services.Repositories.Status;
+using HardwareAcc.Services.Repositories.User;
 
-namespace HardwareAcc.MVVM.ViewModels.Tabs;
+namespace HardwareAcc.MVVM.ViewModels.Accounting.Tabs;
 
-public class StatusesTabPageViewModel : BaseViewModel, IDisposable
+public class UsersTabPageViewModel : BaseViewModel, IDisposable
 {
-    private readonly IStatusRepository _repository;
+    private readonly IUserRepository _repository;
 
-    public StatusesTabPageViewModel(IStatusRepository repository, INavigationService navigationService)
+    public UsersTabPageViewModel(IUserRepository repository, INavigationService navigationService)
     {
         _repository = repository;
-        _statuses = new ObservableCollection<StatusModel>();
-        FormNavigateCommand = new NavigateToFormCommand<StatusesFormPageViewModel, StatusModel>(navigationService);
+        _users = new ObservableCollection<UserModel>();
+        FormNavigateCommand = new NavigateToFormCommand<UsersFormPageViewModel, UserModel>(navigationService);
         DeleteRecordCommand = new RelayCommandWithParameter(DeleteRecord, CanDeleteRecord);
         
     }
 
-    private ObservableCollection<StatusModel> _statuses;
+    private ObservableCollection<UserModel> _users;
 
-    public ObservableCollection<StatusModel> Statuses
+    public ObservableCollection<UserModel> Users
     {
-        get => _statuses;
+        get => _users;
     
         set
         {
-            _statuses = value;
-            OnPropertyChanged(nameof(Statuses));
+            _users = value;
+            OnPropertyChanged(nameof(Users));
         }
     }
     
@@ -50,9 +50,9 @@ public class StatusesTabPageViewModel : BaseViewModel, IDisposable
         }
     }
 
-    public NavigateToFormCommand<StatusesFormPageViewModel, StatusModel> FormNavigateCommand { get; }
+    public NavigateToFormCommand<UsersFormPageViewModel, UserModel> FormNavigateCommand { get; }
     public RelayCommandWithParameter DeleteRecordCommand { get; }
-    public static StatusModel NewModel => new();
+    public static UserModel NewModel => new();
 
     public async Task InitializeAsync()
     {
@@ -65,20 +65,20 @@ public class StatusesTabPageViewModel : BaseViewModel, IDisposable
 
     private async Task LoadRecordsAsync()
     {
-        IEnumerable<StatusModel> statuses = await _repository.GetAllAsync();
+        IEnumerable<UserModel> users = await _repository.GetAllAsync();
         
         if (string.IsNullOrEmpty(SearchText) == false)
-            statuses = statuses.Where(model => model.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase));
+            users = users.Where(model => model.Login.Contains(SearchText, StringComparison.OrdinalIgnoreCase));
         
-        Statuses = new ObservableCollection<StatusModel>(statuses);
+        Users = new ObservableCollection<UserModel>(users);
     }
     
     private void DeleteRecord(object model)
     {
-        if (model is StatusModel status)
-            _repository.DeleteAsync(status.Id);
+        if (model is UserModel user)
+            _repository.DeleteAsync(user.Id);
         else
-            throw new ArgumentException($"Argument {nameof(model)} must be of type {nameof(StatusModel)}");
+            throw new ArgumentException($"Argument {nameof(model)} must be of type {nameof(UserModel)}");
     }
 
     private bool CanDeleteRecord() => 

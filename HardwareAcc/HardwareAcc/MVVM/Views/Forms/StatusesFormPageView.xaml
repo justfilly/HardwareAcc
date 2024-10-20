@@ -20,7 +20,7 @@
         
          <Grid Grid.Row="0" Background="{StaticResource Color_Primary}">
             <TextBlock Text="Status" 
-                       FontSize="26" FontWeight="Medium" 
+                       FontSize="22" FontWeight="Medium" 
                        Foreground="{StaticResource Color_White}"
                        Margin="35, 35, 0, 0" >
             </TextBlock>
@@ -32,7 +32,7 @@
                      BorderBrush="{StaticResource Color_BackButtonGray}"
                      VerticalAlignment="Top" HorizontalAlignment="Right"
                      Margin="0, 35, 35, 0">
-                 <svgc:SvgViewbox Source="/Resources/Icons/back_button.svg" Stretch="None" />
+                 <svgc:SvgViewbox Source="/Resources/Icons/back_button.svg" Stretch="None" Margin="0, 0, 2, 0" />
              </Button>
          </Grid>
         
