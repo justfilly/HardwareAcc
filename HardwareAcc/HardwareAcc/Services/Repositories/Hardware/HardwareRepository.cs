@@ -67,6 +67,32 @@ public class HardwareRepository : IHardwareRepository
         return null;
     }
 
+    public async Task<HardwareModel> GetByIdAsync(int id)
+    {
+        await using MySqlConnection connection = _dbConnectionService.GetConnection();
+
+        await using MySqlCommand command = connection.CreateCommand();
+        command.CommandText = @"
+        SELECT h.*, 
+               a.code AS audience_code, 
+               u.login AS responsible_user_login, 
+               s.name AS status_name
+        FROM hardwareacc.hardware h
+        LEFT JOIN hardwareacc.audiences a ON h.audience_id = a.audience_id
+        LEFT JOIN hardwareacc.users u ON h.responsible_user_id = u.user_id
+        LEFT JOIN hardwareacc.hardware_statuses s ON h.status_id = s.hardware_status_id
+        WHERE h.hardware_id = @id";
+        command.Parameters.AddWithValue("@id", id);
+
+        await using MySqlDataReader reader = await command.ExecuteReaderAsync();
+        if (await reader.ReadAsync())
+        {
+            return Deserialize(reader);
+        }
+
+        return null;
+    }
+
     public async Task AddAsync(HardwareModel model)
     {
         await using MySqlConnection connection = _dbConnectionService.GetConnection();

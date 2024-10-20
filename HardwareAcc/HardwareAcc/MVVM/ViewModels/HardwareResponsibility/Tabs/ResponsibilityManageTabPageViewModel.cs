@@ -8,6 +8,7 @@ using HardwareAcc.MVVM.Models;
 using HardwareAcc.MVVM.ViewModels.Forms.Base;
 using HardwareAcc.Services.Navigation;
 using HardwareAcc.Services.Repositories.Audience;
+using HardwareAcc.Services.Repositories.Hardware;
 using HardwareAcc.Services.Repositories.HardwareResponsibilityHistory;
 using HardwareAcc.Services.Repositories.Status;
 using HardwareAcc.Services.Repositories.User;
@@ -19,17 +20,21 @@ public class ResponsibilityManageTabPageViewModel : BaseFormViewModel<HardwareMo
     private readonly IStatusRepository _statusRepository;
     private readonly IUserRepository _userRepository;
     private readonly IAudienceRepository _audienceRepository;
+    private readonly IHardwareRepository _hardwareRepository;
     private readonly IHardwareResponsibilityHistoryRepository _hardwareResponsibilityHistoryRepository;
     
     public ResponsibilityManageTabPageViewModel(INavigationService navigationService,
         IStatusRepository statusRepository,
         IUserRepository userRepository,
-        IAudienceRepository audienceRepository, IHardwareResponsibilityHistoryRepository hardwareResponsibilityHistoryRepository)
+        IAudienceRepository audienceRepository, 
+        IHardwareResponsibilityHistoryRepository hardwareResponsibilityHistoryRepository, 
+        IHardwareRepository hardwareRepository)
     {
         _statusRepository = statusRepository;
         _userRepository = userRepository;
         _audienceRepository = audienceRepository;
         _hardwareResponsibilityHistoryRepository = hardwareResponsibilityHistoryRepository;
+        _hardwareRepository = hardwareRepository;
 
         NavigateToCommentFormCommand = new NavigateToFormCommand<CommentFormPageViewModel, HardwareResponsibilityHistoryModel>(navigationService);
         TransferResponsibilityCommand = new RelayCommand(TransferResponsibility);
@@ -235,8 +240,12 @@ public class ResponsibilityManageTabPageViewModel : BaseFormViewModel<HardwareMo
     private async void TransferResponsibility()
     {
         HardwareResponsibilityHistoryModel previousHistoryModel = await _hardwareResponsibilityHistoryRepository.GetWithLatestStartDateByHardwareIdAsync(_model.Id);
-        previousHistoryModel.ResponsibilityEndDate = DateTime.Now;
-        await _hardwareResponsibilityHistoryRepository.UpdateAsync(previousHistoryModel);
+
+        if (previousHistoryModel != null)
+        {
+            previousHistoryModel.ResponsibilityEndDate = DateTime.Now;
+            await _hardwareResponsibilityHistoryRepository.UpdateAsync(previousHistoryModel);
+        }
         
         UserModel newResponsibleUser = await _userRepository.GetByLoginAsync(UserResponsibilitySelectedItem);
         HardwareResponsibilityHistoryModel newHistoryModel = new()
@@ -248,6 +257,10 @@ public class ResponsibilityManageTabPageViewModel : BaseFormViewModel<HardwareMo
 
         await _hardwareResponsibilityHistoryRepository.AddAsync(newHistoryModel);
 
+        _model.ResponsibleUserId = newResponsibleUser.Id;
+        await _hardwareRepository.UpdateAsync(_model);
+        HardwareResponsibleUser = newResponsibleUser.Login;
+        
         await ResetUserCommentItems();
     }
 }
