@@ -90,15 +90,6 @@
                             <validationRules:LengthValidationRule FieldName="InventoryNumber" MinLength="2" MaxLength="255"/>
                         </userControls:TextInputField.ValidationRules>
                     </userControls:TextInputField>
-                    
-                    <userControls:ComboBox
-                        LabelText="Select Audience - optional"
-                        ComboBoxItems="{Binding AudienceItems, Mode=TwoWay}" 
-                        SelectedItem="{Binding AudienceSelectedItem, Mode=TwoWay}"
-                        PopupMaxHeight="180"
-                        Margin="0, 35, 0, 0"
-                        HorizontalAlignment="Stretch">
-                    </userControls:ComboBox>
                 </StackPanel>
             </Grid>
             
@@ -119,15 +110,6 @@
                             <validationRules:NumbersOnlyValidationRule></validationRules:NumbersOnlyValidationRule>
                         </userControls:TextInputField.ValidationRules>
                     </userControls:TextInputField>
-                    
-                    <userControls:ComboBox
-                        LabelText="Select Responsible User - optional"
-                        ComboBoxItems="{Binding ResponsibleUserItems, Mode=TwoWay}" 
-                        SelectedItem="{Binding ResponsibleUserSelectedItem, Mode=TwoWay}"
-                        PopupMaxHeight="180"
-                        Margin="0, 35, 0, 0"
-                        HorizontalAlignment="Stretch">
-                    </userControls:ComboBox>
                 </StackPanel>
             </Grid>
         </Grid>

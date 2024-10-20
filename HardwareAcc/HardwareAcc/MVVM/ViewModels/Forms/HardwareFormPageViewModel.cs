@@ -153,55 +153,6 @@ public class HardwareFormPageViewModel : BaseFormViewModel<HardwareModel>
             OnPropertyChanged(nameof(StatusSelectedItem));
         }
     }
-    
-    private ObservableCollection<string> _audienceItems = new();
-    public ObservableCollection<string> AudienceItems
-    {
-        get => _audienceItems;
-    
-        set
-        {
-            _audienceItems = value;
-            OnPropertyChanged(nameof(AudienceItems));
-        }
-    }
-    
-    private string _audienceSelectedItem = "";
-    public string AudienceSelectedItem
-    {
-        get => _audienceSelectedItem;
-    
-        set
-        {
-            _audienceSelectedItem = value;
-            OnPropertyChanged(nameof(AudienceSelectedItem));
-        }
-    }
-    
-    private ObservableCollection<string> _responsibleUserItems = new();
-    public ObservableCollection<string> ResponsibleUserItems
-    {
-        get => _responsibleUserItems;
-    
-        set
-        {
-            _responsibleUserItems = value;
-            OnPropertyChanged(nameof(ResponsibleUserItems));
-        }
-    }
-    
-    private string _responsibleUserSelectedItem = "";
-    public string ResponsibleUserSelectedItem
-    {
-        get => _responsibleUserSelectedItem;
-    
-        set
-        {
-            _responsibleUserSelectedItem = value;
-            OnPropertyChanged(nameof(ResponsibleUserSelectedItem));
-        }
-    }
-
     #endregion
 
     public override async void Initialize(HardwareModel model)
@@ -214,8 +165,6 @@ public class HardwareFormPageViewModel : BaseFormViewModel<HardwareModel>
         InventoryNumber = "";
         Price = "";
         StatusSelectedItem = "";
-        AudienceSelectedItem = "";
-        ResponsibleUserSelectedItem = "";
 
         if (id == 0) 
         {
@@ -244,12 +193,8 @@ public class HardwareFormPageViewModel : BaseFormViewModel<HardwareModel>
         }
         
         await ResetStatusItems();
-        await ResetAudienceItems();
-        await ResetResponsibleUserItems();
 
         StatusSelectedItem = _model?.StatusName;
-        AudienceSelectedItem = _model?.AudienceCode;
-        ResponsibleUserSelectedItem = _model?.ResponsibleUserLogin;
     }
 
     private async Task ResetStatusItems()
@@ -260,22 +205,6 @@ public class HardwareFormPageViewModel : BaseFormViewModel<HardwareModel>
             StatusItems.Add(statusModel.Name);
     }
     
-    private async Task ResetAudienceItems()
-    {
-        AudienceItems.Clear();
-        IEnumerable<AudienceModel> audienceModels = await _audienceRepository.GetAllAsync();
-        foreach (AudienceModel audienceModel in audienceModels) 
-            AudienceItems.Add(audienceModel.Code);
-    }
-    
-    private async Task ResetResponsibleUserItems()
-    {
-        ResponsibleUserItems.Clear();
-        IEnumerable<UserModel> userModels = await _userRepository.GetAllAsync();
-        foreach (UserModel userModel in userModels) 
-            ResponsibleUserItems.Add(userModel.Login);
-    }
-
     private async void Submit()
     {
         if (await IsInventoryNumberUnique() == false)
@@ -287,21 +216,7 @@ public class HardwareFormPageViewModel : BaseFormViewModel<HardwareModel>
             _model.StatusId = statusModel.Id;
             _model.StatusName = statusModel.Name;
         }
-        
-        if (string.IsNullOrEmpty(AudienceSelectedItem) == false)
-        {
-            AudienceModel audienceModel = await _audienceRepository.GetByCodeAsync(AudienceSelectedItem);
-            _model.AudienceId = audienceModel.Id;
-            _model.AudienceCode = audienceModel.Code;
-        }
-        
-        if (string.IsNullOrEmpty(ResponsibleUserSelectedItem) == false)
-        {
-            UserModel userModel = await _userRepository.GetByLoginAsync(ResponsibleUserSelectedItem);
-            _model.ResponsibleUserId = userModel.Id;
-            _model.ResponsibleUserLogin = userModel.Login;
-        }
-        
+
         _model.Name = Name;
         _model.InventoryNumber = InventoryNumber;
         
