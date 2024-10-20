@@ -80,6 +80,7 @@ public class HardwareResponsibilityPageViewModel : BaseFormViewModel<HardwareMod
     {
         base.Initialize(model);
         
+        ClearActiveTab();
         IsManageTabActive = true;
         SwitchTab<ResponsibilityManageTabPageViewModel, HardwareModel>(_model);
     }

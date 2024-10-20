@@ -20,5 +20,7 @@ public class HardwareResponsibilityHistoryModel
     public DateTime ResponsibilityStartDate { get; set; }
     
     public DateTime ResponsibilityEndDate { get; set; }
-
+    
+    public string ResponsibleUserLogin { get; set; }
+    public string ResponsibilityEndDateText { get; set; }
 }

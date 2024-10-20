@@ -236,7 +236,7 @@ public class ResponsibilityManageTabPageViewModel : BaseFormViewModel<HardwareMo
             UserModel userModel = await _userRepository.GetByIdAsync(historyModel.ResponsibleUserId);
 
             string endDateText = historyModel.ResponsibilityEndDate == DateTime.MinValue 
-                ? "Now" 
+                ? "Present" 
                 : historyModel.ResponsibilityEndDate.ToString("dd/MM/yyyy HH:mm:ss");
 
             string itemText = $"{userModel.Login}, {historyModel.ResponsibilityStartDate:dd/MM/yyyy HH:mm:ss} - {endDateText}";
