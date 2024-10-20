@@ -59,7 +59,8 @@
                         <userControls:MultilineTextInputField
                             LabelText="Comment"
                             InputText="{Binding CommentText, Mode=TwoWay}"
-                            HorizontalAlignment="Left"/>
+                            HorizontalAlignment="Left"
+                            Margin="0, 45, 0, 0"/>
                         
                         <Button Command="{Binding SubmitCommand}" 
                                 Style="{StaticResource Button_NeutralColorWithText }"

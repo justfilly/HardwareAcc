@@ -6,16 +6,16 @@
              xmlns:userControls="clr-namespace:HardwareAcc.MVVM.Views.UserControls"
              mc:Ignorable="d">
     
-    <Grid x:Name="TextInputControl" DataContext="{Binding RelativeSource={RelativeSource AncestorType=userControls:TextInputField}}">
+    <Grid x:Name="TextInputControl" DataContext="{Binding RelativeSource={RelativeSource AncestorType=userControls:MultilineTextInputField}}">
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
-            <Label Content="{Binding LabelText, UpdateSourceTrigger=PropertyChanged, FallbackValue=Input}"
+            <Label Content="{Binding LabelText, UpdateSourceTrigger=PropertyChanged, FallbackValue=Comment}"
                    FontSize="12" FontWeight="Light"
                    Foreground="{StaticResource Color_InputFieldLabel}"
                    Margin="10, 0, 0, 0" />
 
             <Border CornerRadius="5" BorderThickness="1" BorderBrush="{StaticResource Color_InputFieldBorder}" Background="{StaticResource Color_White}">
                 <TextBox x:Name="TextBox" 
-                         Text="{Binding InputText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                         Text="{Binding InputText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                          FontSize="14"
                          Padding="10, 0, 0, 0"
                          VerticalContentAlignment="Top"
