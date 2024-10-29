@@ -6,37 +6,22 @@ using System.Threading.Tasks;
 using HardwareAcc.Commands;
 using HardwareAcc.MVVM.Models;
 using HardwareAcc.MVVM.ViewModels.Forms.Base;
-using HardwareAcc.Services.Navigation;
 using HardwareAcc.Services.Repositories.Audience;
-using HardwareAcc.Services.Repositories.Hardware;
+using HardwareAcc.Services.Repositories.HardwareAudienceHistory;
 using HardwareAcc.Services.Repositories.HardwareResponsibilityHistory;
-using HardwareAcc.Services.Repositories.Status;
-using HardwareAcc.Services.Repositories.User;
 
 namespace HardwareAcc.MVVM.ViewModels.HardwareAudience.Tabs;
 
 public class AudienceManageTabPageViewModel : BaseFormViewModel<HardwareModel>
 {
-    private readonly INavigationService _navigationService;
-    private readonly IStatusRepository _statusRepository;
-    private readonly IUserRepository _userRepository;
+    private readonly IHardwareAudienceHistoryRepository _hardwareAudienceHistoryRepository;
     private readonly IAudienceRepository _audienceRepository;
-    private readonly IHardwareRepository _hardwareRepository;
-    private readonly IHardwareResponsibilityHistoryRepository _hardwareResponsibilityHistoryRepository;
-    
-    public AudienceManageTabPageViewModel(INavigationService navigationService,
-        IStatusRepository statusRepository,
-        IUserRepository userRepository,
-        IAudienceRepository audienceRepository, 
-        IHardwareResponsibilityHistoryRepository hardwareResponsibilityHistoryRepository, 
-        IHardwareRepository hardwareRepository)
+   
+    public AudienceManageTabPageViewModel(IHardwareAudienceHistoryRepository hardwareAudienceHistoryRepository,
+        IAudienceRepository audienceRepository)
     {
-        _navigationService = navigationService;
-        _statusRepository = statusRepository;
-        _userRepository = userRepository;
+        _hardwareAudienceHistoryRepository = hardwareAudienceHistoryRepository;
         _audienceRepository = audienceRepository;
-        _hardwareResponsibilityHistoryRepository = hardwareResponsibilityHistoryRepository;
-        _hardwareRepository = hardwareRepository;
 
         ChangeAudienceCommand = new RelayCommand(ChangeAudience);
     }
@@ -150,7 +135,6 @@ public class AudienceManageTabPageViewModel : BaseFormViewModel<HardwareModel>
     }
 
     private string _audiencesErrorText = "";
-
     public string AudiencesErrorText
     {
         get => _audiencesErrorText;
@@ -184,25 +168,17 @@ public class AudienceManageTabPageViewModel : BaseFormViewModel<HardwareModel>
     {
         AudiencesItems.Clear();
     
-        IEnumerable<HardwareResponsibilityHistoryModel> model = 
-            await _hardwareResponsibilityHistoryRepository.GetAllByHardwareIdAsync(_model.Id);
+        IEnumerable<AudienceModel> models = 
+            await _audienceRepository.GetAllAsync();
     
-        var sortedModel = model.OrderByDescending(m => m.ResponsibilityStartDate);
-
-        foreach (HardwareResponsibilityHistoryModel historyModel in sortedModel)
+        foreach (AudienceModel audienceModel in models)
         {
-            UserModel userModel = await _userRepository.GetByIdAsync(historyModel.ResponsibleUserId);
-
-            string endDateText = historyModel.ResponsibilityEndDate == DateTime.MinValue 
-                ? "Present" 
-                : historyModel.ResponsibilityEndDate.ToString("dd/MM/yyyy HH:mm:ss");
-
-            string itemText = $"{userModel.Login}, {historyModel.ResponsibilityStartDate:dd/MM/yyyy HH:mm:ss} - {endDateText}";
-            AudiencesItems.Add(itemText);
+            AudiencesItems.Add(audienceModel.Code);
         }
     }
 
     private async void ChangeAudience()
     {
+        
     }
 }

@@ -52,6 +52,23 @@ public class AudienceRepository : IAudienceRepository
         return null;
     }
 
+    public async Task<AudienceModel> GetByIdAsync(int id)
+    {
+        await using MySqlConnection connection = _dbConnectionService.GetConnection();
+        await using MySqlCommand command = connection.CreateCommand();
+        command.CommandText = @"
+        SELECT * 
+        FROM hardwareacc.audiences 
+        WHERE audience_id = @id";
+        command.Parameters.AddWithValue("@id", id);
+
+        await using MySqlDataReader reader = await command.ExecuteReaderAsync();
+        if (await reader.ReadAsync())
+            return DeserializeAudience(reader);
+
+        return null;
+    }
+
     public async Task AddAsync(AudienceModel model)
     {
         await using MySqlConnection connection = _dbConnectionService.GetConnection();

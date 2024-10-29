@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using HardwareAcc.MVVM.Models;
 
-namespace HardwareAcc.Services.Repositories.HardwareResponsibilityHistory;
+namespace HardwareAcc.Services.Repositories.HardwareAudienceHistory;
 
 public interface IHardwareAudienceHistoryRepository
 {

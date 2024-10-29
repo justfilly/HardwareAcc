@@ -27,6 +27,7 @@ using HardwareAcc.Services.Navigation;
 using HardwareAcc.Services.ViewLocator;
 using HardwareAcc.Services.Repositories.Audience;
 using HardwareAcc.Services.Repositories.Hardware;
+using HardwareAcc.Services.Repositories.HardwareAudienceHistory;
 using HardwareAcc.Services.Repositories.HardwareResponsibilityHistory;
 using HardwareAcc.Services.Repositories.Role;
 using HardwareAcc.Services.Repositories.Status;
@@ -98,6 +99,7 @@ namespace HardwareAcc
             serviceCollection.AddSingleton<IHardwareRepository, HardwareRepository>();
             serviceCollection.AddSingleton<IRoleRepository, RoleRepository>();
             serviceCollection.AddSingleton<IHardwareResponsibilityHistoryRepository, HardwareResponsibilityHistoryRepository>();
+            serviceCollection.AddSingleton<IHardwareAudienceHistoryRepository, HardwareAudienceHistoryRepository>();
             
             // Main Window.
             serviceCollection.AddSingleton<MainWindowView>();
