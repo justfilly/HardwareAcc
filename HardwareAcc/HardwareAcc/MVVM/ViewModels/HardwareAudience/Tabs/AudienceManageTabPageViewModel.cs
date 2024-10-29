@@ -13,7 +13,7 @@ using HardwareAcc.Services.Repositories.HardwareResponsibilityHistory;
 using HardwareAcc.Services.Repositories.Status;
 using HardwareAcc.Services.Repositories.User;
 
-namespace HardwareAcc.MVVM.ViewModels.HardwareResponsibility.Tabs;
+namespace HardwareAcc.MVVM.ViewModels.HardwareAudience.Tabs;
 
 public class AudienceManageTabPageViewModel : BaseFormViewModel<HardwareModel>
 {
@@ -38,12 +38,10 @@ public class AudienceManageTabPageViewModel : BaseFormViewModel<HardwareModel>
         _hardwareResponsibilityHistoryRepository = hardwareResponsibilityHistoryRepository;
         _hardwareRepository = hardwareRepository;
 
-        NavigateToCommentFormCommand = new RelayCommand(EditComment);
-        TransferResponsibilityCommand = new RelayCommand(TransferResponsibility);
+        ChangeAudienceCommand = new RelayCommand(ChangeAudience);
     }
 
-    public RelayCommand NavigateToCommentFormCommand { get; }
-    public RelayCommand TransferResponsibilityCommand { get; }
+    public RelayCommand ChangeAudienceCommand { get; }
 
     #region Props
 
@@ -125,81 +123,42 @@ public class AudienceManageTabPageViewModel : BaseFormViewModel<HardwareModel>
         }
     }
 
-    private ObservableCollection<string> _userCommentItems = new();
+    private ObservableCollection<string> _audiencesItems = new();
 
-    public ObservableCollection<string> UserCommentItems
+    public ObservableCollection<string> AudiencesItems
     {
-        get => _userCommentItems;
+        get => _audiencesItems;
     
         set
         {
-            _userCommentItems = value;
-            OnPropertyChanged(nameof(UserCommentItems));
+            _audiencesItems = value;
+            OnPropertyChanged(nameof(AudiencesItems));
         }
     }
 
-    private string _userCommentSelectedItem = "";
+    private string _audiencesSelectedItem = "";
 
-    public string UserCommentSelectedItem
+    public string AudiencesSelectedItem
     {
-        get => _userCommentSelectedItem;
+        get => _audiencesSelectedItem;
     
         set
         {
-            _userCommentSelectedItem = value;
-            OnPropertyChanged(nameof(UserCommentSelectedItem));
+            _audiencesSelectedItem = value;
+            OnPropertyChanged(nameof(AudiencesSelectedItem));
         }
     }
 
-    private string _userCommentErrorText = "";
+    private string _audiencesErrorText = "";
 
-    public string UserCommentErrorText
+    public string AudiencesErrorText
     {
-        get => _userCommentErrorText;
+        get => _audiencesErrorText;
     
         set
         {
-            _userCommentErrorText = value;
-            OnPropertyChanged(nameof(UserCommentErrorText));
-        }
-    }
-
-    private ObservableCollection<string> _userResponsibilityItems = new();
-
-    public ObservableCollection<string> UserResponsibilityItems
-    {
-        get => _userResponsibilityItems;
-    
-        set
-        {
-            _userResponsibilityItems = value;
-            OnPropertyChanged(nameof(UserResponsibilityItems));
-        }
-    }
-
-    private string _userResponsibilitySelectedItem = "";
-
-    public string UserResponsibilitySelectedItem
-    {
-        get => _userResponsibilitySelectedItem;
-    
-        set
-        {
-            _userResponsibilitySelectedItem = value;
-            OnPropertyChanged(nameof(UserResponsibilitySelectedItem));
-        }
-    }
-
-    private string _userResponsibilityErrorText = "";
-
-    public string UserResponsibilityErrorText
-    {
-        get => _userResponsibilityErrorText;
-    
-        set
-        {
-            _userResponsibilityErrorText = value;
-            OnPropertyChanged(nameof(UserResponsibilityErrorText));
+            _audiencesErrorText = value;
+            OnPropertyChanged(nameof(AudiencesErrorText));
         }
     }
 
@@ -218,13 +177,12 @@ public class AudienceManageTabPageViewModel : BaseFormViewModel<HardwareModel>
 
         HardwareAudience = model.AudienceCode;
         
-        await ResetUserCommentItems();
-        await ResetUserResponsibilityItems();
+        await ResetAudiencesItems();
     }
 
-    private async Task ResetUserCommentItems()
+    private async Task ResetAudiencesItems()
     {
-        UserCommentItems.Clear();
+        AudiencesItems.Clear();
     
         IEnumerable<HardwareResponsibilityHistoryModel> model = 
             await _hardwareResponsibilityHistoryRepository.GetAllByHardwareIdAsync(_model.Id);
@@ -240,68 +198,11 @@ public class AudienceManageTabPageViewModel : BaseFormViewModel<HardwareModel>
                 : historyModel.ResponsibilityEndDate.ToString("dd/MM/yyyy HH:mm:ss");
 
             string itemText = $"{userModel.Login}, {historyModel.ResponsibilityStartDate:dd/MM/yyyy HH:mm:ss} - {endDateText}";
-            UserCommentItems.Add(itemText);
+            AudiencesItems.Add(itemText);
         }
     }
 
-    private async Task ResetUserResponsibilityItems()
+    private async void ChangeAudience()
     {
-        UserResponsibilityItems.Clear();
-        IEnumerable<UserModel> userModels = await _userRepository.GetAllAsync();
-        foreach (UserModel userModel in userModels) 
-            UserResponsibilityItems.Add(userModel.Login);
-    }
-
-    private async void EditComment()
-    {
-        string selectedItem = UserCommentSelectedItem;
-
-        if (!string.IsNullOrEmpty(selectedItem) && selectedItem.Contains(","))
-        {
-            string userLogin = selectedItem.Substring(0, selectedItem.IndexOf(",")).Trim();
-            
-            string[] parts = selectedItem.Split(new[] { ',', '-' }, StringSplitOptions.RemoveEmptyEntries);
-        
-            if (parts.Length > 1)
-            {
-                string startDateString = parts[1].Trim();
-                DateTime startDate = DateTime.ParseExact(startDateString, "dd/MM/yyyy HH:mm:ss", null);
-            
-                UserModel userModel = await _userRepository.GetByLoginAsync(userLogin);
-                int userId = userModel.Id;
-
-                HardwareResponsibilityHistoryModel model =
-                    await _hardwareResponsibilityHistoryRepository.GetByUserIdAndStartDateAsync(userId, startDate);
-
-                _navigationService.NavigateToForm<CommentFormPageViewModel, HardwareResponsibilityHistoryModel>(model);
-            }
-        }
-    }
-
-    private async void TransferResponsibility()
-    {
-        HardwareResponsibilityHistoryModel previousHistoryModel = await _hardwareResponsibilityHistoryRepository.GetWithLatestStartDateByHardwareIdAsync(_model.Id);
-
-        if (previousHistoryModel != null)
-        {
-            previousHistoryModel.ResponsibilityEndDate = DateTime.Now;
-            await _hardwareResponsibilityHistoryRepository.UpdateAsync(previousHistoryModel);
-        }
-        
-        UserModel newResponsibleUser = await _userRepository.GetByLoginAsync(UserResponsibilitySelectedItem);
-        HardwareResponsibilityHistoryModel newHistoryModel = new()
-        {
-            HardwareId = _model.Id,
-            ResponsibleUserId = newResponsibleUser.Id,
-            ResponsibilityStartDate = DateTime.Now,
-        };
-
-        await _hardwareResponsibilityHistoryRepository.AddAsync(newHistoryModel);
-
-        _model.ResponsibleUserId = newResponsibleUser.Id;
-        await _hardwareRepository.UpdateAsync(_model);
-        HardwareResponsibleUser = newResponsibleUser.Login;
-        
-        await ResetUserCommentItems();
     }
 }

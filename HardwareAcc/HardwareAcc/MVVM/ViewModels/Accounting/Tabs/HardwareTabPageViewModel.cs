@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using HardwareAcc.Commands;
 using HardwareAcc.MVVM.Models;
 using HardwareAcc.MVVM.ViewModels.Forms;
+using HardwareAcc.MVVM.ViewModels.HardwareAudience;
 using HardwareAcc.MVVM.ViewModels.HardwareResponsibility;
 using HardwareAcc.Services.Navigation;
 using HardwareAcc.Services.Repositories.Hardware;

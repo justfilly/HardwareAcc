@@ -1,9 +1,8 @@
 using System.Windows;
 using System.Windows.Controls;
-using HardwareAcc.MVVM.ViewModels.Accounting.Tabs;
-using HardwareAcc.MVVM.ViewModels.HardwareResponsibility.Tabs;
+using HardwareAcc.MVVM.ViewModels.HardwareAudience.Tabs;
 
-namespace HardwareAcc.MVVM.Views.HardwareResponsibility.Tabs;
+namespace HardwareAcc.MVVM.Views.HardwareAudience.Tabs;
 
 public partial class AudienceHistoryTabPageView : Page
 {

@@ -8,7 +8,7 @@ using HardwareAcc.MVVM.Models;
 using HardwareAcc.MVVM.ViewModels.Forms.Base;
 using HardwareAcc.Services.Repositories.HardwareResponsibilityHistory;
 
-namespace HardwareAcc.MVVM.ViewModels.HardwareResponsibility.Tabs;
+namespace HardwareAcc.MVVM.ViewModels.HardwareAudience.Tabs;
 
 public class AudienceHistoryTabPageViewModel : BaseFormViewModel<HardwareModel>
 {

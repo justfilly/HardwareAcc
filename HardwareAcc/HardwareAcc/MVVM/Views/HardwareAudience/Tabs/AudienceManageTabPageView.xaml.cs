@@ -1,6 +1,6 @@
 using System.Windows.Controls;
 
-namespace HardwareAcc.MVVM.Views.HardwareResponsibility.Tabs;
+namespace HardwareAcc.MVVM.Views.HardwareAudience.Tabs;
 
 public partial class AudienceManageTabPageView : Page
 {

@@ -3,11 +3,11 @@ using HardwareAcc.Commands;
 using HardwareAcc.MVVM.Models;
 using HardwareAcc.MVVM.ViewModels.Accounting;
 using HardwareAcc.MVVM.ViewModels.Forms.Base;
-using HardwareAcc.MVVM.ViewModels.HardwareResponsibility.Tabs;
+using HardwareAcc.MVVM.ViewModels.HardwareAudience.Tabs;
 using HardwareAcc.Services.FormsProvider;
 using HardwareAcc.Services.Navigation;
 
-namespace HardwareAcc.MVVM.ViewModels.HardwareResponsibility;
+namespace HardwareAcc.MVVM.ViewModels.HardwareAudience;
 
 public class HardwareAudiencePageViewModel : BaseFormViewModel<HardwareModel>
 {
@@ -24,14 +24,14 @@ public class HardwareAudiencePageViewModel : BaseFormViewModel<HardwareModel>
         {
             ClearActiveTab();
             IsManageTabActive = true;
-            SwitchTab<ResponsibilityManageTabPageViewModel, HardwareModel>(_model);
+            SwitchTab<AudienceManageTabPageViewModel, HardwareModel>(_model);
         });
         
         HistoryTabCommand = new RelayCommand(() =>
         {
             ClearActiveTab();
             IsHistoryTabActive = true;
-            SwitchTab<ResponsibilityHistoryTabPageViewModel, HardwareModel>(_model);
+            SwitchTab<AudienceHistoryTabPageViewModel, HardwareModel>(_model);
         });
     }
     
@@ -82,7 +82,7 @@ public class HardwareAudiencePageViewModel : BaseFormViewModel<HardwareModel>
         
         ClearActiveTab();
         IsManageTabActive = true;
-        SwitchTab<ResponsibilityManageTabPageViewModel, HardwareModel>(_model);
+        SwitchTab<AudienceManageTabPageViewModel, HardwareModel>(_model);
     }
 
     private void ClearActiveTab()
