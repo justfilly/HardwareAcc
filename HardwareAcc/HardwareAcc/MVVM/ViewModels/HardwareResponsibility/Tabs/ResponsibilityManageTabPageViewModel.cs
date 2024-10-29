@@ -280,6 +280,9 @@ public class ResponsibilityManageTabPageViewModel : BaseFormViewModel<HardwareMo
 
     private async void TransferResponsibility()
     {
+        if (string.IsNullOrEmpty(UserResponsibilitySelectedItem) == true)
+            return;
+        
         HardwareResponsibilityHistoryModel previousHistoryModel = await _hardwareResponsibilityHistoryRepository.GetWithLatestStartDateByHardwareIdAsync(_model.Id);
 
         if (previousHistoryModel != null)

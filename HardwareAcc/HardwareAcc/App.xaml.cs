@@ -6,6 +6,8 @@ using HardwareAcc.MVVM.ViewModels;
 using HardwareAcc.MVVM.ViewModels.Accounting;
 using HardwareAcc.MVVM.ViewModels.Accounting.Tabs;
 using HardwareAcc.MVVM.ViewModels.Forms;
+using HardwareAcc.MVVM.ViewModels.HardwareAudience;
+using HardwareAcc.MVVM.ViewModels.HardwareAudience.Tabs;
 using HardwareAcc.MVVM.ViewModels.HardwareResponsibility;
 using HardwareAcc.MVVM.ViewModels.HardwareResponsibility.Tabs;
 using HardwareAcc.MVVM.ViewModels.LoginRegister;
@@ -13,6 +15,8 @@ using HardwareAcc.MVVM.Views;
 using HardwareAcc.MVVM.Views.Accounting;
 using HardwareAcc.MVVM.Views.Accounting.Tabs;
 using HardwareAcc.MVVM.Views.Forms;
+using HardwareAcc.MVVM.Views.HardwareAudience;
+using HardwareAcc.MVVM.Views.HardwareAudience.Tabs;
 using HardwareAcc.MVVM.Views.HardwareResponsibility;
 using HardwareAcc.MVVM.Views.HardwareResponsibility.Tabs;
 using HardwareAcc.MVVM.Views.LoginRegister;
@@ -23,6 +27,7 @@ using HardwareAcc.Services.Navigation;
 using HardwareAcc.Services.ViewLocator;
 using HardwareAcc.Services.Repositories.Audience;
 using HardwareAcc.Services.Repositories.Hardware;
+using HardwareAcc.Services.Repositories.HardwareAudienceHistory;
 using HardwareAcc.Services.Repositories.HardwareResponsibilityHistory;
 using HardwareAcc.Services.Repositories.Role;
 using HardwareAcc.Services.Repositories.Status;
@@ -94,6 +99,7 @@ namespace HardwareAcc
             serviceCollection.AddSingleton<IHardwareRepository, HardwareRepository>();
             serviceCollection.AddSingleton<IRoleRepository, RoleRepository>();
             serviceCollection.AddSingleton<IHardwareResponsibilityHistoryRepository, HardwareResponsibilityHistoryRepository>();
+            serviceCollection.AddSingleton<IHardwareAudienceHistoryRepository, HardwareAudienceHistoryRepository>();
             
             // Main Window.
             serviceCollection.AddSingleton<MainWindowView>();
@@ -154,6 +160,16 @@ namespace HardwareAcc
             
             serviceCollection.AddSingleton<CommentFormPageView>();
             serviceCollection.AddSingleton<CommentFormPageViewModel>();
+            
+            // Audience.
+            serviceCollection.AddSingleton<HardwareAudiencePageView>();
+            serviceCollection.AddSingleton<HardwareAudiencePageViewModel>();
+            
+            serviceCollection.AddSingleton<AudienceManageTabPageView>();
+            serviceCollection.AddSingleton<AudienceManageTabPageViewModel>();
+            
+            serviceCollection.AddSingleton<AudienceHistoryTabPageView>();
+            serviceCollection.AddSingleton<AudienceHistoryTabPageViewModel>();
         }
 
         private void RegisterViewsInViewLocator()
@@ -187,6 +203,11 @@ namespace HardwareAcc
             viewLocator.Register<ResponsibilityHistoryTabPageViewModel, ResponsibilityHistoryTabPageView>();
             
             viewLocator.Register<CommentFormPageViewModel, CommentFormPageView>();
+            
+            // Audience.
+            viewLocator.Register<HardwareAudiencePageViewModel, HardwareAudiencePageView>();
+            viewLocator.Register<AudienceManageTabPageViewModel, AudienceManageTabPageView>();
+            viewLocator.Register<AudienceHistoryTabPageViewModel, AudienceHistoryTabPageView>();
         }
         
         private void InitializeFormsProvider()
@@ -204,6 +225,10 @@ namespace HardwareAcc
                 _serviceProvider.GetRequiredService<ResponsibilityManageTabPageViewModel>(),
                 _serviceProvider.GetRequiredService<ResponsibilityHistoryTabPageViewModel>(),
                 _serviceProvider.GetRequiredService<CommentFormPageViewModel>(),
+                
+                _serviceProvider.GetRequiredService<HardwareAudiencePageViewModel>(),
+                _serviceProvider.GetRequiredService<AudienceManageTabPageViewModel>(),
+                _serviceProvider.GetRequiredService<AudienceHistoryTabPageViewModel>(),
             };
 
             formsProvider.Initialize(formViewModels);
