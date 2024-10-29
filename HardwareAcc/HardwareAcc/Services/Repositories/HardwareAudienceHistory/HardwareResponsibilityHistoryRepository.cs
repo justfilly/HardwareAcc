@@ -4,7 +4,6 @@ using System.Data;
 using System.Threading.Tasks;
 using HardwareAcc.MVVM.Models;
 using HardwareAcc.Services.DBConnection;
-using HardwareAcc.Services.Repositories.HardwareResponsibilityHistory;
 using MySqlConnector;
 
 namespace HardwareAcc.Services.Repositories.HardwareAudienceHistory
@@ -27,9 +26,10 @@ namespace HardwareAcc.Services.Repositories.HardwareAudienceHistory
             await using MySqlConnection connection = _dbConnectionService.GetConnection();
             await using MySqlCommand command = connection.CreateCommand();
             command.CommandText = @"
-                SELECT * 
-                FROM hardwareacc.hardware_audiences_history
-                WHERE hardware_id = @hardwareId";
+                SELECT h.*, a.code AS audience_code
+                FROM hardwareacc.hardware_audiences_history h
+                JOIN hardwareacc.audiences a ON h.audience_id = a.audience_id
+                WHERE h.hardware_id = @hardwareId";
             command.Parameters.AddWithValue("@hardwareId", hardwareId);
 
             await using MySqlDataReader reader = await command.ExecuteReaderAsync();
@@ -44,15 +44,15 @@ namespace HardwareAcc.Services.Repositories.HardwareAudienceHistory
             await using MySqlConnection connection = _dbConnectionService.GetConnection();
             await using MySqlCommand command = connection.CreateCommand();
             command.CommandText = @"
-                SELECT * 
-                FROM hardwareacc.hardware_audiences_history
-                WHERE hardware_id = @hardwareId
-                ORDER BY transferred_date DESC
+                SELECT h.*, a.code AS audience_code
+                FROM hardwareacc.hardware_audiences_history h
+                JOIN hardwareacc.audiences a ON h.audience_id = a.audience_id
+                WHERE h.hardware_id = @hardwareId
+                ORDER BY h.transferred_date DESC
                 LIMIT 1";
             command.Parameters.AddWithValue("@hardwareId", hardwareId);
 
             await using MySqlDataReader reader = await command.ExecuteReaderAsync();
-
             return await reader.ReadAsync() ? DeserializeHistory(reader) : null;
         }
 
@@ -61,9 +61,10 @@ namespace HardwareAcc.Services.Repositories.HardwareAudienceHistory
             await using MySqlConnection connection = _dbConnectionService.GetConnection();
             await using MySqlCommand command = connection.CreateCommand();
             command.CommandText = @"
-                SELECT * 
-                FROM hardwareacc.hardware_audiences_history
-                WHERE audience_id = @userId AND transferred_date = @transferredDate";
+                SELECT h.*, a.code AS audience_code
+                FROM hardwareacc.hardware_audiences_history h
+                JOIN hardwareacc.audiences a ON h.audience_id = a.audience_id
+                WHERE h.audience_id = @userId AND h.transferred_date = @transferredDate";
             command.Parameters.AddWithValue("@userId", userId);
             command.Parameters.AddWithValue("@transferredDate", transferredDate);
 

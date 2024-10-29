@@ -6,11 +6,12 @@
       xmlns:userControls="clr-namespace:HardwareAcc.MVVM.Views.UserControls"
       xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
       xmlns:tabs1="clr-namespace:HardwareAcc.MVVM.ViewModels.HardwareResponsibility.Tabs"
+      xmlns:tabs="clr-namespace:HardwareAcc.MVVM.ViewModels.HardwareAudience.Tabs"
       mc:Ignorable="d"
       Title="HardwareAcc"
       d:DesignWidth="1920" d:DesignHeight="850"
       Style="{StaticResource Style_BasePage}"
-      d:DataContext="{d:DesignInstance tabs1:ResponsibilityHistoryTabPageViewModel}">
+      d:DataContext="{d:DesignInstance tabs:AudienceHistoryTabPageViewModel}">
     
     <Grid Background="{StaticResource Color_BackgroundLightGray}">
         <StackPanel Margin="30">
@@ -89,7 +90,7 @@
                                Margin="0,30,0,0">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Id" Binding="{Binding Id}"></DataGridTextColumn>
-                            <DataGridTextColumn Header="Audience" Binding="{Binding ResponsibleUserLogin}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Audience" Binding="{Binding AudienceCode}"></DataGridTextColumn>
                             <DataGridTextColumn Header="Transferred Date" Binding="{Binding TransferredDate}"></DataGridTextColumn>
                             <DataGridTextColumn Header="Removed Date" Binding="{Binding RemovedDate}"></DataGridTextColumn>
                             

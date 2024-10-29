@@ -183,8 +183,21 @@ public class AudienceManageTabPageViewModel : BaseFormViewModel<HardwareModel>
 
     private async void ChangeAudience()
     {
+        if (string.IsNullOrEmpty(AudiencesSelectedItem) == true)
+            return;
+        
         AudienceModel audienceModel = await _audienceRepository.GetByCodeAsync(AudiencesSelectedItem);
 
+        HardwareAudienceHistoryModel lastHistoryModel = await _hardwareAudienceHistoryRepository.GetWithLatestTransferredDateByHardwareIdAsync(_model.Id);
+        if (lastHistoryModel != null)
+        {
+            if (lastHistoryModel.AudienceCode == audienceModel.Code)
+                return;
+
+            lastHistoryModel.RemovedDate = DateTime.Now;
+            await _hardwareAudienceHistoryRepository.UpdateAsync(lastHistoryModel);
+        }
+        
         HardwareAudienceHistoryModel historyModel = new()
         {
             HardwareId = _model.Id,

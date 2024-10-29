@@ -6,24 +6,24 @@ using System.Threading.Tasks;
 using HardwareAcc.Commands;
 using HardwareAcc.MVVM.Models;
 using HardwareAcc.MVVM.ViewModels.Forms.Base;
-using HardwareAcc.Services.Repositories.HardwareResponsibilityHistory;
+using HardwareAcc.Services.Repositories.HardwareAudienceHistory;
 
 namespace HardwareAcc.MVVM.ViewModels.HardwareAudience.Tabs;
 
 public class AudienceHistoryTabPageViewModel : BaseFormViewModel<HardwareModel>
 {
-     private readonly IHardwareResponsibilityHistoryRepository _repository;
+     private readonly IHardwareAudienceHistoryRepository _repository;
 
-    public AudienceHistoryTabPageViewModel(IHardwareResponsibilityHistoryRepository repository)
+    public AudienceHistoryTabPageViewModel(IHardwareAudienceHistoryRepository repository)
     {
         _repository = repository;
-        _history = new ObservableCollection<HardwareResponsibilityHistoryModel>();
+        _history = new ObservableCollection<HardwareAudienceHistoryModel>();
         DeleteRecordCommand = new RelayCommandWithParameter(DeleteRecord, CanDeleteRecord);
     }
     
-    private ObservableCollection<HardwareResponsibilityHistoryModel> _history;
+    private ObservableCollection<HardwareAudienceHistoryModel> _history;
 
-    public ObservableCollection<HardwareResponsibilityHistoryModel> History
+    public ObservableCollection<HardwareAudienceHistoryModel> History
     {
         get => _history;
     
@@ -154,24 +154,24 @@ public class AudienceHistoryTabPageViewModel : BaseFormViewModel<HardwareModel>
 
     private async Task LoadRecordsAsync()
     {
-        IEnumerable<HardwareResponsibilityHistoryModel> history = await _repository.GetAllByHardwareIdAsync(_model.Id);
+        IEnumerable<HardwareAudienceHistoryModel> history = await _repository.GetAllByHardwareIdAsync(_model.Id);
         history = history.Reverse();
         
         if (string.IsNullOrEmpty(SearchText) == false)
         {
-            history = history.Where(model => model.ResponsibleUserLogin != null && 
-                                             model.ResponsibleUserLogin.Contains(SearchText, StringComparison.OrdinalIgnoreCase));
+            history = history.Where(model => model.AudienceCode != null && 
+                                             model.AudienceCode.Contains(SearchText, StringComparison.OrdinalIgnoreCase));
         }
         
-        History = new ObservableCollection<HardwareResponsibilityHistoryModel>(history);
+        History = new ObservableCollection<HardwareAudienceHistoryModel>(history);
     }
     
     private void DeleteRecord(object model)
     {
-        if (model is HardwareResponsibilityHistoryModel audience)
-            _repository.DeleteAsync(audience.Id);
+        if (model is HardwareAudienceHistoryModel historyModel)
+            _repository.DeleteAsync(historyModel.Id);
         else
-            throw new ArgumentException($"Argument {nameof(model)} must be of type {nameof(HardwareResponsibilityHistoryModel)}");
+            throw new ArgumentException($"Argument {nameof(model)} must be of type {nameof(HardwareAudienceHistoryModel)}");
     }
 
     private bool CanDeleteRecord() => 
