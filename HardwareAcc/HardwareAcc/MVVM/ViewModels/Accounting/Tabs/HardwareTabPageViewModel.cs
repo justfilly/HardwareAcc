@@ -23,6 +23,7 @@ public class HardwareTabPageViewModel : BaseViewModel, IDisposable
         FormNavigateCommand = new NavigateToFormCommand<HardwareFormPageViewModel, HardwareModel>(navigationService);
         DeleteRecordCommand = new RelayCommandWithParameter(DeleteRecord, CanDeleteRecord);
         HardwareResponsibilityNavigateCommand = new NavigateToFormCommand<HardwareResponsibilityPageViewModel, HardwareModel>(navigationService);
+        HardwareAudienceNavigateCommand = new NavigateToFormCommand<HardwareAudiencePageViewModel, HardwareModel>(navigationService);
     }
 
     private ObservableCollection<HardwareModel> _hardware;
@@ -53,6 +54,7 @@ public class HardwareTabPageViewModel : BaseViewModel, IDisposable
     public NavigateToFormCommand<HardwareFormPageViewModel, HardwareModel> FormNavigateCommand { get; }
     public RelayCommandWithParameter DeleteRecordCommand { get; }
     public NavigateToFormCommand<HardwareResponsibilityPageViewModel, HardwareModel> HardwareResponsibilityNavigateCommand { get; }
+    public NavigateToFormCommand<HardwareAudiencePageViewModel, HardwareModel> HardwareAudienceNavigateCommand { get; }
     public static HardwareModel NewModel => new();
     
     public async Task InitializeAsync()

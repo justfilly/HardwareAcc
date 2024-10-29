@@ -154,6 +154,16 @@ namespace HardwareAcc
             
             serviceCollection.AddSingleton<CommentFormPageView>();
             serviceCollection.AddSingleton<CommentFormPageViewModel>();
+            
+            // Audience.
+            serviceCollection.AddSingleton<HardwareAudiencePageView>();
+            serviceCollection.AddSingleton<HardwareAudiencePageViewModel>();
+            
+            serviceCollection.AddSingleton<AudienceManageTabPageView>();
+            serviceCollection.AddSingleton<AudienceManageTabPageViewModel>();
+            
+            serviceCollection.AddSingleton<AudienceHistoryTabPageView>();
+            serviceCollection.AddSingleton<AudienceHistoryTabPageViewModel>();
         }
 
         private void RegisterViewsInViewLocator()
@@ -187,6 +197,11 @@ namespace HardwareAcc
             viewLocator.Register<ResponsibilityHistoryTabPageViewModel, ResponsibilityHistoryTabPageView>();
             
             viewLocator.Register<CommentFormPageViewModel, CommentFormPageView>();
+            
+            // Audience.
+            viewLocator.Register<HardwareAudiencePageViewModel, HardwareAudiencePageView>();
+            viewLocator.Register<AudienceManageTabPageViewModel, AudienceManageTabPageView>();
+            viewLocator.Register<AudienceHistoryTabPageViewModel, AudienceHistoryTabPageView>();
         }
         
         private void InitializeFormsProvider()
@@ -204,6 +219,10 @@ namespace HardwareAcc
                 _serviceProvider.GetRequiredService<ResponsibilityManageTabPageViewModel>(),
                 _serviceProvider.GetRequiredService<ResponsibilityHistoryTabPageViewModel>(),
                 _serviceProvider.GetRequiredService<CommentFormPageViewModel>(),
+                
+                _serviceProvider.GetRequiredService<HardwareAudiencePageViewModel>(),
+                _serviceProvider.GetRequiredService<AudienceManageTabPageViewModel>(),
+                _serviceProvider.GetRequiredService<AudienceHistoryTabPageViewModel>(),
             };
 
             formsProvider.Initialize(formViewModels);
