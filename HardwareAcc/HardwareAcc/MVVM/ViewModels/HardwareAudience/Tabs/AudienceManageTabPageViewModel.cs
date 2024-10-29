@@ -7,6 +7,7 @@ using HardwareAcc.Commands;
 using HardwareAcc.MVVM.Models;
 using HardwareAcc.MVVM.ViewModels.Forms.Base;
 using HardwareAcc.Services.Repositories.Audience;
+using HardwareAcc.Services.Repositories.Hardware;
 using HardwareAcc.Services.Repositories.HardwareAudienceHistory;
 using HardwareAcc.Services.Repositories.HardwareResponsibilityHistory;
 
@@ -16,12 +17,15 @@ public class AudienceManageTabPageViewModel : BaseFormViewModel<HardwareModel>
 {
     private readonly IHardwareAudienceHistoryRepository _hardwareAudienceHistoryRepository;
     private readonly IAudienceRepository _audienceRepository;
-   
+    private readonly IHardwareRepository _hardwareRepository;
+
     public AudienceManageTabPageViewModel(IHardwareAudienceHistoryRepository hardwareAudienceHistoryRepository,
-        IAudienceRepository audienceRepository)
+        IAudienceRepository audienceRepository,
+        IHardwareRepository hardwareRepository)
     {
         _hardwareAudienceHistoryRepository = hardwareAudienceHistoryRepository;
         _audienceRepository = audienceRepository;
+        _hardwareRepository = hardwareRepository;
 
         ChangeAudienceCommand = new RelayCommand(ChangeAudience);
     }
@@ -179,6 +183,22 @@ public class AudienceManageTabPageViewModel : BaseFormViewModel<HardwareModel>
 
     private async void ChangeAudience()
     {
+        AudienceModel audienceModel = await _audienceRepository.GetByCodeAsync(AudiencesSelectedItem);
+
+        HardwareAudienceHistoryModel historyModel = new()
+        {
+            HardwareId = _model.Id,
+            AudienceId = audienceModel.Id,
+            TransferredDate = DateTime.Now,
+            AudienceCode = audienceModel.Code,
+        };
+
+        _model.AudienceId = audienceModel.Id;
+        _model.AudienceCode = audienceModel.Code;
+
+        await _hardwareAudienceHistoryRepository.AddAsync(historyModel);
+        await _hardwareRepository.UpdateAsync(_model);  
         
+        HardwareAudience = audienceModel.Code;
     }
 }
