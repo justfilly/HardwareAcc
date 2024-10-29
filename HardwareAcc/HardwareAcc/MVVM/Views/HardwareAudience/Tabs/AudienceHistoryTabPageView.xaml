@@ -89,10 +89,9 @@
                                Margin="0,30,0,0">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Id" Binding="{Binding Id}"></DataGridTextColumn>
-                            <DataGridTextColumn Header="User" Binding="{Binding ResponsibleUserLogin}"></DataGridTextColumn>
-                            <DataGridTextColumn Header="Comment" Binding="{Binding Comment}"></DataGridTextColumn>
-                            <DataGridTextColumn Header="Start Date" Binding="{Binding ResponsibilityStartDate}"></DataGridTextColumn>
-                            <DataGridTextColumn Header="End Date" Binding="{Binding ResponsibilityEndDateText}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Audience" Binding="{Binding ResponsibleUserLogin}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Transferred Date" Binding="{Binding TransferredDate}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Removed Date" Binding="{Binding RemovedDate}"></DataGridTextColumn>
                             
                             <DataGridTemplateColumn Header="Actions">
                                 <DataGridTemplateColumn.CellTemplate>
