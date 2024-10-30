@@ -76,8 +76,7 @@ public class HardwareRepository : IHardwareRepository
 
         return hardwareItems;
     }
-
-
+    
     public async Task<HardwareModel> GetByInventoryNumberAsync(string inventoryNumber)
     {
         await using MySqlConnection connection = _dbConnectionService.GetConnection();
