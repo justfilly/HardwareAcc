@@ -28,11 +28,11 @@ public class UsersFormPageViewModel : BaseFormViewModel<UserModel>
         _navigationService = navigationService;
         _roleRepository = roleRepository;
 
-        AccountingNavigateCommand = new NavigateCommand<AccountingPageViewModel>(navigationService);
+        AccountingNavigateCommand = new NavigateCommand<AdminAccountingPageViewModel>(navigationService);
         SubmitCommand = new RelayCommand(Submit, CanSubmit);
     }
 
-    public NavigateCommand<AccountingPageViewModel> AccountingNavigateCommand { get; }
+    public NavigateCommand<AdminAccountingPageViewModel> AccountingNavigateCommand { get; }
     public RelayCommand SubmitCommand { get; }
 
     #region FieldProperties
@@ -382,7 +382,7 @@ public class UsersFormPageViewModel : BaseFormViewModel<UserModel>
         else
             await _userRepository.UpdateAsync(_model);
 
-        _navigationService.Navigate<AccountingPageViewModel>();
+        _navigationService.Navigate<AdminAccountingPageViewModel>();
     }
 
     private bool CanSubmit()

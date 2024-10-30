@@ -4,8 +4,11 @@ using System.IO;
 using System.Windows;
 using HardwareAcc.MVVM.ViewModels;
 using HardwareAcc.MVVM.ViewModels.Accounting;
-using HardwareAcc.MVVM.ViewModels.Accounting.Tabs;
+using HardwareAcc.MVVM.ViewModels.Accounting.AdminTabs;
+using HardwareAcc.MVVM.ViewModels.Accounting.UserTabs;
 using HardwareAcc.MVVM.ViewModels.Forms;
+using HardwareAcc.MVVM.ViewModels.HardwareAudience;
+using HardwareAcc.MVVM.ViewModels.HardwareAudience.Tabs;
 using HardwareAcc.MVVM.ViewModels.HardwareResponsibility;
 using HardwareAcc.MVVM.ViewModels.HardwareResponsibility.Tabs;
 using HardwareAcc.MVVM.ViewModels.LoginRegister;
@@ -13,6 +16,8 @@ using HardwareAcc.MVVM.Views;
 using HardwareAcc.MVVM.Views.Accounting;
 using HardwareAcc.MVVM.Views.Accounting.Tabs;
 using HardwareAcc.MVVM.Views.Forms;
+using HardwareAcc.MVVM.Views.HardwareAudience;
+using HardwareAcc.MVVM.Views.HardwareAudience.Tabs;
 using HardwareAcc.MVVM.Views.HardwareResponsibility;
 using HardwareAcc.MVVM.Views.HardwareResponsibility.Tabs;
 using HardwareAcc.MVVM.Views.LoginRegister;
@@ -23,6 +28,7 @@ using HardwareAcc.Services.Navigation;
 using HardwareAcc.Services.ViewLocator;
 using HardwareAcc.Services.Repositories.Audience;
 using HardwareAcc.Services.Repositories.Hardware;
+using HardwareAcc.Services.Repositories.HardwareAudienceHistory;
 using HardwareAcc.Services.Repositories.HardwareResponsibilityHistory;
 using HardwareAcc.Services.Repositories.Role;
 using HardwareAcc.Services.Repositories.Status;
@@ -53,7 +59,7 @@ namespace HardwareAcc
             MainWindowView loginRegisterWindow = _serviceProvider.GetRequiredService<MainWindowView>();
             loginRegisterWindow.DataContext = _serviceProvider.GetRequiredService<MainWindowViewModel>();
             loginRegisterWindow.Show();
-            _serviceProvider.GetRequiredService<INavigationService>().Navigate<AccountingPageViewModel>();
+            _serviceProvider.GetRequiredService<INavigationService>().Navigate<LoginPageViewModel>();
         }
 
         protected override void OnExit(ExitEventArgs e)
@@ -94,6 +100,7 @@ namespace HardwareAcc
             serviceCollection.AddSingleton<IHardwareRepository, HardwareRepository>();
             serviceCollection.AddSingleton<IRoleRepository, RoleRepository>();
             serviceCollection.AddSingleton<IHardwareResponsibilityHistoryRepository, HardwareResponsibilityHistoryRepository>();
+            serviceCollection.AddSingleton<IHardwareAudienceHistoryRepository, HardwareAudienceHistoryRepository>();
             
             // Main Window.
             serviceCollection.AddSingleton<MainWindowView>();
@@ -112,9 +119,12 @@ namespace HardwareAcc
             serviceCollection.AddSingleton<RegisterCredentialsPageView>();
             serviceCollection.AddSingleton<RegisterCredentialsPageViewModel>();
             
-            // Accounting Page.
-            serviceCollection.AddSingleton<AccountingPageView>();
-            serviceCollection.AddSingleton<AccountingPageViewModel>();
+            // Accounting Pages.
+            serviceCollection.AddSingleton<AdminAccountingPageView>();
+            serviceCollection.AddSingleton<AdminAccountingPageViewModel>();
+            
+            serviceCollection.AddSingleton<UserAccountingPageView>();
+            serviceCollection.AddSingleton<UserAccountingPageViewModel>();
             
             // Tabs.
             serviceCollection.AddSingleton<HardwareTabPageView>();
@@ -128,6 +138,9 @@ namespace HardwareAcc
             
             serviceCollection.AddSingleton<StatusesTabPageView>();
             serviceCollection.AddSingleton<StatusesTabPageViewModel>();
+            
+            serviceCollection.AddSingleton<UserHardwareTabPageView>();
+            serviceCollection.AddSingleton<UserHardwareTabPageViewModel>();
             
             // Forms.
             serviceCollection.AddSingleton<AudiencesFormPageView>();
@@ -154,6 +167,16 @@ namespace HardwareAcc
             
             serviceCollection.AddSingleton<CommentFormPageView>();
             serviceCollection.AddSingleton<CommentFormPageViewModel>();
+            
+            // Audience.
+            serviceCollection.AddSingleton<HardwareAudiencePageView>();
+            serviceCollection.AddSingleton<HardwareAudiencePageViewModel>();
+            
+            serviceCollection.AddSingleton<AudienceManageTabPageView>();
+            serviceCollection.AddSingleton<AudienceManageTabPageViewModel>();
+            
+            serviceCollection.AddSingleton<AudienceHistoryTabPageView>();
+            serviceCollection.AddSingleton<AudienceHistoryTabPageViewModel>();
         }
 
         private void RegisterViewsInViewLocator()
@@ -166,8 +189,9 @@ namespace HardwareAcc
             viewLocator.Register<RegisterContactInfoPageViewModel, RegisterContactInfoPageView>();
             viewLocator.Register<RegisterCredentialsPageViewModel, RegisterCredentialsPageView>();
             
-            // Accounting Page.
-            viewLocator.Register<AccountingPageViewModel, AccountingPageView>();
+            // Accounting Pages.
+            viewLocator.Register<AdminAccountingPageViewModel, AdminAccountingPageView>();
+            viewLocator.Register<UserAccountingPageViewModel, UserAccountingPageView>();
             
             // Tabs.
             viewLocator.Register<HardwareTabPageViewModel, HardwareTabPageView>();
@@ -175,6 +199,8 @@ namespace HardwareAcc
             viewLocator.Register<AudiencesTabPageViewModel, AudiencesTabPageView>();
             viewLocator.Register<StatusesTabPageViewModel, StatusesTabPageView>();
             
+            viewLocator.Register<UserHardwareTabPageViewModel, UserHardwareTabPageView>();
+
             // Forms.
             viewLocator.Register<AudiencesFormPageViewModel, AudiencesFormPageView>();
             viewLocator.Register<StatusesFormPageViewModel, StatusesFormPageView>();
@@ -187,6 +213,11 @@ namespace HardwareAcc
             viewLocator.Register<ResponsibilityHistoryTabPageViewModel, ResponsibilityHistoryTabPageView>();
             
             viewLocator.Register<CommentFormPageViewModel, CommentFormPageView>();
+            
+            // Audience.
+            viewLocator.Register<HardwareAudiencePageViewModel, HardwareAudiencePageView>();
+            viewLocator.Register<AudienceManageTabPageViewModel, AudienceManageTabPageView>();
+            viewLocator.Register<AudienceHistoryTabPageViewModel, AudienceHistoryTabPageView>();
         }
         
         private void InitializeFormsProvider()
@@ -204,6 +235,10 @@ namespace HardwareAcc
                 _serviceProvider.GetRequiredService<ResponsibilityManageTabPageViewModel>(),
                 _serviceProvider.GetRequiredService<ResponsibilityHistoryTabPageViewModel>(),
                 _serviceProvider.GetRequiredService<CommentFormPageViewModel>(),
+                
+                _serviceProvider.GetRequiredService<HardwareAudiencePageViewModel>(),
+                _serviceProvider.GetRequiredService<AudienceManageTabPageViewModel>(),
+                _serviceProvider.GetRequiredService<AudienceHistoryTabPageViewModel>(),
             };
 
             formsProvider.Initialize(formViewModels);

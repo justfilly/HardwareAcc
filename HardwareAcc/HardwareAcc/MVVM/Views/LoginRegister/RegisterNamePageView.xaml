@@ -28,7 +28,8 @@
                            Foreground="{StaticResource Color_TitleBlack}">
                 </TextBlock>
             
-                <userControls:TextInputField 
+                <userControls:TextInputField
+                    MaxWidth="400"
                     LabelText="First Name"
                     InputText="{Binding FirstName, Mode=TwoWay}"
                     IsValid="{Binding IsFirstNameValid, Mode=TwoWay}"
@@ -41,6 +42,7 @@
                 </userControls:TextInputField>
 
                 <userControls:TextInputField 
+                    MaxWidth="400"
                     LabelText="Second Name" 
                     InputText="{Binding SecondName, Mode=TwoWay}"
                     IsValid="{Binding IsSecondNameValid, Mode=TwoWay}"
@@ -53,6 +55,7 @@
                 </userControls:TextInputField>
                 
                 <userControls:TextInputField 
+                    MaxWidth="400"
                     LabelText="Patronymic" 
                     InputText="{Binding Patronymic, Mode=TwoWay}"
                     IsValid="{Binding IsPatronymicValid, Mode=TwoWay}"

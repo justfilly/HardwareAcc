@@ -29,6 +29,7 @@
                 </TextBlock>
                 
                 <userControls:TextInputField
+                    MaxWidth="400"
                     LabelText="Login"
                     InputText="{Binding Login, Mode=TwoWay}"
                     IsValid="{Binding IsLoginValid, Mode=TwoWay}"
@@ -41,6 +42,7 @@
                 </userControls:TextInputField>
                 
                 <userControls:PasswordInputField 
+                    MaxWidth="400"
                     LabelText="Password" 
                     PasswordText="{Binding Password, Mode=TwoWay}"
                     IsValid="{Binding IsPasswordValid, Mode=TwoWay}"
