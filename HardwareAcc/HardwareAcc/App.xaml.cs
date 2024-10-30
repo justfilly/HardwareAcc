@@ -118,9 +118,12 @@ namespace HardwareAcc
             serviceCollection.AddSingleton<RegisterCredentialsPageView>();
             serviceCollection.AddSingleton<RegisterCredentialsPageViewModel>();
             
-            // Accounting Page.
+            // Accounting Pages.
             serviceCollection.AddSingleton<AdminAccountingPageView>();
-            serviceCollection.AddSingleton<AccountingPageViewModel>();
+            serviceCollection.AddSingleton<AdminAccountingPageViewModel>();
+            
+            serviceCollection.AddSingleton<UserAccountingPageView>();
+            serviceCollection.AddSingleton<UserAccountingPageViewModel>();
             
             // Tabs.
             serviceCollection.AddSingleton<HardwareTabPageView>();
@@ -182,8 +185,9 @@ namespace HardwareAcc
             viewLocator.Register<RegisterContactInfoPageViewModel, RegisterContactInfoPageView>();
             viewLocator.Register<RegisterCredentialsPageViewModel, RegisterCredentialsPageView>();
             
-            // Accounting Page.
-            viewLocator.Register<AccountingPageViewModel, AdminAccountingPageView>();
+            // Accounting Pages.
+            viewLocator.Register<AdminAccountingPageViewModel, AdminAccountingPageView>();
+            viewLocator.Register<UserAccountingPageViewModel, UserAccountingPageView>();
             
             // Tabs.
             viewLocator.Register<HardwareTabPageViewModel, HardwareTabPageView>();

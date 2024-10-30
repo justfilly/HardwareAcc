@@ -16,6 +16,8 @@ public class AuthService : IAuthService
         _userRepository = userRepository;
     }
 
+    public UserModel AuthenticatedUser => _authenticatedUser;
+
     public async Task<bool> ValidateLoginCredentialsAsync(string login, string password)
     {
         UserModel user = await _userRepository.GetByLoginAsync(login);

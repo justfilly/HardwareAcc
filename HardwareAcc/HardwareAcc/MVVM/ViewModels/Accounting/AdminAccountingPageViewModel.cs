@@ -5,11 +5,11 @@ using HardwareAcc.Services.Navigation;
 
 namespace HardwareAcc.MVVM.ViewModels.Accounting;
 
-public class AccountingPageViewModel : BaseViewModel
+public class AdminAccountingPageViewModel : BaseViewModel
 {
     private readonly INavigationService _navigationService;
     
-    public AccountingPageViewModel(INavigationService navigationService)
+    public AdminAccountingPageViewModel(INavigationService navigationService)
     {
         _navigationService = navigationService;
         

@@ -37,11 +37,11 @@ public class HardwareFormPageViewModel : BaseFormViewModel<HardwareModel>
         _statusRepository = statusRepository;
         _userRepository = userRepository;
         
-        AccountingNavigateCommand = new NavigateCommand<AccountingPageViewModel>(navigationService);
+        AccountingNavigateCommand = new NavigateCommand<AdminAccountingPageViewModel>(navigationService);
         SubmitCommand = new RelayCommand(Submit, CanSubmit);
     }
 
-    public NavigateCommand<AccountingPageViewModel> AccountingNavigateCommand { get; }
+    public NavigateCommand<AdminAccountingPageViewModel> AccountingNavigateCommand { get; }
     public RelayCommand SubmitCommand { get; }
     
     #region FieldProperties
@@ -228,7 +228,7 @@ public class HardwareFormPageViewModel : BaseFormViewModel<HardwareModel>
         else
             await _hardwareRepository.UpdateAsync(_model);
 
-        _navigationService.Navigate<AccountingPageViewModel>();
+        _navigationService.Navigate<AdminAccountingPageViewModel>();
     }
 
     private bool CanSubmit() => 

@@ -209,6 +209,7 @@
 
     <ItemGroup>
       <Folder Include="MVVM\" />
+      <Folder Include="MVVM\ViewModels\Accounting\UserTabs\" />
     </ItemGroup>
 
 </Project>

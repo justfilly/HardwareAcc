@@ -25,13 +25,23 @@ public class LoginCommand : BaseCommand
         {
             string login = _loginPageViewModel.Login;
             string password = _loginPageViewModel.Password;
-            
+
             bool isLoginCredentialsValid = await _authService.ValidateLoginCredentialsAsync(login, password);
 
             if (isLoginCredentialsValid)
             {
                 await _authService.LogInAsync(login, password);
-                _navigationService.Navigate<AccountingPageViewModel>();
+
+                if (_authService.AuthenticatedUser.RoleId == (int)RoleIDs.User)
+                {
+                    _navigationService.Navigate<UserAccountingPageViewModel>();
+                    return;
+                }
+                
+                if (_authService.AuthenticatedUser.RoleId == (int)RoleIDs.Admin)
+                {
+                    _navigationService.Navigate<AdminAccountingPageViewModel>();
+                }
             }
         }
     }
