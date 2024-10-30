@@ -11,7 +11,7 @@ using HardwareAcc.MVVM.ViewModels.HardwareResponsibility;
 using HardwareAcc.Services.Navigation;
 using HardwareAcc.Services.Repositories.Hardware;
 
-namespace HardwareAcc.MVVM.ViewModels.Accounting.Tabs;
+namespace HardwareAcc.MVVM.ViewModels.Accounting.AdminTabs;
 
 public class HardwareTabPageViewModel : BaseViewModel, IDisposable
 {

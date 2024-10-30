@@ -165,7 +165,7 @@
       <Page Update="MVVM\Views\Accounting\Tabs\UsersTabPageView.xaml">
         <Generator>MSBuild:Compile</Generator>
       </Page>
-      <Page Update="MVVM\Views\Accounting\AccountingPageView.xaml">
+      <Page Update="MVVM\Views\Accounting\AdminAccountingPageView.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
@@ -196,6 +196,16 @@
         <SubType>Designer</SubType>
       </Page>
       <Page Update="MVVM\Views\HardwareAudience\Tabs\AudienceManageTabPageView.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
+      <Page Update="MVVM\Views\Accounting\UserAccountingPageView.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
+      <Page Update="MVVM\Views\Accounting\Tabs\UserHardwareTabPageView.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>

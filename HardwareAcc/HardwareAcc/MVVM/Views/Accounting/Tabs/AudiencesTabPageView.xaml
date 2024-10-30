@@ -5,12 +5,13 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
       xmlns:userControls="clr-namespace:HardwareAcc.MVVM.Views.UserControls"
-      xmlns:tabs="clr-namespace:HardwareAcc.MVVM.ViewModels.Accounting.Tabs"
+      xmlns:adminTabs="clr-namespace:HardwareAcc.MVVM.ViewModels.Accounting.AdminTabs"
+      xmlns:converters="clr-namespace:HardwareAcc.Converters"
       mc:Ignorable="d"
       Title="HardwareAcc"
       d:DesignWidth="1920" d:DesignHeight="850"
       Style="{StaticResource Style_BasePage}"
-      d:DataContext="{d:DesignInstance tabs:AudiencesTabPageViewModel}">
+      d:DataContext="{d:DesignInstance adminTabs:AudiencesTabPageViewModel}">
     
     <Grid Background="{StaticResource Color_BackgroundLightGray}">
         <StackPanel Margin="30">
@@ -28,7 +29,21 @@
                           Margin="0,65,0,0">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Id" Binding="{Binding Id}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Name">
+                            <DataGridTextColumn.Binding>
+                                <Binding Path="Name">
+                                    <Binding.Converter>
+                                        <converters:TrimTextConverter MaxLength="60" />
+                                    </Binding.Converter>
+                                </Binding>
+                            </DataGridTextColumn.Binding>
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+                                    <Setter Property="TextWrapping" Value="NoWrap" />
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
                         <DataGridTextColumn Header="Code" Binding="{Binding Code}"></DataGridTextColumn>
                         
                         <DataGridTemplateColumn Header="Actions">

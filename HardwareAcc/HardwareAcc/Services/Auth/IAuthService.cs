@@ -12,4 +12,5 @@ public interface IAuthService
     Task RegisterAsync(UserModel userModel);
     Task<bool> ValidateRegisterCredentialsAsync(string login, string email = "", string phoneNumber = "");
 
+    UserModel AuthenticatedUser { get; }
 }

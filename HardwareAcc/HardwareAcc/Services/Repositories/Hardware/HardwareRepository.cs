@@ -43,6 +43,40 @@ public class HardwareRepository : IHardwareRepository
         return hardwareItems;
     }
 
+    public async Task<IEnumerable<HardwareModel>> GetAllByResponsibleUserIdAsync(int responsibleUserId)
+    {
+        List<HardwareModel> hardwareItems = new();
+
+        await using MySqlConnection connection = _dbConnectionService.GetConnection();
+
+        await using MySqlCommand command = connection.CreateCommand();
+        command.CommandText = @"
+        SELECT h.*, 
+               a.code AS audience_code, 
+               u.login AS responsible_user_login, 
+               s.name AS status_name
+        FROM hardwareacc.hardware h
+        LEFT JOIN hardwareacc.audiences a ON h.audience_id = a.audience_id
+        LEFT JOIN hardwareacc.users u ON h.responsible_user_id = u.user_id
+        LEFT JOIN hardwareacc.hardware_statuses s ON h.status_id = s.hardware_status_id
+        WHERE h.responsible_user_id = @responsibleUserId
+           OR h.hardware_id IN (
+               SELECT hrh.hardware_id 
+               FROM hardwareacc.hardware_responsibility_history hrh 
+               WHERE hrh.responsible_user_id = @responsibleUserId 
+                 AND (hrh.responsibility_end_date IS NULL OR hrh.responsibility_end_date > NOW())
+           )";
+        command.Parameters.AddWithValue("@responsibleUserId", responsibleUserId);
+
+        await using MySqlDataReader reader = await command.ExecuteReaderAsync();
+        while (await reader.ReadAsync())
+        {
+            hardwareItems.Add(Deserialize(reader));
+        }
+
+        return hardwareItems;
+    }
+    
     public async Task<HardwareModel> GetByInventoryNumberAsync(string inventoryNumber)
     {
         await using MySqlConnection connection = _dbConnectionService.GetConnection();

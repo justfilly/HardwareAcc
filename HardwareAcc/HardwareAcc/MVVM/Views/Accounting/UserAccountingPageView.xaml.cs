@@ -1,8 +1,8 @@
 namespace HardwareAcc.MVVM.Views.Accounting;
 
-public partial class AccountingPageView
+public partial class UserAccountingPageView
 {
-    public AccountingPageView()
+    public UserAccountingPageView()
     {
         InitializeComponent();
     }

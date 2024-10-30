@@ -20,11 +20,11 @@ public class AudiencesFormPageViewModel : BaseFormViewModel<AudienceModel>
         _repository = repository;
         _navigationService = navigationService;
         
-        AccountingNavigateCommand = new NavigateCommand<AccountingPageViewModel>(navigationService);
+        AccountingNavigateCommand = new NavigateCommand<AdminAccountingPageViewModel>(navigationService);
         SubmitCommand = new RelayCommand(Submit, CanSubmit);
     }
     
-    public NavigateCommand<AccountingPageViewModel> AccountingNavigateCommand { get; }
+    public NavigateCommand<AdminAccountingPageViewModel> AccountingNavigateCommand { get; }
     public RelayCommand SubmitCommand { get; }
 
     #region FieldProperties
@@ -132,7 +132,7 @@ public class AudiencesFormPageViewModel : BaseFormViewModel<AudienceModel>
         else
             await _repository.UpdateAsync(_model);
 
-        _navigationService.Navigate<AccountingPageViewModel>();
+        _navigationService.Navigate<AdminAccountingPageViewModel>();
     }
 
     private bool CanSubmit()

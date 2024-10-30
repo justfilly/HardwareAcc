@@ -18,7 +18,7 @@ public class HardwareResponsibilityPageViewModel : BaseFormViewModel<HardwareMod
     {
         _navigationService = navigationService;
         _formsProvider = formsProvider;
-        AccountingNavigateCommand = new NavigateCommand<AccountingPageViewModel>(navigationService);
+        AccountingNavigateCommand = new NavigateCommand<AdminAccountingPageViewModel>(navigationService);
 
         ManageTabCommand = new RelayCommand(() =>
         {
@@ -35,7 +35,7 @@ public class HardwareResponsibilityPageViewModel : BaseFormViewModel<HardwareMod
         });
     }
     
-    public NavigateCommand<AccountingPageViewModel> AccountingNavigateCommand { get; }
+    public NavigateCommand<AdminAccountingPageViewModel> AccountingNavigateCommand { get; }
     public RelayCommand HistoryTabCommand { get; }
     public RelayCommand ManageTabCommand { get; }
     

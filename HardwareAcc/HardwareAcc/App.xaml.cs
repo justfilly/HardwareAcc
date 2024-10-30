@@ -4,7 +4,8 @@ using System.IO;
 using System.Windows;
 using HardwareAcc.MVVM.ViewModels;
 using HardwareAcc.MVVM.ViewModels.Accounting;
-using HardwareAcc.MVVM.ViewModels.Accounting.Tabs;
+using HardwareAcc.MVVM.ViewModels.Accounting.AdminTabs;
+using HardwareAcc.MVVM.ViewModels.Accounting.UserTabs;
 using HardwareAcc.MVVM.ViewModels.Forms;
 using HardwareAcc.MVVM.ViewModels.HardwareAudience;
 using HardwareAcc.MVVM.ViewModels.HardwareAudience.Tabs;
@@ -58,7 +59,7 @@ namespace HardwareAcc
             MainWindowView loginRegisterWindow = _serviceProvider.GetRequiredService<MainWindowView>();
             loginRegisterWindow.DataContext = _serviceProvider.GetRequiredService<MainWindowViewModel>();
             loginRegisterWindow.Show();
-            _serviceProvider.GetRequiredService<INavigationService>().Navigate<AccountingPageViewModel>();
+            _serviceProvider.GetRequiredService<INavigationService>().Navigate<LoginPageViewModel>();
         }
 
         protected override void OnExit(ExitEventArgs e)
@@ -118,9 +119,12 @@ namespace HardwareAcc
             serviceCollection.AddSingleton<RegisterCredentialsPageView>();
             serviceCollection.AddSingleton<RegisterCredentialsPageViewModel>();
             
-            // Accounting Page.
-            serviceCollection.AddSingleton<AccountingPageView>();
-            serviceCollection.AddSingleton<AccountingPageViewModel>();
+            // Accounting Pages.
+            serviceCollection.AddSingleton<AdminAccountingPageView>();
+            serviceCollection.AddSingleton<AdminAccountingPageViewModel>();
+            
+            serviceCollection.AddSingleton<UserAccountingPageView>();
+            serviceCollection.AddSingleton<UserAccountingPageViewModel>();
             
             // Tabs.
             serviceCollection.AddSingleton<HardwareTabPageView>();
@@ -134,6 +138,9 @@ namespace HardwareAcc
             
             serviceCollection.AddSingleton<StatusesTabPageView>();
             serviceCollection.AddSingleton<StatusesTabPageViewModel>();
+            
+            serviceCollection.AddSingleton<UserHardwareTabPageView>();
+            serviceCollection.AddSingleton<UserHardwareTabPageViewModel>();
             
             // Forms.
             serviceCollection.AddSingleton<AudiencesFormPageView>();
@@ -182,8 +189,9 @@ namespace HardwareAcc
             viewLocator.Register<RegisterContactInfoPageViewModel, RegisterContactInfoPageView>();
             viewLocator.Register<RegisterCredentialsPageViewModel, RegisterCredentialsPageView>();
             
-            // Accounting Page.
-            viewLocator.Register<AccountingPageViewModel, AccountingPageView>();
+            // Accounting Pages.
+            viewLocator.Register<AdminAccountingPageViewModel, AdminAccountingPageView>();
+            viewLocator.Register<UserAccountingPageViewModel, UserAccountingPageView>();
             
             // Tabs.
             viewLocator.Register<HardwareTabPageViewModel, HardwareTabPageView>();
@@ -191,6 +199,8 @@ namespace HardwareAcc
             viewLocator.Register<AudiencesTabPageViewModel, AudiencesTabPageView>();
             viewLocator.Register<StatusesTabPageViewModel, StatusesTabPageView>();
             
+            viewLocator.Register<UserHardwareTabPageViewModel, UserHardwareTabPageView>();
+
             // Forms.
             viewLocator.Register<AudiencesFormPageViewModel, AudiencesFormPageView>();
             viewLocator.Register<StatusesFormPageViewModel, StatusesFormPageView>();

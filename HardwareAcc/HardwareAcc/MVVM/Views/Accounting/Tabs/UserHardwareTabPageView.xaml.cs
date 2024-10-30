@@ -1,14 +1,14 @@
 using System.Windows;
 using System.Windows.Controls;
-using HardwareAcc.MVVM.ViewModels.Accounting.AdminTabs;
+using HardwareAcc.MVVM.ViewModels.Accounting.UserTabs;
 
 namespace HardwareAcc.MVVM.Views.Accounting.Tabs;
 
-public partial class AudiencesTabPageView : Page
+public partial class UserHardwareTabPageView : Page
 {
-    private readonly AudiencesTabPageViewModel _viewModel;
+    private readonly UserHardwareTabPageViewModel _viewModel;
 
-    public AudiencesTabPageView(AudiencesTabPageViewModel viewModel)
+    public UserHardwareTabPageView(UserHardwareTabPageViewModel viewModel)
     {
         InitializeComponent();
         _viewModel = viewModel;
