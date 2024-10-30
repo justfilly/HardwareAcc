@@ -1,0 +1,43 @@
+<Page x:Class="HardwareAcc.MVVM.Views.Accounting.Tabs.UserHardwareTabPageView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
+      xmlns:userControls="clr-namespace:HardwareAcc.MVVM.Views.UserControls"
+      xmlns:adminTabs="clr-namespace:HardwareAcc.MVVM.ViewModels.Accounting.AdminTabs"
+      xmlns:userTabs="clr-namespace:HardwareAcc.MVVM.ViewModels.Accounting.UserTabs"
+      mc:Ignorable="d"
+      Title="HardwareAcc"
+      d:DesignWidth="1920" d:DesignHeight="850"
+      Style="{StaticResource Style_BasePage}"
+      d:DataContext="{d:DesignInstance userTabs:UserHardwareTabPageViewModel}">
+    
+        <Grid Background="{StaticResource Color_BackgroundLightGray}">
+        <StackPanel Margin="30">
+            <Grid>
+                <userControls:SearchBar
+                    InputText="{Binding SearchText, Mode=TwoWay}"
+                    HorizontalAlignment="Left"
+                    Width="350"/>
+
+                <DataGrid ItemsSource="{Binding Hardware}"
+                          AutoGenerateColumns="False"
+                          HeadersVisibility="Column"
+                          CanUserAddRows="False"
+                          IsReadOnly="True"
+                          Margin="0,65,0,0">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Id" Binding="{Binding Id}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Inventory Number" Binding="{Binding InventoryNumber}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Price" Binding="{Binding Price}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Status" Binding="{Binding StatusName}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Audience" Binding="{Binding AudienceCode}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Responsible User" Binding="{Binding ResponsibleUserLogin}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Page>

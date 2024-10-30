@@ -9,7 +9,7 @@ using HardwareAcc.MVVM.ViewModels.Forms;
 using HardwareAcc.Services.Navigation;
 using HardwareAcc.Services.Repositories.Status;
 
-namespace HardwareAcc.MVVM.ViewModels.Accounting.Tabs;
+namespace HardwareAcc.MVVM.ViewModels.Accounting.AdminTabs;
 
 public class StatusesTabPageViewModel : BaseViewModel, IDisposable
 {

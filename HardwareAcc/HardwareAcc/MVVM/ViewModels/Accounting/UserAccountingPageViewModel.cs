@@ -1,6 +1,7 @@
 using System.Windows.Controls;
 using HardwareAcc.Commands;
-using HardwareAcc.MVVM.ViewModels.Accounting.Tabs;
+using HardwareAcc.MVVM.ViewModels.Accounting.AdminTabs;
+using HardwareAcc.MVVM.ViewModels.Accounting.UserTabs;
 using HardwareAcc.Services.Navigation;
 
 namespace HardwareAcc.MVVM.ViewModels.Accounting;
@@ -17,10 +18,10 @@ public class UserAccountingPageViewModel : BaseViewModel
         {
             ClearActiveTab();
             IsHardwareTabActive = true;
-            SwitchTab<HardwareTabPageViewModel>();
+            SwitchTab<UserHardwareTabPageViewModel>();
         });
 
-        SwitchTab<HardwareTabPageViewModel>();
+        SwitchTab<UserHardwareTabPageViewModel>();
         IsHardwareTabActive = true;
     }
     

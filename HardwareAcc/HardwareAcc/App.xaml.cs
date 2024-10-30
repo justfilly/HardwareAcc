@@ -4,7 +4,8 @@ using System.IO;
 using System.Windows;
 using HardwareAcc.MVVM.ViewModels;
 using HardwareAcc.MVVM.ViewModels.Accounting;
-using HardwareAcc.MVVM.ViewModels.Accounting.Tabs;
+using HardwareAcc.MVVM.ViewModels.Accounting.AdminTabs;
+using HardwareAcc.MVVM.ViewModels.Accounting.UserTabs;
 using HardwareAcc.MVVM.ViewModels.Forms;
 using HardwareAcc.MVVM.ViewModels.HardwareAudience;
 using HardwareAcc.MVVM.ViewModels.HardwareAudience.Tabs;
@@ -138,6 +139,9 @@ namespace HardwareAcc
             serviceCollection.AddSingleton<StatusesTabPageView>();
             serviceCollection.AddSingleton<StatusesTabPageViewModel>();
             
+            serviceCollection.AddSingleton<UserHardwareTabPageView>();
+            serviceCollection.AddSingleton<UserHardwareTabPageViewModel>();
+            
             // Forms.
             serviceCollection.AddSingleton<AudiencesFormPageView>();
             serviceCollection.AddSingleton<AudiencesFormPageViewModel>();
@@ -195,6 +199,8 @@ namespace HardwareAcc
             viewLocator.Register<AudiencesTabPageViewModel, AudiencesTabPageView>();
             viewLocator.Register<StatusesTabPageViewModel, StatusesTabPageView>();
             
+            viewLocator.Register<UserHardwareTabPageViewModel, UserHardwareTabPageView>();
+
             // Forms.
             viewLocator.Register<AudiencesFormPageViewModel, AudiencesFormPageView>();
             viewLocator.Register<StatusesFormPageViewModel, StatusesFormPageView>();
