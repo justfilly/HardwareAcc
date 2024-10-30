@@ -40,6 +40,7 @@
                 </TextBlock>
             
                 <userControls:TextInputField 
+                    MaxWidth="400"
                     LabelText="Email"
                     InputText="{Binding Email, Mode=TwoWay}"
                     IsValid="{Binding IsEmailValid, Mode=TwoWay}"
@@ -51,6 +52,7 @@
                 </userControls:TextInputField>
 
                 <userControls:TextInputField 
+                    MaxWidth="400"
                     LabelText="Phone number" 
                     InputText="{Binding PhoneNumber, Mode=TwoWay}"
                     IsValid="{Binding IsPhoneNumberValid, Mode=TwoWay}"
