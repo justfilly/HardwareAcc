@@ -12,6 +12,7 @@ using HardwareAcc.MVVM.ViewModels.HardwareAudience.Tabs;
 using HardwareAcc.MVVM.ViewModels.HardwareResponsibility;
 using HardwareAcc.MVVM.ViewModels.HardwareResponsibility.Tabs;
 using HardwareAcc.MVVM.ViewModels.LoginRegister;
+using HardwareAcc.MVVM.ViewModels.Profile;
 using HardwareAcc.MVVM.Views;
 using HardwareAcc.MVVM.Views.Accounting;
 using HardwareAcc.MVVM.Views.Accounting.Tabs;
@@ -21,6 +22,7 @@ using HardwareAcc.MVVM.Views.HardwareAudience.Tabs;
 using HardwareAcc.MVVM.Views.HardwareResponsibility;
 using HardwareAcc.MVVM.Views.HardwareResponsibility.Tabs;
 using HardwareAcc.MVVM.Views.LoginRegister;
+using HardwareAcc.MVVM.Views.Profile;
 using HardwareAcc.Services.Auth;
 using HardwareAcc.Services.DBConnection;
 using HardwareAcc.Services.FormsProvider;
@@ -177,6 +179,10 @@ namespace HardwareAcc
             
             serviceCollection.AddSingleton<AudienceHistoryTabPageView>();
             serviceCollection.AddSingleton<AudienceHistoryTabPageViewModel>();
+            
+            // Other.
+            serviceCollection.AddSingleton<ProfilePageView>();
+            serviceCollection.AddSingleton<ProfilePageViewModel>();
         }
 
         private void RegisterViewsInViewLocator()
@@ -218,6 +224,9 @@ namespace HardwareAcc
             viewLocator.Register<HardwareAudiencePageViewModel, HardwareAudiencePageView>();
             viewLocator.Register<AudienceManageTabPageViewModel, AudienceManageTabPageView>();
             viewLocator.Register<AudienceHistoryTabPageViewModel, AudienceHistoryTabPageView>();
+            
+            // Other.
+            viewLocator.Register<ProfilePageViewModel, ProfilePageView>();
         }
         
         private void InitializeFormsProvider()
@@ -239,6 +248,8 @@ namespace HardwareAcc
                 _serviceProvider.GetRequiredService<HardwareAudiencePageViewModel>(),
                 _serviceProvider.GetRequiredService<AudienceManageTabPageViewModel>(),
                 _serviceProvider.GetRequiredService<AudienceHistoryTabPageViewModel>(),
+                
+                _serviceProvider.GetRequiredService<ProfilePageViewModel>(),
             };
 
             formsProvider.Initialize(formViewModels);

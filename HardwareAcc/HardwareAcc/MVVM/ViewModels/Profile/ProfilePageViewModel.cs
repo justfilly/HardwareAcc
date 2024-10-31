@@ -1,0 +1,394 @@
+using System.Threading.Tasks;
+using HardwareAcc.Commands;
+using HardwareAcc.MVVM.Models;
+using HardwareAcc.MVVM.ViewModels.Accounting;
+using HardwareAcc.MVVM.ViewModels.Forms.Base;
+using HardwareAcc.MVVM.ViewModels.LoginRegister;
+using HardwareAcc.Services.Auth;
+using HardwareAcc.Services.Navigation;
+using HardwareAcc.Services.Repositories.User;
+
+namespace HardwareAcc.MVVM.ViewModels.Profile;
+
+public class ProfilePageViewModel : BaseFormViewModel<UserModel>
+{
+    private readonly IUserRepository _userRepository;
+    private readonly INavigationService _navigationService;
+    private readonly IAuthService _authService;
+    
+    private string _initialLogin = "";
+    private string _initialEmail = "";
+    private string _initialPhoneNumber = "";
+    
+    public ProfilePageViewModel(IUserRepository userRepository,
+        INavigationService navigationService,
+        IAuthService authService)
+    {
+        _userRepository = userRepository;
+        _navigationService = navigationService;
+        _authService = authService;
+
+        AccountingNavigateCommand = new NavigateCommand<AdminAccountingPageViewModel>(navigationService);
+        UpdatePersonalDataCommand = new RelayCommand(UpdatePersonalData, CanSubmit);
+        SignOutCommand = new RelayCommand(SignOut, () => true);
+    }
+
+    public NavigateCommand<AdminAccountingPageViewModel> AccountingNavigateCommand { get; }
+    public RelayCommand UpdatePersonalDataCommand { get; }
+    public RelayCommand SignOutCommand { get; }
+
+    #region FieldProperties
+    private string _login = "";
+    public string Login
+    {
+        get => _login;
+    
+        set
+        {
+            _login = value;
+            OnPropertyChanged(nameof(Login));
+        }
+    }
+    
+    private bool _isLoginValid;
+    public bool IsLoginValid
+    {
+        get => _isLoginValid;
+    
+        set
+        {
+            _isLoginValid = value;
+            OnPropertyChanged(nameof(IsLoginValid));
+        }
+    }
+    
+    private string _loginErrorText = "";
+    public string LoginErrorText
+    {
+        get => _loginErrorText;
+    
+        set
+        {
+            _loginErrorText = value;
+            OnPropertyChanged(nameof(LoginErrorText));
+        }
+    }
+    
+    private string _password = "";
+    public string Password
+    {
+        get => _password;
+    
+        set
+        {
+            _password = value;
+            OnPropertyChanged(nameof(Password));
+        }
+    }
+    
+    private bool _isPasswordValid;
+    public bool IsPasswordValid
+    {
+        get => _isPasswordValid;
+    
+        set
+        {
+            _isPasswordValid = value;
+            OnPropertyChanged(nameof(IsPasswordValid));
+        }
+    }
+
+    private string _phoneNumber = "";
+    public string PhoneNumber
+    {
+        get => _phoneNumber;
+    
+        set
+        {
+            _phoneNumber = value;
+            OnPropertyChanged(nameof(PhoneNumber));
+        }
+    }
+    
+    private bool _isPhoneNumberValid;
+    public bool IsPhoneNumberValid
+    {
+        get => _isPhoneNumberValid;
+    
+        set
+        {
+            _isPhoneNumberValid = value;
+            OnPropertyChanged(nameof(IsPhoneNumberValid));
+        }
+    }
+    
+    private string _phoneNumberErrorText = "";
+    public string PhoneNumberErrorText
+    {
+        get => _phoneNumberErrorText;
+    
+        set
+        {
+            _phoneNumberErrorText = value;
+            OnPropertyChanged(nameof(PhoneNumberErrorText));
+        }
+    }
+    
+    private string _email = "";
+    public string Email
+    {
+        get => _email;
+    
+        set
+        {
+            _email = value;
+            OnPropertyChanged(nameof(Email));
+        }
+    }
+    
+    private bool _isEmailValid;
+    public bool IsEmailValid
+    {
+        get => _isEmailValid;
+    
+        set
+        {
+            _isEmailValid = value;
+            OnPropertyChanged(nameof(IsEmailValid));
+        }
+    }
+    
+    private string _emailErrorText = "";
+    public string EmailErrorText
+    {
+        get => _emailErrorText;
+    
+        set
+        {
+            _emailErrorText = value;
+            OnPropertyChanged(nameof(EmailErrorText));
+        }
+    }
+    
+    private string _firstName = "";
+    public string FirstName
+    {
+        get => _firstName;
+    
+        set
+        {
+            _firstName = value;
+            OnPropertyChanged(nameof(FirstName));
+        }
+    }
+    
+    private bool _isFirstNameValid;
+    public bool IsFirstNameValid
+    {
+        get => _isFirstNameValid;
+    
+        set
+        {
+            _isFirstNameValid = value;
+            OnPropertyChanged(nameof(IsFirstNameValid));
+        }
+    }
+    
+    private string _secondName = "";
+    public string SecondName
+    {
+        get => _secondName;
+    
+        set
+        {
+            _secondName = value;
+            OnPropertyChanged(nameof(SecondName));
+        }
+    }
+    
+    private bool _isSecondNameValid;
+    public bool IsSecondNameValid
+    {
+        get => _isSecondNameValid;
+    
+        set
+        {
+            _isSecondNameValid = value;
+            OnPropertyChanged(nameof(IsSecondNameValid));
+        }
+    }
+    
+    private string _patronymic = "";
+    public string Patronymic
+    {
+        get => _patronymic;
+    
+        set
+        {
+            _patronymic = value;
+            OnPropertyChanged(nameof(Patronymic));
+        }
+    }
+    
+    private bool _isPatronymicValid;
+    public bool IsPatronymicValid
+    {
+        get => _isPatronymicValid;
+    
+        set
+        {
+            _isPatronymicValid = value;
+            OnPropertyChanged(nameof(IsPatronymicValid));
+        }
+    }
+
+    #endregion
+
+    public override async void Initialize(UserModel model)
+    {
+        base.Initialize(model);
+
+        int? id = model?.Id;
+
+        Login = "";
+        Password = "";
+        Email = "";
+        PhoneNumber = "";
+        FirstName = "";
+        SecondName = "";
+        Patronymic = "";
+
+        if (id == 0) 
+        {
+            _mode = FormMode.Add;
+
+            IsLoginValid = false;
+            _initialLogin = "";
+
+            IsPasswordValid = false;
+
+            IsEmailValid = false;
+            _initialEmail = "";
+
+            IsPhoneNumberValid = false;
+            _initialPhoneNumber = "";
+            
+            IsFirstNameValid = false;
+            IsSecondNameValid = false;
+            IsPatronymicValid = false;
+        }
+        else
+        {
+            _initialLogin = model?.Login;
+            _initialEmail = model?.Email;
+            _initialPhoneNumber = model?.PhoneNumber;
+
+            _mode = FormMode.Edit;
+
+            Login = model?.Login;
+            Password = model?.Password;
+            Email = model?.Email;
+            PhoneNumber = model?.PhoneNumber;
+            FirstName = model?.FirstName;
+            SecondName = model?.SecondName;
+            Patronymic = model?.Password;
+
+            IsLoginValid = true;
+            IsPasswordValid = true;
+            IsEmailValid = true;
+            IsPhoneNumberValid = true;
+            IsFirstNameValid = true;
+            IsSecondNameValid = true;
+            IsPatronymicValid = true;
+        }
+    }
+
+    private async void UpdatePersonalData()
+    {
+        if (await IsLoginUnique() == false)
+            return;
+                
+        if (await IsEmailUnique() == false)
+            return;
+                
+        if (await IsPhoneNumberUnique() == false)
+            return;
+
+        _model.Login = Login;
+        _model.Password = Password;
+        _model.Email = Email;
+        _model.PhoneNumber = PhoneNumber;
+        _model.FirstName = FirstName;
+        _model.SecondName = SecondName;
+        _model.Patronymic = Patronymic;
+        
+        if (_mode == FormMode.Add)
+            await _userRepository.AddAsync(_model);
+        else
+            await _userRepository.UpdateAsync(_model);
+
+        if (_model.RoleId == 1)
+            _navigationService.Navigate<AdminAccountingPageViewModel>();
+        else
+            _navigationService.Navigate<UserAccountingPageViewModel>();
+    }
+    
+    private void SignOut()
+    {
+        _authService.LogOut();
+        _navigationService.Navigate<LoginPageViewModel>();
+    }
+
+    private bool CanSubmit()
+    {
+        return IsLoginValid &&
+               IsPatronymicValid &&
+               IsEmailValid &&
+               IsPhoneNumberValid &&
+               IsFirstNameValid &&
+               IsSecondNameValid &&
+               IsPatronymicValid;
+    }
+
+    private async Task<bool> IsLoginUnique()
+    {
+        if (_mode == FormMode.Edit && _initialLogin == Login)
+            return true;
+        
+        if (await _userRepository.GetByLoginAsync(Login) != null) 
+        {
+            LoginErrorText = "Login is not unique";
+            return false;
+        }
+
+        return true;
+    }
+
+    private async Task<bool> IsEmailUnique()
+    {
+        if (_mode == FormMode.Edit && _initialEmail == Email)
+            return true;
+        
+        if (await _userRepository.GetByEmailAsync(Email) != null) 
+        {
+            EmailErrorText = "Email is not unique";
+            return false;
+        }
+
+        return true;
+    }
+
+    private async Task<bool> IsPhoneNumberUnique()
+    {
+        if (_mode == FormMode.Edit && _initialPhoneNumber == PhoneNumber)
+            return true;
+        
+        if (await _userRepository.GetByPhoneNumberAsync(PhoneNumber) != null) 
+        {
+            PhoneNumberErrorText = "PhoneNumber is not unique";
+            return false;
+        }
+
+        return true;
+    }
+}
