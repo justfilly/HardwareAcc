@@ -77,6 +77,7 @@
       <Resource Include="Resources\Icons\hardware_status.svg" />
       <None Remove="Resources\Icons\profile.svg" />
       <Resource Include="Resources\Icons\profile.svg" />
+      <None Remove="Resources\Images\Lyra.png" />
     </ItemGroup>
 
     <ItemGroup>
@@ -213,6 +214,11 @@
         <SubType>Designer</SubType>
       </Page>
       <Page Update="MVVM\Views\Profile\ProfilePageView.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
+      <Page Update="MVVM\Views\DBConnectionError\DBConnectionErrorPageView.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
