@@ -12,6 +12,7 @@ using HardwareAcc.MVVM.ViewModels.HardwareAudience.Tabs;
 using HardwareAcc.MVVM.ViewModels.HardwareResponsibility;
 using HardwareAcc.MVVM.ViewModels.HardwareResponsibility.Tabs;
 using HardwareAcc.MVVM.ViewModels.LoginRegister;
+using HardwareAcc.MVVM.ViewModels.Profile;
 using HardwareAcc.MVVM.Views;
 using HardwareAcc.MVVM.Views.Accounting;
 using HardwareAcc.MVVM.Views.Accounting.Tabs;
@@ -60,7 +61,7 @@ namespace HardwareAcc
             MainWindowView loginRegisterWindow = _serviceProvider.GetRequiredService<MainWindowView>();
             loginRegisterWindow.DataContext = _serviceProvider.GetRequiredService<MainWindowViewModel>();
             loginRegisterWindow.Show();
-            _serviceProvider.GetRequiredService<INavigationService>().Navigate<AdminAccountingPageViewModel>();
+            _serviceProvider.GetRequiredService<INavigationService>().Navigate<LoginPageViewModel>();
         }
 
         protected override void OnExit(ExitEventArgs e)

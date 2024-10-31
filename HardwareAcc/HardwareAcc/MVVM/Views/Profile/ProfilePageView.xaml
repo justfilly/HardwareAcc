@@ -7,11 +7,12 @@
       xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
       xmlns:userControls="clr-namespace:HardwareAcc.MVVM.Views.UserControls"
       xmlns:validationRules="clr-namespace:HardwareAcc.ValidationRules"
+      xmlns:profile="clr-namespace:HardwareAcc.MVVM.ViewModels.Profile"
       mc:Ignorable="d"
       Title="UsersFormPageView"
       d:DesignWidth="1920" d:DesignHeight="1010"
       Style="{StaticResource Style_BasePage}"
-      d:DataContext="{d:DesignInstance forms:ProfilePageViewModel}">
+      d:DataContext="{d:DesignInstance profile:ProfilePageViewModel}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="160"></RowDefinition>
@@ -141,21 +142,11 @@
                 </Grid.ColumnDefinitions>
                 
                 <StackPanel Grid.Column="0" HorizontalAlignment="Left" Margin="35, 0, 0, 0" MaxWidth="300">
-                    <userControls:ComboBox
-                        LabelText="Select Role"
-                        ComboBoxItems="{Binding RoleItems, Mode=TwoWay}" 
-                        SelectedItem="{Binding RoleSelectedItem, Mode=TwoWay}"
-                        ErrorText="{Binding RoleErrorText, Mode=TwoWay}"
-                        PopupMaxHeight="180"
-                        Margin="0, 35, 0, 0"
-                        HorizontalAlignment="Stretch">
-                    </userControls:ComboBox>
-                    
                     <userControls:TextInputField 
                         LabelText="Patronymic"
                         InputText="{Binding Patronymic, Mode=TwoWay}"
                         IsValid="{Binding IsPatronymicValid, Mode=TwoWay}"
-                        Margin="0, 162, 0, 0">
+                        Margin="0, 285, 0, 0">
                         <userControls:TextInputField.ValidationRules>
                             <validationRules:NotEmptyValidationRule FieldName="Patronymic"/>
                             <validationRules:LengthValidationRule FieldName="Patronymic" MinLength="2" MaxLength="50"/>

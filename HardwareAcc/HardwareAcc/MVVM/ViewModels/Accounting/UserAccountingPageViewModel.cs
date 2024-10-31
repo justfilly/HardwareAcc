@@ -2,6 +2,7 @@ using System.Windows.Controls;
 using HardwareAcc.Commands;
 using HardwareAcc.MVVM.ViewModels.Accounting.UserTabs;
 using HardwareAcc.MVVM.ViewModels.Forms;
+using HardwareAcc.MVVM.ViewModels.Profile;
 using HardwareAcc.Services.Navigation;
 
 namespace HardwareAcc.MVVM.ViewModels.Accounting;

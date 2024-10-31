@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using HardwareAcc.Commands;
 using HardwareAcc.MVVM.Models;
@@ -9,7 +7,7 @@ using HardwareAcc.Services.Navigation;
 using HardwareAcc.Services.Repositories.Role;
 using HardwareAcc.Services.Repositories.User;
 
-namespace HardwareAcc.MVVM.ViewModels.Forms;
+namespace HardwareAcc.MVVM.ViewModels.Profile;
 
 public class ProfilePageViewModel : BaseFormViewModel<UserModel>
 {
@@ -94,42 +92,6 @@ public class ProfilePageViewModel : BaseFormViewModel<UserModel>
         {
             _isPasswordValid = value;
             OnPropertyChanged(nameof(IsPasswordValid));
-        }
-    }
-
-    private ObservableCollection<string> _roleItems = new();
-    public ObservableCollection<string> RoleItems
-    {
-        get => _roleItems;
-    
-        set
-        {
-            _roleItems = value;
-            OnPropertyChanged(nameof(RoleItems));
-        }
-    }
-    
-    private string _roleSelectedItem = "";
-    public string RoleSelectedItem
-    {
-        get => _roleSelectedItem;
-    
-        set
-        {
-            _roleSelectedItem = value;
-            OnPropertyChanged(nameof(RoleSelectedItem));
-        }
-    }
-    
-    private string _roleErrorText = "";
-    public string RoleErrorText
-    {
-        get => _roleErrorText;
-    
-        set
-        {
-            _roleErrorText = value;
-            OnPropertyChanged(nameof(RoleErrorText));
         }
     }
 
@@ -287,7 +249,6 @@ public class ProfilePageViewModel : BaseFormViewModel<UserModel>
 
         Login = "";
         Password = "";
-        RoleSelectedItem = "";
         Email = "";
         PhoneNumber = "";
         FirstName = "";
@@ -337,26 +298,10 @@ public class ProfilePageViewModel : BaseFormViewModel<UserModel>
             IsSecondNameValid = true;
             IsPatronymicValid = true;
         }
-        
-        await ResetRoleItems();
-
-        RoleSelectedItem = _model?.RoleName;
-        RoleErrorText = "";
-    }
-
-    private async Task ResetRoleItems()
-    {
-        RoleItems.Clear();
-        IEnumerable<RoleModel> roleModels = await _roleRepository.GetAllAsync();
-        foreach (RoleModel roleModel in roleModels) 
-            RoleItems.Add(roleModel.Name);
     }
 
     private async void Submit()
     {
-        if (IsRoleEmpty() == true)
-            return;
-
         if (await IsLoginUnique() == false)
             return;
                 
@@ -366,12 +311,8 @@ public class ProfilePageViewModel : BaseFormViewModel<UserModel>
         if (await IsPhoneNumberUnique() == false)
             return;
 
-        RoleModel roleModel = await _roleRepository.GetByNameAsync(RoleSelectedItem);
-        
         _model.Login = Login;
         _model.Password = Password;
-        _model.RoleName = roleModel.Name;
-        _model.RoleId = roleModel.Id;
         _model.Email = Email;
         _model.PhoneNumber = PhoneNumber;
         _model.FirstName = FirstName;
@@ -402,17 +343,6 @@ public class ProfilePageViewModel : BaseFormViewModel<UserModel>
                IsPatronymicValid;
     }
 
-    private bool IsRoleEmpty()
-    {
-        if (string.IsNullOrEmpty(RoleSelectedItem) == true)
-        {
-            RoleErrorText = "Role is not selected";
-            return true;
-        }
-
-        return false;
-    }
-    
     private async Task<bool> IsLoginUnique()
     {
         if (_mode == FormMode.Edit && _initialLogin == Login)
