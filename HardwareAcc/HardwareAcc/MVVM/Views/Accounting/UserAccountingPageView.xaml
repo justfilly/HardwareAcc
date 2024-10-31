@@ -27,6 +27,7 @@
             </StackPanel>
             
             <Button Command="{Binding ProfileNavigateCommand}"
+                    CommandParameter="{Binding CurrentUser}"
                     Style="{StaticResource Button_Transparent}"
                     Width="34" Height="34"
                     VerticalAlignment="Top" HorizontalAlignment="Right"

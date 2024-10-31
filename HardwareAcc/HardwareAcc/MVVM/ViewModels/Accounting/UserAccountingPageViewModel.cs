@@ -1,8 +1,10 @@
 using System.Windows.Controls;
 using HardwareAcc.Commands;
+using HardwareAcc.MVVM.Models;
 using HardwareAcc.MVVM.ViewModels.Accounting.UserTabs;
 using HardwareAcc.MVVM.ViewModels.Forms;
 using HardwareAcc.MVVM.ViewModels.Profile;
+using HardwareAcc.Services.Auth;
 using HardwareAcc.Services.Navigation;
 
 namespace HardwareAcc.MVVM.ViewModels.Accounting;
@@ -10,12 +12,14 @@ namespace HardwareAcc.MVVM.ViewModels.Accounting;
 public class UserAccountingPageViewModel : BaseViewModel
 {
     private readonly INavigationService _navigationService;
-    
-    public UserAccountingPageViewModel(INavigationService navigationService)
+    private readonly IAuthService _authService;
+
+    public UserAccountingPageViewModel(INavigationService navigationService, IAuthService authService)
     {
         _navigationService = navigationService;
-        
-        ProfileNavigateCommand = new NavigateCommand<ProfilePageViewModel>(_navigationService);
+        _authService = authService;
+
+        ProfileNavigateCommand = new NavigateToFormCommand<ProfilePageViewModel, UserModel>(_navigationService);
 
         HardwareTabCommand = new RelayCommand(() =>
         {
@@ -28,7 +32,8 @@ public class UserAccountingPageViewModel : BaseViewModel
         IsHardwareTabActive = true;
     }
     
-    public NavigateCommand<ProfilePageViewModel> ProfileNavigateCommand { get; }
+    public NavigateToFormCommand<ProfilePageViewModel, UserModel> ProfileNavigateCommand { get; }
+    public UserModel CurrentUser => _authService.AuthenticatedUser;
     public RelayCommand HardwareTabCommand { get; }
 
     private Page _tabPage;

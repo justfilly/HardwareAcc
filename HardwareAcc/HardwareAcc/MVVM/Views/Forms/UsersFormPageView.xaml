@@ -102,7 +102,7 @@
                         Margin="0, 35, 0, 0">
                         <userControls:TextInputField.ValidationRules>
                             <validationRules:NotEmptyValidationRule FieldName="Password"/>
-                            <validationRules:LengthValidationRule FieldName="Password" MinLength="2" MaxLength="60"/>
+                            <validationRules:LengthValidationRule FieldName="Password" MinLength="8" MaxLength="60"/>
                             <validationRules:PasswordValidationRule FieldName="Password"/>
                         </userControls:TextInputField.ValidationRules>
                     </userControls:TextInputField>

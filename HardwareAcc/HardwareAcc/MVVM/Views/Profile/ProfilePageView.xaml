@@ -149,7 +149,7 @@
                         Margin="0, 285, 0, 0">
                         <userControls:TextInputField.ValidationRules>
                             <validationRules:NotEmptyValidationRule FieldName="Patronymic"/>
-                            <validationRules:LengthValidationRule FieldName="Patronymic" MinLength="2" MaxLength="50"/>
+                            <validationRules:LengthValidationRule FieldName="Patronymic" MinLength="8" MaxLength="50"/>
                             <validationRules:LettersOnlyValidationRule FieldName="Patronymic"></validationRules:LettersOnlyValidationRule>
                         </userControls:TextInputField.ValidationRules>
                     </userControls:TextInputField>

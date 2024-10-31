@@ -3,8 +3,9 @@ using HardwareAcc.Commands;
 using HardwareAcc.MVVM.Models;
 using HardwareAcc.MVVM.ViewModels.Accounting;
 using HardwareAcc.MVVM.ViewModels.Forms.Base;
+using HardwareAcc.MVVM.ViewModels.LoginRegister;
+using HardwareAcc.Services.Auth;
 using HardwareAcc.Services.Navigation;
-using HardwareAcc.Services.Repositories.Role;
 using HardwareAcc.Services.Repositories.User;
 
 namespace HardwareAcc.MVVM.ViewModels.Profile;
@@ -13,20 +14,22 @@ public class ProfilePageViewModel : BaseFormViewModel<UserModel>
 {
     private readonly IUserRepository _userRepository;
     private readonly INavigationService _navigationService;
-    private readonly IRoleRepository _roleRepository;
-
+    private readonly IAuthService _authService;
+    
     private string _initialLogin = "";
     private string _initialEmail = "";
     private string _initialPhoneNumber = "";
     
-    public ProfilePageViewModel(IUserRepository userRepository, INavigationService navigationService, IRoleRepository roleRepository)
+    public ProfilePageViewModel(IUserRepository userRepository,
+        INavigationService navigationService,
+        IAuthService authService)
     {
         _userRepository = userRepository;
         _navigationService = navigationService;
-        _roleRepository = roleRepository;
+        _authService = authService;
 
         AccountingNavigateCommand = new NavigateCommand<AdminAccountingPageViewModel>(navigationService);
-        UpdatePersonalDataCommand = new RelayCommand(Submit, CanSubmit);
+        UpdatePersonalDataCommand = new RelayCommand(UpdatePersonalData, CanSubmit);
         SignOutCommand = new RelayCommand(SignOut, () => true);
     }
 
@@ -300,7 +303,7 @@ public class ProfilePageViewModel : BaseFormViewModel<UserModel>
         }
     }
 
-    private async void Submit()
+    private async void UpdatePersonalData()
     {
         if (await IsLoginUnique() == false)
             return;
@@ -324,12 +327,16 @@ public class ProfilePageViewModel : BaseFormViewModel<UserModel>
         else
             await _userRepository.UpdateAsync(_model);
 
-        _navigationService.Navigate<AdminAccountingPageViewModel>();
+        if (_model.RoleId == 1)
+            _navigationService.Navigate<AdminAccountingPageViewModel>();
+        else
+            _navigationService.Navigate<UserAccountingPageViewModel>();
     }
     
     private void SignOut()
     {
-        
+        _authService.LogOut();
+        _navigationService.Navigate<LoginPageViewModel>();
     }
 
     private bool CanSubmit()
