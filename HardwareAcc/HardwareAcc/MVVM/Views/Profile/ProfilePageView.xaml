@@ -11,7 +11,7 @@
       Title="UsersFormPageView"
       d:DesignWidth="1920" d:DesignHeight="1010"
       Style="{StaticResource Style_BasePage}"
-      d:DataContext="{d:DesignInstance forms:UsersFormPageViewModel}">
+      d:DataContext="{d:DesignInstance forms:ProfilePageViewModel}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="160"></RowDefinition>
