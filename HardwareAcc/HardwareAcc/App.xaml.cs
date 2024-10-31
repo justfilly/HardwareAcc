@@ -6,6 +6,7 @@ using HardwareAcc.MVVM.ViewModels;
 using HardwareAcc.MVVM.ViewModels.Accounting;
 using HardwareAcc.MVVM.ViewModels.Accounting.AdminTabs;
 using HardwareAcc.MVVM.ViewModels.Accounting.UserTabs;
+using HardwareAcc.MVVM.ViewModels.DBConnectionError;
 using HardwareAcc.MVVM.ViewModels.Forms;
 using HardwareAcc.MVVM.ViewModels.HardwareAudience;
 using HardwareAcc.MVVM.ViewModels.HardwareAudience.Tabs;
@@ -16,6 +17,7 @@ using HardwareAcc.MVVM.ViewModels.Profile;
 using HardwareAcc.MVVM.Views;
 using HardwareAcc.MVVM.Views.Accounting;
 using HardwareAcc.MVVM.Views.Accounting.Tabs;
+using HardwareAcc.MVVM.Views.DBConnectionError;
 using HardwareAcc.MVVM.Views.Forms;
 using HardwareAcc.MVVM.Views.HardwareAudience;
 using HardwareAcc.MVVM.Views.HardwareAudience.Tabs;
@@ -58,10 +60,16 @@ namespace HardwareAcc
 
             InitializeFormsProvider();
             
-            MainWindowView loginRegisterWindow = _serviceProvider.GetRequiredService<MainWindowView>();
-            loginRegisterWindow.DataContext = _serviceProvider.GetRequiredService<MainWindowViewModel>();
-            loginRegisterWindow.Show();
-            _serviceProvider.GetRequiredService<INavigationService>().Navigate<LoginPageViewModel>();
+            MainWindowView mainWindow = _serviceProvider.GetRequiredService<MainWindowView>();
+            mainWindow.DataContext = _serviceProvider.GetRequiredService<MainWindowViewModel>();
+            mainWindow.Show();
+
+            INavigationService navigationService = _serviceProvider.GetRequiredService<INavigationService>();
+
+            if (_serviceProvider.GetRequiredService<IDBConnectionService>().CheckForConnection() == false)
+                navigationService.Navigate<DBConnectionErrorPageViewModel>();
+            else
+                navigationService.Navigate<LoginPageViewModel>();
         }
 
         protected override void OnExit(ExitEventArgs e)
@@ -183,6 +191,9 @@ namespace HardwareAcc
             // Other.
             serviceCollection.AddSingleton<ProfilePageView>();
             serviceCollection.AddSingleton<ProfilePageViewModel>();
+
+            serviceCollection.AddSingleton<DBConnectionErrorPageView>();
+            serviceCollection.AddSingleton<DBConnectionErrorPageViewModel>();
         }
 
         private void RegisterViewsInViewLocator()
@@ -227,6 +238,8 @@ namespace HardwareAcc
             
             // Other.
             viewLocator.Register<ProfilePageViewModel, ProfilePageView>();
+            
+            viewLocator.Register<DBConnectionErrorPageViewModel, DBConnectionErrorPageView>();
         }
         
         private void InitializeFormsProvider()

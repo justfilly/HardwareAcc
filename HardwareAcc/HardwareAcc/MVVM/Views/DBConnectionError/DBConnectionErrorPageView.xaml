@@ -1,17 +1,16 @@
-<Page x:Class="HardwareAcc.MVVM.Views.Forms.DBConnectionErrorPageView"
+<Page x:Class="HardwareAcc.MVVM.Views.DBConnectionError.DBConnectionErrorPageView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:validationRules="clr-namespace:HardwareAcc.ValidationRules"
       xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
-      xmlns:userControls="clr-namespace:HardwareAcc.MVVM.Views.UserControls"
-      xmlns:forms="clr-namespace:HardwareAcc.MVVM.ViewModels.Forms"
+      xmlns:viewModels="clr-namespace:HardwareAcc.MVVM.ViewModels"
+      xmlns:dbConnectionError="clr-namespace:HardwareAcc.MVVM.ViewModels.DBConnectionError"
       mc:Ignorable="d"
       Title="AudiencesFormPageView"
       d:DesignWidth="1920" d:DesignHeight="1010"
       Style="{StaticResource Style_BasePage}"
-      d:DataContext="{d:DesignInstance forms:AudiencesFormPageViewModel}">
+      d:DataContext="{d:DesignInstance dbConnectionError:DBConnectionErrorPageViewModel}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="160"></RowDefinition>
@@ -24,16 +23,6 @@
                        Foreground="{StaticResource Color_White}"
                        Margin="35, 35, 0, 0" >
             </TextBlock>
-             
-             <Button Command="{Binding AccountingNavigateCommand}"
-                     Style="{StaticResource Button_Rounded}"
-                     Width="35" Height="35"
-                     Background="{StaticResource Color_BackButtonGray}" 
-                     BorderBrush="{StaticResource Color_BackButtonGray}"
-                     VerticalAlignment="Top" HorizontalAlignment="Right"
-                     Margin="0, 35, 35, 0">
-                 <svgc:SvgViewbox Source="/Resources/Icons/back_button.svg" Stretch="None" Margin="0, 0, 2, 0" />
-             </Button>
          </Grid>
         
         <Grid Grid.Row="1">
@@ -44,7 +33,7 @@
                        Margin="0, 30, 0, 0">
             </TextBlock>
             
-            <Image Source="/Resources/Images/Lyra.png" Stretch="None" Margin="0, 0 0, 30"/>
+            <Image Source="/Resources/Images/Lyra.png" Stretch="Fill" Width="325" Height="314"/>
             
             <TextBlock Text="Unable to connect to the database" 
                        FontSize="24" FontWeight="SemiBold" 

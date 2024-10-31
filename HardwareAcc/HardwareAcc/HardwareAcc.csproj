@@ -78,6 +78,9 @@
       <None Remove="Resources\Icons\profile.svg" />
       <Resource Include="Resources\Icons\profile.svg" />
       <None Remove="Resources\Images\Lyra.png" />
+      <None Remove="Resources\Images\sticker 1.png" />
+      <Resource Include="Resources\Images\Lyra.png" />
+      <Resource Include="Resources\Images\sticker 1.png" />
     </ItemGroup>
 
     <ItemGroup>
