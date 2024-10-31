@@ -75,6 +75,8 @@
       <Resource Include="Resources\Icons\hardware_price.svg" />
       <None Remove="Resources\Icons\hardware_status.svg" />
       <Resource Include="Resources\Icons\hardware_status.svg" />
+      <None Remove="Resources\Icons\profile.svg" />
+      <Resource Include="Resources\Icons\profile.svg" />
     </ItemGroup>
 
     <ItemGroup>

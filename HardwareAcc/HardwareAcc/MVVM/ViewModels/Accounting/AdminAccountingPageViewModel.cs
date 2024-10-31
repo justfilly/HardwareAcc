@@ -1,6 +1,8 @@
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using HardwareAcc.Commands;
 using HardwareAcc.MVVM.ViewModels.Accounting.AdminTabs;
+using HardwareAcc.MVVM.ViewModels.Forms;
 using HardwareAcc.Services.Navigation;
 
 namespace HardwareAcc.MVVM.ViewModels.Accounting;
@@ -12,6 +14,9 @@ public class AdminAccountingPageViewModel : BaseViewModel
     public AdminAccountingPageViewModel(INavigationService navigationService)
     {
         _navigationService = navigationService;
+        
+        
+        ProfileNavigateCommand = new NavigateCommand<ProfilePageViewModel>(_navigationService);
         
         HardwareTabCommand = new RelayCommand(() =>
         {
@@ -45,6 +50,7 @@ public class AdminAccountingPageViewModel : BaseViewModel
         IsHardwareTabActive = true;
     }
     
+    public NavigateCommand<ProfilePageViewModel> ProfileNavigateCommand { get; }
     public RelayCommand HardwareTabCommand { get; }
     public RelayCommand UsersTabCommand { get; }
     public RelayCommand AudiencesTabCommand { get; }
